@@ -7,12 +7,12 @@ import Footer from "./Footer";
 const AdminLayout = () => {
   return (
     <div>
-      <section>
+      {/* <section> */}
         <NavTop />
         <Navside />
-        <Footer />
         <Layout />
-      </section>
+        <Footer />
+      {/* </section> */}
     </div>
   );
 };

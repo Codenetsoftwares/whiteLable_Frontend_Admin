@@ -17,9 +17,7 @@ function App() {
             <Route
               path="welcome"
               element={
-                
-                  <Welcome/>
-               
+                <Welcome/> 
               }
             />
           </Route>

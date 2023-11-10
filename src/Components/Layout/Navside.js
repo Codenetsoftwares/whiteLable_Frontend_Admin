@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Navside = () => {
+  const [isUser, setIsUser] = useState(true)
+  const handleUserToggle = () => {
+    setIsUser(!isUser);
+  };
   return (
     <div>
       <nav className="sidebar ">
@@ -16,7 +20,16 @@ const Navside = () => {
           </div>
         </div>
         <ul id="sidebar_menu">
-          <li className="">
+          {isUser ? (<li className="" onClick={handleUserToggle}>
+            <a className="has-arrow" href="#" aria-expanded="false">
+              <div className="nav_icon_small">
+                <img src="img/menu-icon/dashboard.svg" alt="" />
+              </div>
+              <div className="nav_title">
+                <span>User Management </span>
+              </div>
+            </a>
+          </li>) : (<li className="" onClick={handleUserToggle}>
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
                 <img src="img/menu-icon/dashboard.svg" alt="" />
@@ -36,8 +49,9 @@ const Navside = () => {
                 <a href="#">Light Sidebar</a>
               </li>
             </ul>
-          </li>
-          <li className="">
+          </li>)}
+
+          {/* <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
                 <img src="img/menu-icon/2.svg" alt="" />
@@ -348,7 +362,6 @@ const Navside = () => {
               </li>
             </ul>
           </li>
-
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
@@ -388,7 +401,6 @@ const Navside = () => {
               </li>
             </ul>
           </li>
-
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
@@ -458,7 +470,6 @@ const Navside = () => {
               </li>
             </ul>
           </li>
-
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
@@ -477,7 +488,6 @@ const Navside = () => {
               </li>
             </ul>
           </li>
-
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
@@ -495,7 +505,7 @@ const Navside = () => {
                 <a href="#">Vector Maps</a>
               </li>
             </ul>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>
