@@ -2,13 +2,18 @@ import axios from "axios";
 const API_HOST = process.env.REACT_APP_API_HOST;
 
 class AccountService {
-    AdminLogin(data) {
+   
+ 
+  AllLogin(data) {
+    console.log(data)
         return axios({
           method: "POST",
-          url: API_HOST+"/api/admin-login/:userType",
+          url: API_HOST+"/api/admin-login",
           data: data,
         });
       }
+
+   
 
 }
 
