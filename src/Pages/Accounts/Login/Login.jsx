@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
+import AccountServices from "../../../Services/AccountServices";
+
 
 const Login = () => {
 
@@ -7,7 +10,27 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = () => {
-    // navigate("/welcome");
+    
+    const data = {
+      userName: username,
+      password: password,
+    };
+
+   AccountServices.AllLogin(data)
+    .then((res) => {
+      console.log(res);
+      localStorage.setItem("user", res.data.token.accessToken);
+      alert("Login successful.");
+
+      navigate("/welcome");
+})
+
+  
+    .catch((err) => {
+      console.log(err);
+    });
+
+       
   };
   return (
     <div>
@@ -26,6 +49,8 @@ const Login = () => {
                         type="text"
                         class="form-control"
                         placeholder="Enter your Username"
+                        value={username}
+                        onChange={(e)=> setUsername(e.target.value) }
                       />
                     </div>
                     <div class="">
@@ -33,6 +58,9 @@ const Login = () => {
                         type="password"
                         class="form-control"
                         placeholder="Password"
+                        value={password}
+                        onChange={(e)=> setPassword(e.target.value) }
+
                       />
                     </div>
                     <a
