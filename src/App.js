@@ -1,9 +1,9 @@
 import AdminLayout from "./Components/Layout/AdminLayout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
-import Login from "./Components/Login/Login";
+import Login from "./Pages/Accounts/Login/Login";
 import ErrorPage from "./ErrorPage";
-import Welcome from "./Components/Welcome/Welcome";
+import Welcome from "./Pages/Welcome/Welcome";
 
 
 function App() {
