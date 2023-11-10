@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const handleLogin = () => {
-    navigate("/welcome");
+    // navigate("/welcome");
   };
   return (
     <div>
@@ -22,7 +25,7 @@ const Login = () => {
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Enter your email"
+                        placeholder="Enter your Username"
                       />
                     </div>
                     <div class="">
