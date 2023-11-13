@@ -8,10 +8,10 @@ const AdminLayout = () => {
   return (
     <div>
       {/* <section> */}
-        <NavTop />
-        <Navside />
-        <Layout />
-        <Footer />
+      <NavTop />
+      <Navside />
+      {/* <Layout /> */}
+      <Footer />
       {/* </section> */}
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Layout from "./Layout";
 
 const NavTop = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ const NavTop = () => {
   };
 
   return (
-    <div>
+
       <section className="main_content dashboard_part large_header_bg">
         <div className="container-fluid g-0">
           <div className="row">
@@ -165,9 +166,10 @@ const NavTop = () => {
               </div>
             </div>
           </div>
-        </div>
+      </div>
+      <Layout/>
       </section>
-    </div>
+    
   );
 };
 
