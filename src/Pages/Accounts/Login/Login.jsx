@@ -10,27 +10,26 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = () => {
-    
+
     const data = {
       userName: username,
       password: password,
     };
 
-   AccountServices.AllLogin(data)
-    .then((res) => {
+    AccountServices.AllLogin(data).then((res) => {
       console.log(res);
       localStorage.setItem("user", res.data.token.accessToken);
       alert("Login successful.");
 
       navigate("/welcome");
-})
+    })
 
-  
-    .catch((err) => {
-      console.log(err);
-    });
 
-       
+      .catch((err) => {
+        console.log(err);
+      });
+
+
   };
   return (
     <div>
@@ -50,7 +49,7 @@ const Login = () => {
                         class="form-control"
                         placeholder="Enter your Username"
                         value={username}
-                        onChange={(e)=> setUsername(e.target.value) }
+                        onChange={(e) => setUsername(e.target.value)}
                       />
                     </div>
                     <div class="">
@@ -59,7 +58,7 @@ const Login = () => {
                         class="form-control"
                         placeholder="Password"
                         value={password}
-                        onChange={(e)=> setPassword(e.target.value) }
+                        onChange={(e) => setPassword(e.target.value)}
 
                       />
                     </div>
