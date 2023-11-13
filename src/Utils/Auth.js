@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import jwt from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext(null);
 
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       if (!userString) return;
 
       let userObject = {};
-      userObject = jwt(userString);
+      userObject = jwtDecode(userString);
       if (!userObject) return;
       
 

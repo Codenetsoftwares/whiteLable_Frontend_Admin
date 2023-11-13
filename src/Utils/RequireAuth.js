@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import jwt from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 import PropTypes from 'prop-types';
 import { useAuth } from './Auth';
 
@@ -15,7 +15,7 @@ export const RequireAuth = ({ children }) => {
     if (!userString) return;
 
     let userObject = {};
-    userObject = jwt(userString);
+    userObject = jwtDecode(userString);
     if (!userObject) return;
 
     userObject.token = userString;
