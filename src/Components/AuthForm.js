@@ -102,20 +102,33 @@ const Authform = ({ purpose, authFormApin }) => {
                           {auth.user.role.some(
                             (role) =>
                               role === "superAdmin" || role === "WhiteLabel"
-                          ) && <option value="HyperAgent">HyperAgent</option>}
+                          ) && <>
+                              {auth.user.role.some(
+                                (role) => role === "WhiteLabel"
+                              ) && <option value="SubWhiteLabel">Sub WhiteLabel</option>}
+                              <option value="HyperAgent">HyperAgent</option></>}
                           {auth.user.role.some(
                             (role) =>
                               role === "superAdmin" ||
                               role === "WhiteLabel" ||
                               role === "HyperAgent"
-                          ) && <option value="SuperAgent">SuperAgent</option>}
+                          ) && <>{auth.user.role.some(
+                            (role) => role === "HyperAgent"
+                          ) && <option value="SubHyperAgent">Sub HyperAgent</option>}
+                              <option value="SuperAgent">SuperAgent</option></>}
                           {auth.user.role.some(
                             (role) =>
                               role === "superAdmin" ||
                               role === "WhiteLabel" ||
                               role === "HyperAgent" ||
                               role === "SuperAgent"
-                          ) && <option value="MasterAgent">MasterAgent</option>}
+                          ) && <>{auth.user.role.some(
+                            (role) => role === "SuperAgent"
+                          ) && <option value="SubSuperAgent">Sub SuperAgent</option>}
+                              <option value="MasterAgent">MasterAgent</option></>}
+                          {auth.user.role.some(
+                            (role) => role === "MasterAgent"
+                          ) && <option value="SubMasterAgent">Sub MasterAgent</option>}
                         </select>
                       </div>
                     )}
