@@ -9,11 +9,23 @@ import Welcome from "./Pages/Welcome/Welcome";
 import Authform from "./Components/AuthForm";
 import Create from "./Pages/Accounts/Login/Create";
 import UserCreate from "./Pages/Accounts/Login/UserCreate";
-
+  import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   return (
     <React.Fragment>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <AuthProvider>
         <BrowserRouter>
           <Routes>
@@ -24,19 +36,25 @@ function App() {
               <Route
                 path="welcome"
                 element={
-                  <RequireAuth><Welcome /></RequireAuth>
+                  <RequireAuth>
+                    <Welcome />
+                  </RequireAuth>
                 }
               />
               <Route
                 path="Create"
                 element={
-                  <RequireAuth><Create /></RequireAuth>
+                  <RequireAuth>
+                    <Create />
+                  </RequireAuth>
                 }
               />
               <Route
                 path="userCreate"
                 element={
-                  <RequireAuth><UserCreate /></RequireAuth>
+                  <RequireAuth>
+                    <UserCreate />
+                  </RequireAuth>
                 }
               />
             </Route>
