@@ -25,7 +25,7 @@ class AccountService {
   UserCreate(data,user) {
     return axios({
       method: "POST",
-      url: API_HOST + "/api/User-create",
+      url: API_HOST + "/api/admin/Create-user",
       data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,

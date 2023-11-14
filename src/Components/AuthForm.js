@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../Pages/Accounts/Login/Login.css";
 
-const Authform = ({ purpose, authFormApin }) => {
+const Authform = ({ purpose, authFormApin, userApi }) => {
   const auth = useAuth();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -30,25 +30,34 @@ const Authform = ({ purpose, authFormApin }) => {
       password: password,
       roles: [role],
     };
-
-    authFormApin(data, auth.user)
-      .then((res) => {
-        console.log(res);
-        if (purpose === "login") {
-          localStorage.setItem("user", res.data.token.accessToken);
-          toast.success("Login Successful.");
-          navigate("/welcome");
-        } else if (purpose === "userLogin") {
-          toast.success("User Login Successful.");
-        } else if (purpose === "userCreate") {
+    if (role === "user") {
+      userApi(data, auth.user)
+        .then((res) => {
+          console.log(res);
           toast.success("User Create Successful.");
-        } else {
-          toast.success("Create Successful.");
-        }
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
+    }
+    else {
+      authFormApin(data, auth.user)
+        .then((res) => {
+          console.log(res);
+          if (purpose === "login") {
+            localStorage.setItem("user", res.data.token.accessToken);
+            toast.success("Login Successful.");
+            navigate("/welcome");
+          } else if (purpose === "userLogin") {
+            toast.success("User Login Successful.");
+          } else {
+            toast.success("Create Successful.");
+          }
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
+    }
   };
   return (
     <div class="main_content_iner ">
@@ -129,6 +138,12 @@ const Authform = ({ purpose, authFormApin }) => {
                           {auth.user.role.some(
                             (role) => role === "MasterAgent"
                           ) && <option value="SubMasterAgent">Sub MasterAgent</option>}
+                          {auth.user.role.some(
+                            (role) => role === "WhiteLabel" ||
+                              role === "HyperAgent" ||
+                              role === "SuperAgent" ||
+                              role === "MasterAgent"
+                          ) && <option value="user">User</option>}
                         </select>
                       </div>
                     )}
