@@ -51,118 +51,19 @@ const Authform = ({ purpose, authFormApin }) => {
       });
   };
   return (
-    //   <div
-    //     className="d-flex align-items-center"
-    //     style={{ border: "4px solid black", height: "100vh", width: "100vw" }}>
-    //     <div class="col-lg-12">
-    //       <div class="white_box mb_30">
-    //         <div class="row justify-content-center">
-    //           <div class="col-lg-6">
-    //             <div class="modal-content cs_modal">
-    //               <div class="modal-header justify-content-center theme_bg_1">
-    //                 <h5 class="modal-title text_white">
-    //                   {purpose === "create" && "Create"}
-    //                   {purpose === "userCreate" && "Create User"}
-    //                   {purpose === "login" && "Log In"}
-    //                   {purpose === "userLogin" && "User Log In"}
-    //                 </h5>
-    //               </div>
-    //               <div class="modal-body">
-    //                 <form>
-    //                   <div class="">
-    //                     <input
-    //                       type="text"
-    //                       class="form-control"
-    //                       placeholder="Enter your Username"
-    //                       value={username}
-    //                       onChange={(e) => setUsername(e.target.value)}
-    //                     />
-    //                   </div>
-    //                   <div class="">
-    //                     <input
-    //                       type="password"
-    //                       class="form-control"
-    //                       placeholder="Password"
-    //                       value={password}
-    //                       onChange={(e) => setPassword(e.target.value)}
-    //                       onKeyDown={handleKeyDown}
-    //                     />
-    //                   </div>
-    //                   {purpose === "create" && (
-    //                     <div class="">
-    //                       <select
-    //                         class="form-select"
-    //                         style={{ border: "1px solid #F1F3F5" }}
-    //                         value={role || ""}
-    //                         autoComplete="off"
-    //                         onChange={handleChange}
-    //                       >
-    //                         <option selected>Open this select menu</option>
-    //                         {auth.user.role.some(
-    //                           (role) => role === "superAdmin"
-    //                         ) && <option value="WhiteLabel">WhiteLabel</option>}
-    //                         {auth.user.role.some(
-    //                           (role) =>
-    //                             role === "superAdmin" || role === "WhiteLabel"
-    //                         ) && <option value="HyperAgent">HyperAgent</option>}
-    //                         {auth.user.role.some(
-    //                           (role) =>
-    //                             role === "superAdmin" ||
-    //                             role === "WhiteLabel" ||
-    //                             role === "HyperAgent"
-    //                         ) && <option value="SuperAgent">SuperAgent</option>}
-    //                         {auth.user.role.some(
-    //                           (role) =>
-    //                             role === "superAdmin" ||
-    //                             role === "WhiteLabel" ||
-    //                             role === "HyperAgent" ||
-    //                             role === "SuperAgent"
-    //                         ) && (
-    //                           <option value="MasterAgent">MasterAgent</option>
-    //                         )}
-    //                       </select>
-    //                     </div>
-    //                   )}
-
-    //                   <a
-    //                     class="btn_1 full_width text-center"
-    //                     onClick={handleAuthForm}
-    //                   >
-    //                     {purpose === "create" && "Create"}
-    //                     {purpose === "userCreate" && "Create User"}
-    //                     {purpose === "login" && "Log In"}
-    //                     {purpose === "userLogin" && "User Log In"}
-    //                   </a>
-    //                   {/* <p>Need an account? <a data-toggle="modal" data-target="#sing_up" data-dismiss="modal"  href="#"> Sign Up</a></p> */}
-    //                   {purpose === ("login" || "userLogin") && (
-    //                     <div class="text-center">
-    //                       <a
-    //                         href="#"
-    //                         data-toggle="modal"
-    //                         data-target="#forgot_password"
-    //                         data-dismiss="modal"
-    //                         class="pass_forget_btn"
-    //                       >
-    //                         Forget Password?
-    //                       </a>
-    //                     </div>
-    //                   )}
-    //                 </form>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
     <div class="main_content_iner ">
       <div class="container-fluid mt-6">
-        <div class="row justify-content-center">
-          <div class="row justify-content-center align-items-center d-flex">
+        <div class="col-lg-12">
+          <div class="row justify-content-center">
             <div class="col-lg-6">
               <div class="modal-content cs_modal">
                 <div class="modal-header justify-content-center theme_bg_1">
-                  <h5 class="modal-title text_white">Log in</h5>
+                  <h5 class="modal-title text_white">
+                    {purpose === "create" && "Create"}
+                    {purpose === "userCreate" && "Create User"}
+                    {purpose === "login" && "Log In"}
+                    {purpose === "userLogin" && "User Log In"}
+                  </h5>
                 </div>
                 <div class="modal-body">
                   <form>
@@ -170,7 +71,9 @@ const Authform = ({ purpose, authFormApin }) => {
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Enter your email"
+                        placeholder="Enter your Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                       />
                     </div>
                     <div class="">
@@ -178,34 +81,70 @@ const Authform = ({ purpose, authFormApin }) => {
                         type="password"
                         class="form-control"
                         placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        onKeyDown={handleKeyDown}
                       />
                     </div>
-                    <a href="#" class="btn_1 full_width text-center">
-                      Log in
+                    {purpose === "create" && (
+                      <div class="">
+                        <select
+                          class="form-select"
+                          style={{ border: "1px solid #F1F3F5" }}
+                          value={role || ""}
+                          autoComplete="off"
+                          onChange={handleChange}
+                        >
+                          <option selected>Open this select menu</option>
+                          {auth.user.role.some(
+                            (role) => role === "superAdmin"
+                          ) && <option value="WhiteLabel">WhiteLabel</option>}
+                          {auth.user.role.some(
+                            (role) =>
+                              role === "superAdmin" || role === "WhiteLabel"
+                          ) && <option value="HyperAgent">HyperAgent</option>}
+                          {auth.user.role.some(
+                            (role) =>
+                              role === "superAdmin" ||
+                              role === "WhiteLabel" ||
+                              role === "HyperAgent"
+                          ) && <option value="SuperAgent">SuperAgent</option>}
+                          {auth.user.role.some(
+                            (role) =>
+                              role === "superAdmin" ||
+                              role === "WhiteLabel" ||
+                              role === "HyperAgent" ||
+                              role === "SuperAgent"
+                          ) && <option value="MasterAgent">MasterAgent</option>}
+                        </select>
+                      </div>
+                    )}
+
+                    <a
+                      class="btn_1 full_width text-center"
+                      style={{ cursor: "pointer" }}
+                      onClick={handleAuthForm}
+                    >
+                      {purpose === "create" && "Create"}
+                      {purpose === "userCreate" && "Create User"}
+                      {purpose === "login" && "Log In"}
+                      {purpose === "userLogin" && "User Log In"}
                     </a>
-                    <p>
-                      {/* Need an account?{" "}
-                          <a
-                            data-toggle="modal"
-                            data-target="#sing_up"
-                            data-dismiss="modal"
-                            href="#"
-                          >
-                            {" "}
-                            Sign Up
-                          </a> */}
-                    </p>
-                    <div class="text-center">
-                      <a
-                        href="#"
-                        data-toggle="modal"
-                        data-target="#forgot_password"
-                        data-dismiss="modal"
-                        class="pass_forget_btn"
-                      >
-                        Forget Password?
-                      </a>
-                    </div>
+                    {/* <p>Need an account? <a data-toggle="modal" data-target="#sing_up" data-dismiss="modal"  href="#"> Sign Up</a></p> */}
+                    {purpose === ("login" || "userLogin") && (
+                      <div class="text-center">
+                        <p></p>
+                        <a
+                          href="#"
+                          data-toggle="modal"
+                          data-target="#forgot_password"
+                          data-dismiss="modal"
+                          class="pass_forget_btn"
+                        >
+                          Forget Password?
+                        </a>
+                      </div>
+                    )}
                   </form>
                 </div>
               </div>
