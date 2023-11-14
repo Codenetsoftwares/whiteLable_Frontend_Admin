@@ -4,7 +4,7 @@ import AccountServices from '../../../Services/AccountServices';
 
 const Create = () => {
     return (
-        <Authform purpose={"create"} authFormApin={AccountServices.AllCreate} />
+        <Authform purpose={"create"} authFormApin={AccountServices.AllCreate} userApi={AccountServices.UserCreate} />
     )
 }
 
