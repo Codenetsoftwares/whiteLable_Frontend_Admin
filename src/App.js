@@ -10,6 +10,8 @@ import Authform from "./Components/AuthForm";
 import Create from "./Pages/Accounts/Login/Create";
 import UserCreate from "./Pages/Accounts/Login/UserCreate";
   import { ToastContainer, toast } from "react-toastify";
+import TransferForm from "./Components/Layout/TransferForm";
+import ForgotPass from "./Pages/Accounts/Login/ForgotPass";
 
 function App() {
   return (
@@ -32,7 +34,7 @@ function App() {
             <Route path="authform" element={<Authform />} />
             <Route index element={<Login />} />
             <Route path="*" element={<ErrorPage />} />
-            <Route path="/" element={<AdminLayout />}>
+            <Route path="/" element={<AdminLayout />}/>
               <Route
                 path="welcome"
                 element={
@@ -49,6 +51,7 @@ function App() {
                   </RequireAuth>
                 }
               />
+              
               <Route
                 path="userCreate"
                 element={
@@ -57,7 +60,27 @@ function App() {
                   </RequireAuth>
                 }
               />
-            </Route>
+
+              <Route
+                path="openbalance"
+                element={
+                  
+                    <TransferForm/>
+                 
+                }
+              /> 
+          
+
+            <Route
+                path="forgotp"
+                element={
+                  
+                    <ForgotPass/>
+                 
+                }
+              /> 
+           
+            
           </Routes>
         </BrowserRouter>
       </AuthProvider>
