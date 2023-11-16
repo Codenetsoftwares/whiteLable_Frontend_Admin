@@ -10,7 +10,6 @@ import Authform from "./Components/AuthForm";
 import Create from "./Pages/Accounts/Login/Create";
 import UserCreate from "./Pages/Accounts/Login/UserCreate";
 import { ToastContainer, toast } from "react-toastify";
-import Card from "./Components/Card";
 import MainTransaction from "./Components/MainTransaction";
 
 function App() {
@@ -59,14 +58,7 @@ function App() {
                   </RequireAuth>
                 }
               />
-              <Route
-                path="card"
-                element={
-                  <RequireAuth>
-                    <Card />
-                  </RequireAuth>
-                }
-              />
+             
               <Route
                 path="maintransaction"
                 element={
