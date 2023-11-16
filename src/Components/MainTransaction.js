@@ -34,10 +34,12 @@ const MainTransaction = () => {
             <div className="text-center ">
                 <p>Total Balance</p>
                 <h4>₹{balance}</h4>
-                <button data-bs-toggle="modal" data-bs-target="#depositBalanceModal" className="btn btn-danger"
+                {auth.user.role.some(
+                    (role) => role === "superAdmin"
+                ) && <button data-bs-toggle="modal" data-bs-target="#depositBalanceModal" className="btn btn-danger"
                     aria-label="Close">
-                    ADD CASH
-                </button>
+                        ADD CASH
+                    </button>}
             </div>
             <div className="white_card_body m-3">
                 <div className="QA_section">

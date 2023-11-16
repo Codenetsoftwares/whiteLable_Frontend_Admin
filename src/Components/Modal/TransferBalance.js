@@ -28,28 +28,28 @@ const TransferBalance = ({ userName }) => {
         if (auth.user.role.some((role) => role === "superAdmin")) {
             data = {
                 adminUserName: auth.user.userName,
-                depositeAmount: Number(Amount),
+                trnsfAmnt: Number(Amount),
                 whiteLabelUsername: userName
             };
         }
         if (auth.user.role.some((role) => role === "WhiteLabel")) {
             data = {
                 whiteLabelUsername: auth.user.userName,
-                depositeAmount: Number(Amount),
+                trnsfAmnt: Number(Amount),
                 hyperAgentUserName: userName
             };
         }
         if (auth.user.role.some((role) => role === "HyperAgent")) {
             data = {
                 hyperAgentUserName: auth.user.userName,
-                depositeAmount: Number(Amount),
+                trnsfAmnt: Number(Amount),
                 SuperAgentUserName: userName
             };
         }
         if (auth.user.role.some((role) => role === "SuperAgent")) {
             data = {
                 SuperAgentUserName: auth.user.userName,
-                depositeAmount: Number(Amount),
+                trnsfAmnt: Number(Amount),
                 masterAgentUserName: userName
             };
         }

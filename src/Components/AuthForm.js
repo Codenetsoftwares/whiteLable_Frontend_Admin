@@ -47,6 +47,7 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
           if (purpose === "login") {
             localStorage.setItem("user", res.data.token.accessToken);
             toast.success("Login Successful.");
+            auth.login();
             navigate("/welcome");
           } else if (purpose === "userLogin") {
             toast.success("User Login Successful.");
