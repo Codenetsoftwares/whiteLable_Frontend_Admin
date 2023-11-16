@@ -14,10 +14,22 @@ class TransactionServices {
         });
     }
 
-    depositAmount(data, id, user) {
+   viewBalance(id, user) {
+        return axios({
+            method: "GET",
+            url: `${API_HOST}/api/view-balance/${id}`,
+           headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
+    }
+
+ 
+
+   transferBalance(data,id, user) {
         return axios({
             method: "POST",
-            url: `${API_HOST}/api/admin/deposit-amount/${id}`,
+            url: `${API_HOST}/api/transfer-amount${id}`,
             data: data,
             headers: {
                 Authorization: `Bearer ${user.token}`,
