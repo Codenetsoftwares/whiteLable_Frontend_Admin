@@ -3,7 +3,7 @@ const API_HOST = process.env.REACT_APP_API_HOST;
 
 class TransactionServices {
 
-    depositAmount(data,id, user) {
+    depositAmount(data, id, user) {
         return axios({
             method: "POST",
             url: `${API_HOST}/api/admin/deposit-amount/${id}`,
@@ -14,22 +14,22 @@ class TransactionServices {
         });
     }
 
-   viewBalance(id, user) {
+    viewBalance(id, user) {
         return axios({
             method: "GET",
             url: `${API_HOST}/api/view-balance/${id}`,
-           headers: {
+            headers: {
                 Authorization: `Bearer ${user.token}`,
             },
         });
     }
 
- 
 
-   transferBalance(data,id, user) {
+
+    transferBalance(data, user) {
         return axios({
             method: "POST",
-            url: `${API_HOST}/api/transfer-amount${id}`,
+            url: `${API_HOST}/api/transfer-amount`,
             data: data,
             headers: {
                 Authorization: `Bearer ${user.token}`,

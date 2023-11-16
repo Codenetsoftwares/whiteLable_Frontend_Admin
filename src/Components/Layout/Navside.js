@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navside = () => {
   const [isUser, setIsUser] = useState(true)
@@ -40,10 +41,10 @@ const Navside = () => {
             </a>
             <ul>
               <li>
-                <a href="#">Default</a>
+                <Link to='/Create'>Create</Link>
               </li>
               <li>
-                <a href="#">Dark Sidebar</a>
+                <Link to='/maintransaction'>wallet</Link>
               </li>
               <li>
                 <a href="#">Light Sidebar</a>

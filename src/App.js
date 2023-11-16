@@ -50,14 +50,14 @@ function App() {
                   </RequireAuth>
                 }
               />
-              <Route
+              {/* <Route
                 path="userCreate"
                 element={
                   <RequireAuth>
                     <UserCreate />
                   </RequireAuth>
                 }
-              />
+              /> */}
              
               <Route
                 path="maintransaction"

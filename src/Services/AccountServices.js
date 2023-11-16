@@ -2,7 +2,7 @@ import axios from "axios";
 const API_HOST = process.env.REACT_APP_API_HOST;
 
 class AccountService {
-  
+
   AllLogin(data) {
     return axios({
       method: "POST",
@@ -11,7 +11,7 @@ class AccountService {
     });
   }
 
-  AllCreate(data,user) {
+  AllCreate(data, user) {
     return axios({
       method: "POST",
       url: API_HOST + "/api/admin-create",
@@ -22,11 +22,21 @@ class AccountService {
     });
   }
 
-  UserCreate(data,user) {
+  UserCreate(data, user) {
     return axios({
       method: "POST",
       url: API_HOST + "/api/admin/Create-user",
       data: data,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
+  getAllCreates(id, user) {
+    return axios({
+      method: "get",
+      url: `${API_HOST}/api/view-all-creates/${id}`,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
