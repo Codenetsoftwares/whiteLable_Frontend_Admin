@@ -44,8 +44,7 @@ const MainTransaction = () => {
             <div className="white_card_body m-3">
                 <div className="QA_section">
                     <div className="QA_table mb_30">
-
-                        <table className="table lms_table_active3  table-bordered table-sm table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+                        {userList.length > 0 && <table className="table lms_table_active3  table-bordered table-sm table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
                             <thead >
                                 <tr>
                                     <th scope="col" className='text-bolder fs-6 '>Username</th>
@@ -62,7 +61,8 @@ const MainTransaction = () => {
                             {userList.map((data) => (
                                 <Card userName={data.userName} role={data.roles[0]} />
                             ))}
-                        </table>
+                        </table>}
+
                     </div>
                 </div>
             </div>
