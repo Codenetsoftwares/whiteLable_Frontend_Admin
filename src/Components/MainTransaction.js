@@ -6,6 +6,7 @@ import DepositBalance from './Modal/DepositBalance';
 import TransactionServices from '../Services/TransactionServices';
 import { useAuth } from '../Utils/Auth';
 import AccountServices from '../Services/AccountServices';
+import TransactionView from './Modal/TransactionView';
 
 
 const MainTransaction = () => {
@@ -66,6 +67,7 @@ const MainTransaction = () => {
                     </div>
                 </div>
             </div>
+            <TransactionView/>
             <DepositBalance />
         </div>
     )

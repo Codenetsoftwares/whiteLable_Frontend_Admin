@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import TransferBalance from './Modal/TransferBalance';
 import EditCreditRefBalance from './Modal/EditCreditRefBalance';
 import EditPartnerShipBalance from './Modal/EditPartnerShipBalance';
-
+import { useAuth } from '../Utils/Auth';
 
 const Card = ({ role, userName, creditRef, balance, loadBalance, refProfitLoss }) => {
+    const auth = useAuth();
     const [id, setId] = useState("")
+
 
     const handleId = (id) => {
         setId(id)
@@ -15,8 +17,9 @@ const Card = ({ role, userName, creditRef, balance, loadBalance, refProfitLoss }
     return (
         <tbody>
             <tr>
-                <th scope="row" className=''> <p className='border border-1 w-75 text-center bg-success rounded-pill '>{role}</p>
-                    <p>{userName}</p>
+                <th scope="row" className=''> 
+                <button className='border border-1 w-75 text-center bg-success rounded-pill ' data-bs-toggle="modal" data-bs-target="#myModal" >{role}</button>
+                <p>{userName}</p>
                 </th>
                 <td scope="row" className='fs-6 text-center'><span>{creditRef}</span><span className='m-2'>
                     <button className='border border-0 bg-white' ><i className="fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#EditCreditRefBalance"
