@@ -17,70 +17,38 @@ const TransactionView = () => {
 
   return (
     <div className="modal" id="myModal">
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-body">
-            <form>
+    <div className="modal-dialog">
+      <div className="modal-content">
+        <div className="modal-body">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>Transfer Amount</th>
+                <th>Transaction Type</th>
+                <th>Date</th>
+                {/* Add similar headers for other properties */}
+              </tr>
+            </thead>
+            <tbody>
               {transactionData.map((transaction, index) => (
-                <div key={index}>
-                  <div className="mb-3">
-                    <label htmlFor={`userName${index}`} className="form-label">
-                      User Name:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id={`userName${index}`}
-                      value={transaction.userName}
-                      readOnly
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor={`transferAmount${index}`} className="form-label">
-                      Transfer Amount:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id={`transferAmount${index}`}
-                      value={transaction.transferAmount}
-                      readOnly
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor={`userName${index}`} className="form-label">
-                    Transaction Type:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id={`userName${index}`}
-                      value={transaction.transactionType}
-                      readOnly
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor={`userName${index}`} className="form-label">
-                    Date:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id={`userName${index}`}
-                      value={transaction.date}
-                      readOnly
-                    />
-                  </div>
-                  {/* Add similar blocks for other properties like date, transactionType */}
-                </div>
+                <tr key={index}>
+                  <td>{transaction.userName}</td>
+                  <td>{transaction.transferAmount}</td>
+                  <td>{transaction.transactionType}</td>
+                  <td>{transaction.date}</td>
+                  {/* Add similar cells for other properties */}
+                </tr>
               ))}
-            </form>
-          </div>
-
-          {/* ... (modal footer) */}
+            </tbody>
+          </table>
         </div>
+  
+        {/* ... (modal footer) */}
       </div>
     </div>
+  </div>
+  
   );
 };
 
