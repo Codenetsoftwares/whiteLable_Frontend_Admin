@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import TransactionServices from '../../Services/TransactionServices';
+import React, { useState } from 'react'
 import { useAuth } from '../../Utils/Auth';
+import TransactionServices from '../../Services/TransactionServices';
 import { toast } from 'react-toastify';
 
-const TransferBalance = ({ userName }) => {
-    console.log(userName)
+const EditPartnerShipBalance = () => {
     const auth = useAuth();
     const [Amount, SetAmount] = useState(0);
-    const [currentUserName, setCurrentUserName] = useState('');
-    console.log(auth)
+    const id = auth.user.id;
     const handelamtchange = (e) => {
         SetAmount(e.target.value);
     };
-
-    useEffect(() => {
-        setCurrentUserName(userName);
-    }, [userName]);
-
     const handleReset = () => {
         SetAmount(0);
     }
-      
-    let data;
     const handelsubmit = (e) => {
         e.preventDefault();
         if (Amount === 0 || Amount < 0) {
@@ -32,38 +23,12 @@ const TransferBalance = ({ userName }) => {
             toast.error("Amount fields cannot be empty.");
             return;
         }
-
-        if (auth.user.role.some((role) => role === "superAdmin")) {
-            data = {
-                adminUserName: auth.user.userName,
-                trnsfAmnt: Number(Amount),
-                whiteLabelUsername: userName
-            };
-        }
-        if (auth.user.role.some((role) => role === "WhiteLabel")) {
-            data = {
-                whiteLabelUsername: auth.user.userName,
-                trnsfAmnt: Number(Amount),
-                hyperAgentUserName: userName
-            };
-        }
-        if (auth.user.role.some((role) => role === "HyperAgent")) {
-            data = {
-                hyperAgentUserName: auth.user.userName,
-                trnsfAmnt: Number(Amount),
-                SuperAgentUserName: userName
-            };
-        }
-        if (auth.user.role.some((role) => role === "SuperAgent")) {
-            data = {
-                SuperAgentUserName: auth.user.userName,
-                trnsfAmnt: Number(Amount),
-                masterAgentUserName: userName
-            };
-        }
+        const data = {
+            depositeAmount: Number(Amount),
+        };
 
         console.log("data", data);
-        TransactionServices.transferBalance(data, auth.user)
+        TransactionServices.depositAmount(data, id, auth.user)
             .then((res) => {
                 // console.log(response.data);
                 if (res.status === 200) {
@@ -78,18 +43,13 @@ const TransferBalance = ({ userName }) => {
                 // alert.error("e.message");
             });
     };
-
     return (
-        <div class="modal fade" id="transferbalance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="EditPartnerShipBalance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="transferbalanceModal"> Amount</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                            onClick={handleReset}
-                        >
-
-                        </button>
+                        <h5 class="modal-title" id="depositBalanceModal">Provide Deposit Amount</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleReset}></button>
                     </div>
                     <div className="modal-body">
                         <form>
@@ -118,9 +78,7 @@ const TransferBalance = ({ userName }) => {
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            onClick={handleReset}
-                        >Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onClick={handleReset}>Close</button>
                         <button type="button" class="btn btn-primary" onClick={handelsubmit}>Save changes</button>
                     </div>
                 </div>
@@ -129,4 +87,4 @@ const TransferBalance = ({ userName }) => {
     )
 }
 
-export default TransferBalance
+export default EditPartnerShipBalance;

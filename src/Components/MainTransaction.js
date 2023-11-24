@@ -58,8 +58,8 @@ const MainTransaction = () => {
                                     <th scope="col" className='text-bolder fs-6 text-center'>Actions</th>
                                 </tr>
                             </thead>
-                            {userList.map((data) => (
-                                <Card userName={data.userName} role={data.roles[0]} />
+                            {userList.map((data, i) => (
+                                <Card userName={data.userName} role={data.roles[0]} key={i} creditRef={data.creditRef} balance={data.balance} loadBalance={data.loadBalance} refProfitLoss={data.refProfitLoss} />
                             ))}
                         </table>}
 
