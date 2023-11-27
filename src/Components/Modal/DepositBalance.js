@@ -44,7 +44,7 @@ const DepositBalance = () => {
             });
     };
     return (
-        <div class="modal fade" id="depositBalanceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="depositBalance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
