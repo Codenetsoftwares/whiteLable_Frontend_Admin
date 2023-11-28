@@ -30,6 +30,8 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
       password: password,
       roles: [role],
     };
+
+    console.log('============++++++>', data)
     if (role === "user") {
       userApi(data, auth.user)
         .then((res) => {

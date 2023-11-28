@@ -5,6 +5,8 @@ import EditPartnerShipBalance from "./Modal/EditPartnerShipBalance";
 import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
 import { toast } from "react-toastify";
+import SelectModal from "./Modal/SelectModal";
+
 
 const Card = ({
   role,
@@ -18,8 +20,13 @@ const Card = ({
   const auth = useAuth();
   const [id, setId] = useState("");
   const [userID, setUserID] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState('');
 
   const handleId = (id) => {
+    setId(id);
+  };
+
+  const handlestatus = (id) => {
     setId(id);
   };
 
@@ -134,7 +141,17 @@ const Card = ({
             </button>
           </span>
           <span className="mx-1">
-            <button className="btn border border-2 rounded" title="Setting">
+            <button
+             className="btn border border-2 rounded"
+             title="Setting"
+             type="button"
+             data-bs-toggle="modal"
+             data-bs-target="#exampleModalCenter"
+             onClick={() => {
+              handleUserName(userName);
+              handleId(userId);
+            }}
+              >
               <i class="fa-thin fas fa-gear"></i>
             </button>
           </span>
@@ -157,7 +174,10 @@ const Card = ({
           </span>
         </td>
       </tr>
+
       <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
+      <SelectModal id={id} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus}/>
+
       <EditCreditRefBalance userid={id} />
       <EditPartnerShipBalance />
     </tbody>

@@ -33,7 +33,7 @@ class AccountService {
     });
   }
 
-  getAllCreates(id, user) {
+  getAllCreates(id,user) {
     return axios({
       method: "get",
       url: `${API_HOST}/api/view-all-creates/${id}`,
@@ -43,16 +43,30 @@ class AccountService {
     });
   }
 
+
   deletewebsite(data, user) {
     return axios({
       method: "post",
       url: `${API_HOST}/api/admin/move-to-trash-user`,
+data: data,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
+  ActiveInactive(data, id, user) {
+    return axios({
+      method: "POST",
+      url: `${API_HOST}/api/activate/${id}`,
+
       data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
     });
   }
+
 
   ViewAgentDelete(user) {
     return axios({
@@ -75,6 +89,7 @@ class AccountService {
   }
 
   
+
 
 }
 
