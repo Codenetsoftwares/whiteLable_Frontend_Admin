@@ -3,6 +3,8 @@ import TransferBalance from "./Modal/TransferBalance";
 import EditCreditRefBalance from "./Modal/EditCreditRefBalance";
 import EditPartnerShipBalance from "./Modal/EditPartnerShipBalance";
 import { useAuth } from "../Utils/Auth";
+import AccountServices from "../Services/AccountServices";
+import { toast } from "react-toastify";
 
 const Card = ({
   role,
@@ -23,6 +25,31 @@ const Card = ({
 
   const handleUserName = (UserName) => {
     setUserID(UserName);
+  };
+
+  const handeldeletewebsite = (id) => {
+    // e.preventDefault();
+    console.log("Line 88", id);
+
+    const userConfirmed = window.confirm(
+      "Are You Sure You Want to Delete This Website?"
+    );
+
+    if (userConfirmed) {
+      console.log("Im here in line 94");
+      AccountServices.deletewebsite({ requestId: id }, auth.user)
+        .then((res) => {
+          // console.log(response.data);
+          if (res.status === 200) {
+            alert("Website Deleted approval sent!");
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          toast.error(error);
+          // alert.error("e.message");
+        });
+    }
   };
 
   console.log(id);
@@ -96,7 +123,7 @@ const Card = ({
           <span className="mx-1">
             <button
               data-bs-toggle="modal"
-              data-bs-target="#transferbalance"
+              data-bs-target={`#transferbalance-${userName}`}
               className="btn border border-2 rounded"
               title="Addmoney"
               onClick={() => {
@@ -117,7 +144,9 @@ const Card = ({
             </button>
           </span>
           <span className="mx-1">
-            <button className="btn border border-2 rounded" title="Delete">
+            <button className="btn border border-2 rounded" title="Delete" onClick={(e) => {
+              handeldeletewebsite(userId);
+            }}>
               <i class="fa-light fas fa-trash"></i>
             </button>
           </span>
@@ -128,7 +157,7 @@ const Card = ({
           </span>
         </td>
       </tr>
-      <TransferBalance userName={userID} />
+      <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
       <EditCreditRefBalance userid={id} />
       <EditPartnerShipBalance />
     </tbody>

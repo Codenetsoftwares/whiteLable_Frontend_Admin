@@ -65,6 +65,9 @@ class TransactionServices {
       },
     });
   }
-}
+
+  
+  }
+
 
 export default new TransactionServices();

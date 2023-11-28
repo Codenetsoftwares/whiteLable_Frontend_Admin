@@ -11,6 +11,7 @@ import Create from "./Pages/Accounts/Login/Create";
 import UserCreate from "./Pages/Accounts/Login/UserCreate";
 import { ToastContainer, toast } from "react-toastify";
 import MainTransaction from "./Components/MainTransaction";
+import AgentDelete from "./Components/AgentDelete";
 
 function App() {
   return (
@@ -64,6 +65,14 @@ function App() {
                 element={
                   <RequireAuth>
                     <MainTransaction />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="agentDelete"
+                element={
+                  <RequireAuth>
+                    <AgentDelete/>
                   </RequireAuth>
                 }
               />
