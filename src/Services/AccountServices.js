@@ -33,10 +33,21 @@ class AccountService {
     });
   }
 
-  getAllCreates(id, user) {
+  getAllCreates(id,user) {
     return axios({
       method: "get",
       url: `${API_HOST}/api/view-all-creates/${id}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
+  ActiveInactive(data, id, user) {
+    return axios({
+      method: "POST",
+      url: `${API_HOST}/api/activate/${id}`,
+      data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
