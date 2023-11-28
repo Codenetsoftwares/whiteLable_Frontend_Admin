@@ -3,9 +3,16 @@ import { Link } from "react-router-dom";
 
 const Navside = () => {
   const [isUser, setIsUser] = useState(true)
+  const [isRequest, setIsRequest] = useState(true)
+
   const handleUserToggle = () => {
     setIsUser(!isUser);
   };
+
+  const handleRequestToggle = () => {
+    setIsRequest(!isRequest);
+  };
+
   return (
     <div>
       <nav className="sidebar ">
@@ -52,6 +59,31 @@ const Navside = () => {
             </ul>
           </li>)}
 
+          {isRequest ? (<li className="" onClick={handleRequestToggle}>
+            <a className="has-arrow" href="#" aria-expanded="false">
+              <div className="nav_icon_small">
+                <img src="img/menu-icon/dashboard.svg" alt="" />
+              </div>
+              <div className="nav_title">
+                <span>Request </span>
+              </div>
+            </a>
+          </li>) : (<li className="" onClick={handleRequestToggle}>
+            <a className="has-arrow" href="#" aria-expanded="false">
+              <div className="nav_icon_small">
+                <img src="img/menu-icon/dashboard.svg" alt="" />
+              </div>
+              <div className="nav_title">
+                <span>Request </span>
+              </div>
+            </a>
+            <ul>
+              <li>
+                <Link to='/agentDelete'>Agent Delete</Link>
+              </li>
+
+            </ul>
+          </li>)}
           {/* <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">

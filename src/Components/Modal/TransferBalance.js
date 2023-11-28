@@ -1,102 +1,82 @@
-import React, { useEffect, useState } from "react";
-import TransactionServices from "../../Services/TransactionServices";
+import React, { useState } from "react";
 import { useAuth } from "../../Utils/Auth";
 import { toast } from "react-toastify";
-
+import TransactionServices from "../../Services/TransactionServices";
 const TransferBalance = ({ userName }) => {
-  console.log(userName);
+  console.log("username...", userName)
   const auth = useAuth();
-  const [Amount, SetAmount] = useState(0);
-  const [currentUserName, setCurrentUserName] = useState("");
-  console.log(auth);
-  const handelamtchange = (e) => {
-    SetAmount(e.target.value);
+  const [Amount, setAmount] = useState(0);
+  const handleAmtChange = (e) => {
+    setAmount(e.target.value);
   };
-
-  useEffect(() => {
-    setCurrentUserName(userName);
-  }, [userName]);
-
   const handleReset = () => {
-    SetAmount(0);
+    setAmount(0);
   };
-
-  let data;
-  const handelsubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (Amount === 0 || Amount < 0) {
       if (Amount < 0) {
-        toast.error("Amount can not be negetive");
+        toast.error("Amount cannot be negative");
         return;
       }
-      toast.error("Amount fields cannot be empty.");
+      toast.error("Amount field cannot be empty.");
       return;
     }
-
-    if (auth.user.role.some((role) => role === "superAdmin")) {
-      data = {
-        adminUserName: auth.user.userName,
-        trnsfAmnt: Number(Amount),
-        whiteLabelUsername: userName,
-      };
+    try {
+      let data;
+      if (auth.user?.role?.includes("superAdmin")) {
+        data = {
+          adminUserName: auth.user.userName,
+          trnsfAmnt: Number(Amount),
+          whiteLabelUsername: userName,
+        };
+      } else if (auth.user?.role?.includes("WhiteLabel")) {
+        data = {
+          whiteLabelUsername: auth.user.userName,
+          trnsfAmnt: Number(Amount),
+          hyperAgentUserName: userName,
+        };
+      } else if (auth.user?.role?.includes("HyperAgent")) {
+        data = {
+          hyperAgentUserName: auth.user.userName,
+          trnsfAmnt: Number(Amount),
+          SuperAgentUserName: userName,
+        };
+      } else if (auth.user?.role?.includes("SuperAgent")) {
+        data = {
+          SuperAgentUserName: auth.user.userName,
+          trnsfAmnt: Number(Amount),
+          masterAgentUserName: userName,
+        };
+      }
+      console.log("data", data);
+      TransactionServices.transferBalance(data, auth.user)
+        .then((res) => {
+          if (res.status === 200) {
+            console.log(res);
+            alert(res.data.message);
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          alert(error.response.data.message);
+        });
+    } catch (error) {
+      console.error("Error:", error);
     }
-    if (auth.user.role.some((role) => role === "WhiteLabel")) {
-      data = {
-        whiteLabelUsername: auth.user.userName,
-        trnsfAmnt: Number(Amount),
-        hyperAgentUserName: userName,
-      };
-    }
-    if (auth.user.role.some((role) => role === "HyperAgent")) {
-      data = {
-        hyperAgentUserName: auth.user.userName,
-        trnsfAmnt: Number(Amount),
-        SuperAgentUserName: userName,
-      };
-    }
-    if (auth.user.role.some((role) => role === "SuperAgent")) {
-      data = {
-        SuperAgentUserName: auth.user.userName,
-        trnsfAmnt: Number(Amount),
-        masterAgentUserName: userName,
-      };
-    }
-
-    console.log("data", data);
-    TransactionServices.transferBalance(data, auth.user)
-      .then((res) => {
-        // console.log(response.data);
-        if (res.status === 200) {
-          console.log(res);
-          alert(res.data.message);
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error.response.data.message);
-        // alert.error("e.message");
-      });
   };
-
   return (
-    <div
-      class="modal fade"
-      id="transferbalance"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="transferbalanceModal">
-              {" "}
+    <div className="modal fade" id={`transferbalance-${userName}`} tabIndex="-1" aria-labelledby={`transferbalanceModal-${userName}`} aria-hidden="true">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="transferbalanceModal">
               Amount
             </h5>
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
               onClick={handleReset}
@@ -114,7 +94,7 @@ const TransferBalance = ({ userName }) => {
                   type="text"
                   className="form-control font-weight-bold"
                   placeholder="SubAdmin"
-                  value={auth.user.userName}
+                  value={auth.user?.userName || ""}
                   disabled
                   style={{ fontSize: "10px" }}
                 />
@@ -122,16 +102,16 @@ const TransferBalance = ({ userName }) => {
                   type="number"
                   className="form-control"
                   placeholder="Amount"
-                  onChange={handelamtchange}
+                  onChange={handleAmtChange}
                   value={Amount}
                 />
               </div>
             </form>
           </div>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <button
               type="button"
-              class="btn btn-secondary"
+              className="btn btn-secondary"
               data-bs-dismiss="modal"
               onClick={handleReset}
             >
@@ -139,8 +119,8 @@ const TransferBalance = ({ userName }) => {
             </button>
             <button
               type="button"
-              class="btn btn-primary"
-              onClick={handelsubmit}
+              className="btn btn-primary"
+              onClick={handleSubmit}
             >
               Save changes
             </button>
@@ -150,5 +130,4 @@ const TransferBalance = ({ userName }) => {
     </div>
   );
 };
-
 export default TransferBalance;

@@ -43,16 +43,54 @@ class AccountService {
     });
   }
 
+
+  deletewebsite(data, user) {
+    return axios({
+      method: "post",
+      url: `${API_HOST}/api/admin/move-to-trash-user`,
+data: data,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
   ActiveInactive(data, id, user) {
     return axios({
       method: "POST",
       url: `${API_HOST}/api/activate/${id}`,
+
       data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
     });
   }
+
+
+  ViewAgentDelete(user) {
+    return axios({
+      method: "get",
+      url: API_HOST + "/api/admin/view-trash",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
+  IsAgentDeleteApprove(_id, user) {
+    return axios({
+      method: "delete",
+      url: `${API_HOST}/api/delete/admin-user/${_id}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
+  
+
+
 }
 
 export default new AccountService();
