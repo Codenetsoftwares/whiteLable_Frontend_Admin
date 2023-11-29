@@ -18,16 +18,16 @@ const Card = ({
   refProfitLoss,
 }) => {
   const auth = useAuth();
-  const [id, setId] = useState("");
+  const [userid, setUserId] = useState("");
   const [userID, setUserID] = useState("");
   const [selectedStatus, setSelectedStatus] = useState('');
 
   const handleId = (id) => {
-    setId(id);
+    setUserId(id);
   };
 
   const handlestatus = (id) => {
-    setId(id);
+    setUserId(id);
   };
 
   const handleUserName = (UserName) => {
@@ -59,7 +59,7 @@ const Card = ({
     }
   };
 
-  console.log(id);
+
   return (
     <tbody>
       <tr>
@@ -78,15 +78,12 @@ const Card = ({
           <span className="m-2">
             <button
               className="border border-0 bg-white"
-              onClick={() => {
-                handleId(userId);
-              }}
+              data-bs-toggle="modal"
+              data-bs-target={`#EditCreditRefBalance-${userId}`}
             >
               <i
                 className="fa-solid fa-pen-to-square"
-                data-bs-toggle="modal"
-                data-bs-target="#EditCreditRefBalance"
-                aria-label="Close"
+
               ></i>
             </button>
           </span>
@@ -133,25 +130,22 @@ const Card = ({
               data-bs-target={`#transferbalance-${userName}`}
               className="btn border border-2 rounded"
               title="Addmoney"
-              onClick={() => {
-                handleUserName(userName);
-              }}
             >
               <i class="fa-solid fa-circle-dollar-to-slot"></i>
             </button>
           </span>
           <span className="mx-1">
             <button
-             className="btn border border-2 rounded"
-             title="Setting"
-             type="button"
-             data-bs-toggle="modal"
-             data-bs-target="#exampleModalCenter"
-             onClick={() => {
-              handleUserName(userName);
-              handleId(userId);
-            }}
-              >
+              className="btn border border-2 rounded"
+              title="Setting"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModalCenter"
+              onClick={() => {
+                handleUserName(userName);
+                handleId(userId);
+              }}
+            >
               <i class="fa-thin fas fa-gear"></i>
             </button>
           </span>
@@ -176,9 +170,9 @@ const Card = ({
       </tr>
 
       <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
-      <SelectModal id={id} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus}/>
+      <SelectModal id={userid} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
 
-      <EditCreditRefBalance userid={id} />
+      <EditCreditRefBalance userId={userId} key={`EditCreditRefBalance-${userId}`} />
       <EditPartnerShipBalance />
     </tbody>
   );

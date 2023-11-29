@@ -67,11 +67,11 @@ const TransferBalance = ({ userName }) => {
     }
   };
   return (
-    <div className="modal fade" id={`transferbalance-${userName}`} tabIndex="-1" aria-labelledby={`transferbalanceModal-${userName}`} aria-hidden="true">
+    <div className="modal fade" id={`transferbalance-${userName}`} tabIndex="-1" aria-labelledby={`transferbalance-${userName}`} aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="transferbalanceModal">
+            <h5 className="modal-title" >
               Amount
             </h5>
             <button
