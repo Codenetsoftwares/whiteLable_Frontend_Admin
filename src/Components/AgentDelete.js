@@ -26,7 +26,7 @@ const AgentDelete = () => {
 
   const handleDelete = (e, id) => {
     e.preventDefault();
-    console.log(id);
+    console.log("=============....>>>>>",id);
     const flag = true;
 
     const data = {

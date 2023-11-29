@@ -56,10 +56,10 @@ data: data,
   }
 
   ActiveInactive(data, id, user) {
+    console.log(data, id)
     return axios({
       method: "POST",
       url: `${API_HOST}/api/activate/${id}`,
-
       data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -89,6 +89,15 @@ data: data,
   }
 
   
+ getActiveStatus(_id, user) {
+    return axios({
+      method: "GET",
+      url: `${API_HOST}/api/admin/active-status/${_id}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
 
 
 }
