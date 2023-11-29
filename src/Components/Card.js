@@ -140,9 +140,9 @@ const Card = ({
               title="Setting"
               type="button"
               data-bs-toggle="modal"
-              data-bs-target="#exampleModalCenter"
+              data-bs-target={`#activeInactive-${userId}`}
               onClick={() => {
-                handleUserName(userName);
+              
                 handleId(userId);
               }}
             >
@@ -170,7 +170,7 @@ const Card = ({
       </tr>
 
       <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
-      <SelectModal id={userid} selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
+      <SelectModal userId={userId} key={`activeInactive-${userId}`}/>
 
       <EditCreditRefBalance userId={userId} key={`EditCreditRefBalance-${userId}`} />
       <EditPartnerShipBalance />

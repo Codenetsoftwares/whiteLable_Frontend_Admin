@@ -1,68 +1,113 @@
-import React from "react";
-
-import axios from "axios";
+import React, {useState, useEffect }  from "react";
 import { useAuth } from "../../Utils/Auth";
+import AccountServices from "../../Services/AccountServices";
 
-const SelectModal = ({ id, selectedStatus, setSelectedStatus }) => {
+
+const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
+  const [isactive, setIsactive] = useState(false);
+  const [Lock, setLock] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [activeStatus, setActiveStatus] = useState([]);
   const auth = useAuth();
+  // console.log("=========>>I AM HERE",id)
+ 
+  useEffect(() => {
+   AccountServices.getActiveStatus(auth.user.id, auth.user).then(
+      (res) => {
+        console.log("xxxxxxxxxxxx", res.data);
+        setActiveStatus(res.data)
+}
+    );
+  }, []);
+  console.log('============>status',activeStatus)
+  const handleButtonClick =  (data) => {
+
+    setIsactive(data)
+    
+  
+  }
+console.log(isactive)
+
+  const handleButtonChange = (data) => {
+    setLock(data)
+  
+  }
+  console.log("LOCKED",Lock)
+
+
+  const handleSubmit = () => {
+    console.log("lock",Lock)
+    console.log("isActive",isactive)
+let Data;
  
 
-  const handleButtonClick = async (status) => {
-    try {
-      // Determine the role of the user making the request
-      const userRole = auth.user.role;
+ if(isactive===false)
+ {
+  Data = {
+    isActive : isactive
+  }
+ }
+ else if (isactive)
+ {
+  Data = {
+    isActive : isactive
+  }
+ }
+else if(Lock===false){
+  Data = {
+    locked : Lock
+  }
+}
+else{
+  Data = {
+    locked : Lock
+  }
+}
+ 
+ 
+  
 
-      // Determine the API endpoint based on the user's role
-      let apiEndpoint = `/api/activate/${id}`;
+AccountServices.ActiveInactive(Data,userId, auth.user)
+.then((res) => {
+  console.log("res==========>", res);
+  alert(res.data.message);
+  window.location.reload();
+})
 
-      // Define the allowed roles for each role
-      const allowedRoles = {
-        superAdmin: ["WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"],
-        whiteLabel: ["HyperAgent"],
-        hyperAgent: ["SuperAgent"],
-        superAgent: ["MasterAgent"],
-      };
+.catch((err) => {
+  console.log("errorrr",err.response.data.message);
+  alert(err.response.data.message);
+  return;
+});
+// console.log('===============DATA',Data);
+};
 
-      // Check if the user's role is allowed to perform the action on the selected role
-      if (allowedRoles[userRole] && allowedRoles[userRole].includes(selectedStatus)) {
-        apiEndpoint += `/${selectedStatus}`;
-      } else {
-        console.error("Unauthorized action for the current user role");
-        return;
-      }
 
-      // Make the API call
-      const response = await axios.post(apiEndpoint, { isActive: status, locked: false }, {
-        headers: {
-          Authorization: `Bearer ${auth.user.token}`,
-        },
-      });
-
-      // Handle the response
-      console.log(response.data); // Log the API response data
-
-      // Update the selected status state if needed
-      setSelectedStatus(status);
-    } catch (error) {
-      console.error("Error making API request:", error);
-    }
-  };
 
  return (
     <div
       class="modal fade"
-      id="exampleModalCenter"
+      id={`activeInactive-${userId}`}
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
+      aria-labelledby={`activeInactive-${userId}`}
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+        <div className="modal-header" style={{ backgroundColor: "#006699", color: "white" }}>
+            <h5 className="modal-title" style={{ fontWeight: "bold", color: "white" }}>Change Status</h5>
+          </div>
           <div class="modal-body d-flex justify-content-center align-items-center">
-          <button type="button" class="btn btn-outline-success mx-2"  onClick={() => handleButtonClick("Active")}>Active</button> 
-          <button type="button" class="btn btn-outline-secondary mx-2"  onClick={() => handleButtonClick("Inactive")}>Inactive</button>
-          <button type="button" class="btn btn-outline-danger mx-2"  onClick={() => handleButtonClick("Locked")}>Locked</button>
+            {/* {activeStatus.locked === false?(<button type="button" class="btn btn-outline-danger mx-2"  onClick={() =>handleButtonChange(true)}>UnLocked</button>):({activeStatus.isActive?})} */}
+            {activeStatus.isactive?(<button type="button" class="btn btn-outline-secondary mx-2"  onClick={() => handleButtonClick (false)}>Inactive</button>):(<button type="button" class="btn btn-outline-success mx-2"  onClick={() => handleButtonClick(true)}>Active</button> )}
+          {activeStatus.locked?(<button type="button" class="btn btn-outline-danger mx-2"  onClick={() =>handleButtonChange(false)}>Locked</button>):(<button type="button" class="btn btn-outline-danger mx-2"  onClick={() =>handleButtonChange(true)}>UnLocked</button>)}
+          
+          
+          </div>
+          <div className="modal-footer">
+          
+            <button type="button" class="btn btn-primary btn-sm" onClick={() =>  handleSubmit()}>CHANGE</button>
           </div>
         </div>
       </div>
