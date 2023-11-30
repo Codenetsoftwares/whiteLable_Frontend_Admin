@@ -6,6 +6,7 @@ import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
 import { toast } from "react-toastify";
 import SelectModal from "./Modal/SelectModal";
+import StatusModal from "./Modal/StatusModal";
 
 
 const Card = ({
@@ -21,6 +22,20 @@ const Card = ({
   const [userid, setUserId] = useState("");
   const [userID, setUserID] = useState("");
   const [selectedStatus, setSelectedStatus] = useState('');
+  //creating to diplay modal 
+  const [showModal, setShowModal] = useState(false);
+
+
+  //creating the handle show button 
+  const handleShowModal = () => {
+    // Additional logic if needed before showing the modal
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    // Additional logic if needed before hiding the modal
+    setShowModal(false);
+  };
 
   const handleId = (id) => {
     setUserId(id);
@@ -135,19 +150,16 @@ const Card = ({
             </button>
           </span>
           <span className="mx-1">
-            <button
-              className="btn border border-2 rounded"
-              title="Setting"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target={`#activeInactive-${userId}`}
-              onClick={() => {
-              
-                handleId(userId);
-              }}
-            >
-              <i class="fa-thin fas fa-gear"></i>
-            </button>
+          <button
+        className="btn border border-2 rounded"
+        title="Setting"
+        type="button"
+        data-toggle="modal"
+        data-target={`#activeInactive-${userId}`}
+        onClick={handleShowModal}
+      >
+        <i className="fa-thin fas fa-gear"></i>
+      </button>
           </span>
           <span className="mx-1">
             <button className="btn border border-2 rounded" title="Profile">
@@ -170,7 +182,8 @@ const Card = ({
       </tr>
 
       <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
-      <SelectModal userId={userId} key={`activeInactive-${userId}`}/>
+      {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
+      <StatusModal show={showModal} handleClose={handleCloseModal}  key={`activeInactive-${userId}`} />
 
       <EditCreditRefBalance userId={userId} key={`EditCreditRefBalance-${userId}`} />
       <EditPartnerShipBalance />

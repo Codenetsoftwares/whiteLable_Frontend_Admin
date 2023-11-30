@@ -91,6 +91,7 @@ AccountServices.ActiveInactive(Data,userId, auth.user)
       tabindex="-1"
       role="dialog"
       aria-labelledby={`activeInactive-${userId}`}
+      
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
