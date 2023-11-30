@@ -7,7 +7,6 @@ import AccountServices from "../Services/AccountServices";
 import { toast } from "react-toastify";
 import SelectModal from "./Modal/SelectModal";
 
-
 const Card = ({
   role,
   userId,
@@ -20,7 +19,7 @@ const Card = ({
   const auth = useAuth();
   const [userid, setUserId] = useState("");
   const [userID, setUserID] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState("");
 
   const handleId = (id) => {
     setUserId(id);
@@ -59,7 +58,6 @@ const Card = ({
     }
   };
 
-
   return (
     <tbody>
       <tr>
@@ -81,10 +79,7 @@ const Card = ({
               data-bs-toggle="modal"
               data-bs-target={`#EditCreditRefBalance-${userId}`}
             >
-              <i
-                className="fa-solid fa-pen-to-square"
-
-              ></i>
+              <i className="fa-solid fa-pen-to-square"></i>
             </button>
           </span>
           <span className="m-2">
@@ -142,7 +137,6 @@ const Card = ({
               data-bs-toggle="modal"
               data-bs-target={`#activeInactive-${userId}`}
               onClick={() => {
-              
                 handleId(userId);
               }}
             >
@@ -155,9 +149,13 @@ const Card = ({
             </button>
           </span>
           <span className="mx-1">
-            <button className="btn border border-2 rounded" title="Delete" onClick={(e) => {
-              handeldeletewebsite(userId);
-            }}>
+            <button
+              className="btn border border-2 rounded"
+              title="Delete"
+              onClick={(e) => {
+                handeldeletewebsite(userId);
+              }}
+            >
               <i class="fa-light fas fa-trash"></i>
             </button>
           </span>
@@ -169,10 +167,16 @@ const Card = ({
         </td>
       </tr>
 
-      <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
-      <SelectModal userId={userId} key={`activeInactive-${userId}`}/>
+      <TransferBalance
+        userName={userName}
+        key={`transferbalance-${userName}`}
+      />
+      <SelectModal userId={userId} key={`activeInactive-${userId}`} />
 
-      <EditCreditRefBalance userId={userId} key={`EditCreditRefBalance-${userId}`} />
+      <EditCreditRefBalance
+        userId={userId}
+        key={`EditCreditRefBalance-${userId}`}
+      />
       <EditPartnerShipBalance />
     </tbody>
   );
