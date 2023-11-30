@@ -6,6 +6,7 @@ import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
 import { toast } from "react-toastify";
 import SelectModal from "./Modal/SelectModal";
+import StatusModal from "./Modal/StatusModal";
 
 const Card = ({
   role,
@@ -19,7 +20,22 @@ const Card = ({
   const auth = useAuth();
   const [userid, setUserId] = useState("");
   const [userID, setUserID] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState('');
+  //creating to diplay modal 
+  const [showModal, setShowModal] = useState(false);
+
+
+  //creating the handle show button 
+  const handleShowModal = () => {
+    // Additional logic if needed before showing the modal
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    // Additional logic if needed before hiding the modal
+    setShowModal(false);
+  };
+
 
   const handleId = (id) => {
     setUserId(id);
@@ -130,6 +146,7 @@ const Card = ({
             </button>
           </span>
           <span className="mx-1">
+
             <button
               className="btn border border-2 rounded"
               title="Setting"
@@ -142,6 +159,7 @@ const Card = ({
             >
               <i class="fa-thin fas fa-gear"></i>
             </button>
+
           </span>
           <span className="mx-1">
             <button className="btn border border-2 rounded" title="Profile">
@@ -167,11 +185,10 @@ const Card = ({
         </td>
       </tr>
 
-      <TransferBalance
-        userName={userName}
-        key={`transferbalance-${userName}`}
-      />
-      <SelectModal userId={userId} key={`activeInactive-${userId}`} />
+      <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
+      {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
+      <StatusModal show={showModal} handleClose={handleCloseModal}  key={`activeInactive-${userId}`} />
+   
 
       <EditCreditRefBalance
         userId={userId}
