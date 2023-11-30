@@ -11,7 +11,7 @@ const AdminLayout = () => {
       <NavTop />
       <Navside />
       {/* <Layout /> */}
-      <Footer />
+      {/* <Footer /> */}
       {/* </section> */}
     </div>
   );

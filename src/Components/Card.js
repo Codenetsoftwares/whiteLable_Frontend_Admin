@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import SelectModal from "./Modal/SelectModal";
 import StatusModal from "./Modal/StatusModal";
 
-
 const Card = ({
   role,
   userId,
@@ -36,6 +35,7 @@ const Card = ({
     // Additional logic if needed before hiding the modal
     setShowModal(false);
   };
+
 
   const handleId = (id) => {
     setUserId(id);
@@ -74,7 +74,6 @@ const Card = ({
     }
   };
 
-
   return (
     <tbody>
       <tr>
@@ -96,10 +95,7 @@ const Card = ({
               data-bs-toggle="modal"
               data-bs-target={`#EditCreditRefBalance-${userId}`}
             >
-              <i
-                className="fa-solid fa-pen-to-square"
-
-              ></i>
+              <i className="fa-solid fa-pen-to-square"></i>
             </button>
           </span>
           <span className="m-2">
@@ -150,16 +146,20 @@ const Card = ({
             </button>
           </span>
           <span className="mx-1">
-          <button
-        className="btn border border-2 rounded"
-        title="Setting"
-        type="button"
-        data-toggle="modal"
-        data-target={`#activeInactive-${userId}`}
-        onClick={handleShowModal}
-      >
-        <i className="fa-thin fas fa-gear"></i>
-      </button>
+
+            <button
+              className="btn border border-2 rounded"
+              title="Setting"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target={`#activeInactive-${userId}`}
+              onClick={() => {
+                handleId(userId);
+              }}
+            >
+              <i class="fa-thin fas fa-gear"></i>
+            </button>
+
           </span>
           <span className="mx-1">
             <button className="btn border border-2 rounded" title="Profile">
@@ -167,9 +167,13 @@ const Card = ({
             </button>
           </span>
           <span className="mx-1">
-            <button className="btn border border-2 rounded" title="Delete" onClick={(e) => {
-              handeldeletewebsite(userId);
-            }}>
+            <button
+              className="btn border border-2 rounded"
+              title="Delete"
+              onClick={(e) => {
+                handeldeletewebsite(userId);
+              }}
+            >
               <i class="fa-light fas fa-trash"></i>
             </button>
           </span>
@@ -184,8 +188,12 @@ const Card = ({
       <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
       <StatusModal show={showModal} handleClose={handleCloseModal}  key={`activeInactive-${userId}`} />
+   
 
-      <EditCreditRefBalance userId={userId} key={`EditCreditRefBalance-${userId}`} />
+      <EditCreditRefBalance
+        userId={userId}
+        key={`EditCreditRefBalance-${userId}`}
+      />
       <EditPartnerShipBalance />
     </tbody>
   );

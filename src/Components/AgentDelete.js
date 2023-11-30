@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useAuth } from '../Utils/Auth';
-import AccountServices from '../Services/AccountServices';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../Utils/Auth";
+import AccountServices from "../Services/AccountServices";
 
 const AgentDelete = () => {
   const auth = useAuth();
@@ -11,22 +11,22 @@ const AgentDelete = () => {
 
   useEffect(() => {
     if (auth.user) {
-      AccountServices.ViewAgentDelete(auth.user).then((res) => (
-        console.log(res),
-        setViewAgentDelete(res.data)));
+      AccountServices.ViewAgentDelete(auth.user).then(
+        (res) => (console.log(res), setViewAgentDelete(res.data))
+      );
     }
   }, [auth]);
 
-  console.log(viewAgentDelete)
+  console.log(viewAgentDelete);
 
   for (let i = 0; i < alert.length; i++) {
     EditData[i] = alert[i].changedFields;
   }
-  console.log(viewAgentDelete)
+  console.log(viewAgentDelete);
 
   const handleDelete = (e, id) => {
     e.preventDefault();
-    console.log("=============....>>>>>",id);
+    console.log("=============....>>>>>", id);
     const flag = true;
 
     const data = {
@@ -84,6 +84,6 @@ const AgentDelete = () => {
       )}
     </>
   );
-}
+};
 
-export default AgentDelete
+export default AgentDelete;

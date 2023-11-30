@@ -1,7 +1,6 @@
-import React, {useState, useEffect }  from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Utils/Auth";
 import AccountServices from "../../Services/AccountServices";
-
 
 const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
   const [isactive, setIsactive] = useState(false);
@@ -10,81 +9,63 @@ const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
   const [activeStatus, setActiveStatus] = useState([]);
   const auth = useAuth();
   // console.log("=========>>I AM HERE",id)
- 
-  useEffect(() => {
-   AccountServices.getActiveStatus(auth.user.id, auth.user).then(
-      (res) => {
-        console.log("xxxxxxxxxxxx", res.data);
-        setActiveStatus(res.data)
-}
-    );
-  }, []);
-  console.log('============>status',activeStatus)
-  const handleButtonClick =  (data) => {
 
-    setIsactive(data)
-    
-  
-  }
-console.log(isactive)
+  useEffect(() => {
+    AccountServices.getActiveStatus(auth.user.id, auth.user).then((res) => {
+      console.log("xxxxxxxxxxxx", res.data);
+      setActiveStatus(res.data);
+    });
+  }, []);
+  console.log("============>status", activeStatus);
+  const handleButtonClick = (data) => {
+    setIsactive(data);
+  };
+  console.log(isactive);
 
   const handleButtonChange = (data) => {
-    setLock(data)
-  
-  }
-  console.log("LOCKED",Lock)
-
+    setLock(data);
+  };
+  console.log("LOCKED", Lock);
 
   const handleSubmit = () => {
-    console.log("lock",Lock)
-    console.log("isActive",isactive)
-let Data;
- 
+    console.log("lock", Lock);
+    console.log("isActive", isactive);
+    let Data;
 
- if(isactive===false)
- {
-  Data = {
-    isActive : isactive
-  }
- }
- else if (isactive)
- {
-  Data = {
-    isActive : isactive
-  }
- }
-else if(Lock===false){
-  Data = {
-    locked : Lock
-  }
-}
-else{
-  Data = {
-    locked : Lock
-  }
-}
- 
- 
-  
+    if (isactive === false) {
+      Data = {
+        isActive: isactive,
+      };
+    } else if (isactive) {
+      Data = {
+        isActive: isactive,
+      };
+    } else if (Lock === false) {
+      Data = {
+        locked: Lock,
+      };
+    } else {
+      Data = {
+        locked: Lock,
+      };
+    }
 
-AccountServices.ActiveInactive(Data,userId, auth.user)
-.then((res) => {
-  console.log("res==========>", res);
-  alert(res.data.message);
-  window.location.reload();
-})
+    AccountServices.ActiveInactive(Data, userId, auth.user)
+      .then((res) => {
+        console.log("res==========>", res);
+        alert(res.data.message);
+        window.location.reload();
+      })
 
-.catch((err) => {
-  console.log("errorrr",err.response.data.message);
-  alert(err.response.data.message);
-  return;
-});
-// console.log('===============DATA',Data);
-};
+      .catch((err) => {
+        console.log("errorrr", err.response.data.message);
+        alert(err.response.data.message);
+        return;
+      });
+    // console.log('===============DATA',Data);
+  };
 
-
-
- return (
+  return (
     <div
       class="modal fade"
       id={`activeInactive-${userId}`}
@@ -96,19 +77,62 @@ AccountServices.ActiveInactive(Data,userId, auth.user)
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-        <div className="modal-header" style={{ backgroundColor: "#006699", color: "white" }}>
-            <h5 className="modal-title" style={{ fontWeight: "bold", color: "white" }}>Change Status</h5>
+          <div
+            className="modal-header"
+            style={{ backgroundColor: "#006699", color: "white" }}
+          >
+            <h5
+              className="modal-title"
+              style={{ fontWeight: "bold", color: "white" }}
+            >
+              Change Status
+            </h5>
           </div>
           <div class="modal-body d-flex justify-content-center align-items-center">
             {/* {activeStatus.locked === false?(<button type="button" class="btn btn-outline-danger mx-2"  onClick={() =>handleButtonChange(true)}>UnLocked</button>):({activeStatus.isActive?})} */}
-            {activeStatus.isactive?(<button type="button" class="btn btn-outline-secondary mx-2"  onClick={() => handleButtonClick (false)}>Inactive</button>):(<button type="button" class="btn btn-outline-success mx-2"  onClick={() => handleButtonClick(true)}>Active</button> )}
-          {activeStatus.locked?(<button type="button" class="btn btn-outline-danger mx-2"  onClick={() =>handleButtonChange(false)}>Locked</button>):(<button type="button" class="btn btn-outline-danger mx-2"  onClick={() =>handleButtonChange(true)}>UnLocked</button>)}
-          
-          
+            {activeStatus.isactive ? (
+              <button
+                type="button"
+                class="btn btn-outline-secondary mx-2"
+                onClick={() => handleButtonClick(false)}
+              >
+                Inactive
+              </button>
+            ) : (
+              <button
+                type="button"
+                class="btn btn-outline-success mx-2"
+                onClick={() => handleButtonClick(true)}
+              >
+                Active
+              </button>
+            )}
+            {activeStatus.locked ? (
+              <button
+                type="button"
+                class="btn btn-outline-danger mx-2"
+                onClick={() => handleButtonChange(false)}
+              >
+                Locked
+              </button>
+            ) : (
+              <button
+                type="button"
+                class="btn btn-outline-danger mx-2"
+                onClick={() => handleButtonChange(true)}
+              >
+                UnLocked
+              </button>
+            )}
           </div>
           <div className="modal-footer">
-          
-            <button type="button" class="btn btn-primary btn-sm" onClick={() =>  handleSubmit()}>CHANGE</button>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              onClick={() => handleSubmit()}
+            >
+              CHANGE
+            </button>
           </div>
         </div>
       </div>
@@ -117,3 +141,4 @@ AccountServices.ActiveInactive(Data,userId, auth.user)
 };
 
 export default SelectModal;
+        
