@@ -33,7 +33,7 @@ class AccountService {
     });
   }
 
-  getAllCreates(id,user) {
+  getAllCreates(id, user) {
     return axios({
       method: "get",
       url: `${API_HOST}/api/view-all-creates/${id}`,
@@ -44,16 +44,17 @@ class AccountService {
   }
 
 
-  deletewebsite(data, user) {
+  deleteAgent(data, user) {
     return axios({
       method: "post",
       url: `${API_HOST}/api/admin/move-to-trash-user`,
-data: data,
+      data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
     });
   }
+
 
   ActiveInactive(data, id, user) {
     console.log(data, id)
@@ -88,8 +89,18 @@ data: data,
     });
   }
 
-  
- getActiveStatus(_id, user) {
+  restoreAgent(data, user) {
+    return axios({
+      method: "post",
+      url: `${API_HOST}/api/admin/restore-to-wallet-user`,
+      data: data,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
+  getActiveStatus(_id, user) {
     return axios({
       method: "GET",
       url: `${API_HOST}/api/admin/active-status/${_id}`,
