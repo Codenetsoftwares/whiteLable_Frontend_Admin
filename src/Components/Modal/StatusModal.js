@@ -1,50 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react'
 
-const StatusModal = ({ userId, show, handleClose }) => {
-  const [activeStatus, setActiveStatus] = useState({
-    isActive: true,
-    lock: false,
-  });
-
-  const handleButtonClick = () => {
-    setActiveStatus({ ...activeStatus, isActive: !activeStatus.isActive });
-  };
-
-  const handleButtonChange = () => {
-    setActiveStatus({ ...activeStatus, lock: !activeStatus.lock });
-  };
-
-  const renderButtons = () => {
-    return (
-      <>
-        <button type="button" className="btn btn-outline-secondary mx-2" onClick={handleButtonClick}>
-          {activeStatus.isActive ? 'Active' : 'Inactive'}
-        </button>
-        <button type="button" className="btn btn-outline-danger mx-2" onClick={handleButtonChange}>
-          {activeStatus.lock ? 'Unlock' : 'Lock'}
-        </button>
-      </>
-    );
-  };
+const StatusModal = ({userId,show, handleClose }) => {
 
   return (
-    <div className={`modal ${show ? 'show' : ''}`} tabIndex="-1" role="dialog" id={`activeInactive-${userId}`} aria-labelledby={`activeInactive-${userId}`} style={{ display: show ? 'block' : 'none' }}>
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">CHANGE STATUS</h5>
-            <button type="button" className="btn-close" aria-label="Close" onClick={handleClose}></button>
-          </div>
-          <div className="modal-body">{renderButtons()}</div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" onClick={handleClose}>
-              CHANGE
-            </button>
-          </div>
-        </div>
+    <div className={`modal ${show ? 'show' : ''}`} tabIndex="-1" role="dialog" id={`activeInactive-${userId}`} 
+aria-labelledby={`activeInactive-${userId}`} style={{ display: show ? 'block' : 'none' }}>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">CHANGE STATUS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick={handleClose}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+            <div className="btn-group" role="group" aria-label="User Status">
+              <button type="button" className="btn btn-outline-success">
+                <i className="fas fa-check-circle"></i> Active
+              </button>
+              <button type="button" className="btn btn-outline-danger">
+                <i className="fas fa-pause-circle"></i> Suspended
+              </button>
+              <button type="button" className="btn btn-outline-secondary">
+                <i className="fas fa-lock"></i> Locked
+              </button>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
-  );
-};
+  </div>
+</div>
+  )
+}
 
-export default StatusModal;
+export default StatusModal
