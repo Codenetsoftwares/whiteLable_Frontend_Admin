@@ -71,7 +71,7 @@ const Card = ({
         });
     }
   };
-  
+
 
   return (
     <tbody>
@@ -120,13 +120,13 @@ const Card = ({
           {loadBalance}
         </td>
         <td scope="row" className="fs-6 text-center text-danger">
-          (7658)
+          0
         </td>
         <td scope="row" className="fs-6 text-center">
           {balance}
         </td>
         <td scope="row" className="fs-6 text-center text-danger">
-          ({refProfitLoss})
+          {refProfitLoss}
         </td>
         <td scope="row" className="fs-6 text-center">
           <p className="border border-1 w-75 text-center bg-success rounded-pill">
