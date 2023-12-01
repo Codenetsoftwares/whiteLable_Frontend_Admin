@@ -6,13 +6,8 @@ import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
 import { toast } from "react-toastify";
 import SelectModal from "./Modal/SelectModal";
-
-import AccountLandingModal from "./MyAccount/AccountLandingModal";
-import { Link } from "react-router-dom";
-
 import StatusModal from "./Modal/StatusModal";
-
-
+import { Link } from "react-router-dom";
 const Card = ({
   role,
   userId,
@@ -25,52 +20,33 @@ const Card = ({
   const auth = useAuth();
   const [userid, setUserId] = useState("");
   const [userID, setUserID] = useState("");
-
   const [selectedStatus, setSelectedStatus] = useState("");
-  console.log("ID", userId);
-
-  const [selectedStatus, setSelectedStatus] = useState('');
-  //creating to diplay modal 
+  //creating to diplay modal
   const [showModal, setShowModal] = useState(false);
-
-
-  //creating the handle show button 
+  //creating the handle show button
   const handleShowModal = () => {
     // Additional logic if needed before showing the modal
     setShowModal(true);
   };
-
   const handleCloseModal = () => {
     // Additional logic if needed before hiding the modal
     setShowModal(false);
   };
-
-
-
   const handleId = (id) => {
     setUserId(id);
   };
-
-  const handleMyaccount = () => {
-    setId(userId);
-  };
-
   const handlestatus = (id) => {
     setUserId(id);
   };
-
   const handleUserName = (UserName) => {
     setUserID(UserName);
   };
-
   const handeldelete = (id) => {
     // e.preventDefault();
     console.log("Line 88", id);
-
     const userConfirmed = window.confirm(
       "Are You Sure You Want to Delete This Agent?"
     );
-
     if (userConfirmed) {
       console.log("Im here in line 94");
       AccountServices.deleteAgent({ requestId: id }, auth.user)
@@ -85,8 +61,6 @@ const Card = ({
         });
     }
   };
-
-
   return (
     <tbody>
       <tr>
@@ -112,7 +86,7 @@ const Card = ({
             </button>
           </span>
           <span className="m-2">
-            <i className="fa-regular fa-eye"></i>
+            <i class="fa-regular fa-eye"></i>
           </span>
         </td>
         <td scope="row" className="fs-6 text-center">
@@ -127,7 +101,7 @@ const Card = ({
             ></i>
           </span>
           <span className="m-2">
-            <i className="fa-regular fa-eye"></i>
+            <i class="fa-regular fa-eye"></i>
           </span>
         </td>
         <td scope="row" className="fs-6 text-center">
@@ -155,85 +129,59 @@ const Card = ({
               className="btn border border-2 rounded"
               title="Addmoney"
             >
-              <i className="fa-solid fa-circle-dollar-to-slot"></i>
+              <i class="fa-solid fa-circle-dollar-to-slot"></i>
             </button>
           </span>
           <span className="mx-1">
-
             <button
               className="btn border border-2 rounded"
               title="Setting"
               type="button"
               data-bs-toggle="modal"
-
-              data-bs-target="#exampleModalCenter"
-              onClick={() => {
-                handleUserName(userName);
-                handleId(userId);
-              }}
-            >
-              <i className="fa-thin fas fa-gear"></i>
-
               data-bs-target={`#activeInactive-${userId}`}
               onClick={() => {
                 handleId(userId);
               }}
             >
               <i class="fa-thin fas fa-gear"></i>
-
             </button>
-
           </span>
           <span className="mx-1">
-            <Link to={`/account-landing/${userId}`}>
-              <button className="btn border border-2 rounded" title="Profile">
-                <i className="fa-solid fa-user"></i>
+               <Link to={`/account-landing/${userId}`}>
+            <button className="btn border border-2 rounded" title="Profile">
+              <i class="fa-solid fa-user"></i>
               </button>
-            </Link>
+              </Link>
+
           </span>
           <span className="mx-1">
             <button
               className="btn border border-2 rounded"
               title="Delete"
               onClick={(e) => {
-
-                handeldeletewebsite(userId);
-              }}
-            >
-              <i className="fa-light fas fa-trash"></i>
-
                 handeldelete(userId);
               }}
             >
               <i class="fa-light fas fa-trash"></i>
-
             </button>
           </span>
           <span className="mx-1">
             <button className="btn border border-2 rounded" title="Wallet">
-              <i className="fa-regular fas fa-wallet"></i>
+              <i class="fa-regular fas fa-wallet"></i>
             </button>
           </span>
         </td>
       </tr>
-
-
       <TransferBalance
         userName={userName}
         key={`transferbalance-${userName}`}
       />
-      <SelectModal
-        id={id}
-        selectedStatus={selectedStatus}
-        setSelectedStatus={setSelectedStatus}
-      />
-
-      <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
-      <StatusModal show={showModal} handleClose={handleCloseModal} key={`activeInactive-${userId}`} />
-
-
-
+      <StatusModal
+        show={showModal}
+        handleClose={handleCloseModal}
+        key={`activeInactive-${userId}`}
+      />
       <EditCreditRefBalance
         userId={userId}
         key={`EditCreditRefBalance-${userId}`}
@@ -242,5 +190,4 @@ const Card = ({
     </tbody>
   );
 };
-
 export default Card;
