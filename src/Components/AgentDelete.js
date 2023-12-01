@@ -34,6 +34,25 @@ const AgentDelete = () => {
     };
     AccountServices.IsAgentDeleteApprove(id, auth.user)
       .then((response) => {
+        alert("Agent Deleted From Trash Successfully!")
+        window.location.reload();
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+
+  const handleRestore = (e, id) => {
+    e.preventDefault();
+    console.log("=============....>>>>>", id);
+    const data = {
+      userId: id
+    };
+    AccountServices.restoreAgent(data, auth.user)
+      .then((response) => {
+        alert("Agent Restore From Trash Successfully!")
         window.location.reload();
         console.log(response.data);
       })
@@ -67,6 +86,14 @@ const AgentDelete = () => {
                         onClick={(e) => handleDelete(e, data._id)}
                       >
                         Delete
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-secondary text-dark rounded"
+                        onClick={(e) => handleRestore(e, data._id)}
+                      >
+                        Restore
                       </button>
                     </td>
                   </tr>

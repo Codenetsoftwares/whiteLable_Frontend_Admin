@@ -49,30 +49,29 @@ const Card = ({
     setUserID(UserName);
   };
 
-  const handeldeletewebsite = (id) => {
+  const handeldelete = (id) => {
     // e.preventDefault();
     console.log("Line 88", id);
 
     const userConfirmed = window.confirm(
-      "Are You Sure You Want to Delete This Website?"
+      "Are You Sure You Want to Delete This Agent?"
     );
 
     if (userConfirmed) {
       console.log("Im here in line 94");
-      AccountServices.deletewebsite({ requestId: id }, auth.user)
+      AccountServices.deleteAgent({ requestId: id }, auth.user)
         .then((res) => {
-          // console.log(response.data);
-          if (res.status === 200) {
-            alert("Website Deleted approval sent!");
+          if (res.status === 201) {
+            alert("Agent Deleted approval sent!");
             window.location.reload();
           }
         })
         .catch((error) => {
           toast.error(error);
-          // alert.error("e.message");
         });
     }
   };
+  
 
   return (
     <tbody>
@@ -171,7 +170,7 @@ const Card = ({
               className="btn border border-2 rounded"
               title="Delete"
               onClick={(e) => {
-                handeldeletewebsite(userId);
+                handeldelete(userId);
               }}
             >
               <i class="fa-light fas fa-trash"></i>
@@ -187,8 +186,8 @@ const Card = ({
 
       <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
-      <StatusModal show={showModal} handleClose={handleCloseModal}  key={`activeInactive-${userId}`} />
-   
+      <StatusModal show={showModal} handleClose={handleCloseModal} key={`activeInactive-${userId}`} />
+
 
       <EditCreditRefBalance
         userId={userId}
