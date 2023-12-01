@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useAuth } from '../Utils/Auth';
-import AccountServices from '../Services/AccountServices';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../Utils/Auth";
+import AccountServices from "../Services/AccountServices";
 
 const AgentDelete = () => {
   const auth = useAuth();
@@ -11,22 +11,22 @@ const AgentDelete = () => {
 
   useEffect(() => {
     if (auth.user) {
-      AccountServices.ViewAgentDelete(auth.user).then((res) => (
-        console.log(res),
-        setViewAgentDelete(res.data)));
+      AccountServices.ViewAgentDelete(auth.user).then(
+        (res) => (console.log(res), setViewAgentDelete(res.data))
+      );
     }
   }, [auth]);
 
-  console.log(viewAgentDelete)
+  console.log(viewAgentDelete);
 
   for (let i = 0; i < alert.length; i++) {
     EditData[i] = alert[i].changedFields;
   }
-  console.log(viewAgentDelete)
+  console.log(viewAgentDelete);
 
   const handleDelete = (e, id) => {
     e.preventDefault();
-    console.log(id);
+    console.log("=============....>>>>>", id);
     const flag = true;
 
     const data = {
@@ -34,6 +34,25 @@ const AgentDelete = () => {
     };
     AccountServices.IsAgentDeleteApprove(id, auth.user)
       .then((response) => {
+        alert("Agent Deleted From Trash Successfully!")
+        window.location.reload();
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+
+  const handleRestore = (e, id) => {
+    e.preventDefault();
+    console.log("=============....>>>>>", id);
+    const data = {
+      userId: id
+    };
+    AccountServices.restoreAgent(data, auth.user)
+      .then((response) => {
+        alert("Agent Restore From Trash Successfully!")
         window.location.reload();
         console.log(response.data);
       })
@@ -69,6 +88,14 @@ const AgentDelete = () => {
                         Delete
                       </button>
                     </td>
+                    <td>
+                      <button
+                        className="btn btn-secondary text-dark rounded"
+                        onClick={(e) => handleRestore(e, data._id)}
+                      >
+                        Restore
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </table>
@@ -84,6 +111,6 @@ const AgentDelete = () => {
       )}
     </>
   );
-}
+};
 
-export default AgentDelete
+export default AgentDelete;

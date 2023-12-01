@@ -6,15 +6,21 @@ const TransferBalance = ({ userName }) => {
   console.log("username...", userName)
   const auth = useAuth();
   const [Amount, setAmount] = useState(0);
+  const [Remarks, SetRemarks] = useState("");
   const handleAmtChange = (e) => {
     setAmount(e.target.value);
   };
   const handleReset = () => {
     setAmount(0);
   };
+
+  const handelRemarkschange = (e) => {
+    SetRemarks(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (Amount === 0 || Amount < 0) {
+    if (Amount === 0 || Remarks === "" || Amount < 0) {
       if (Amount < 0) {
         toast.error("Amount cannot be negative");
         return;
@@ -29,24 +35,28 @@ const TransferBalance = ({ userName }) => {
           adminUserName: auth.user.userName,
           trnsfAmnt: Number(Amount),
           whiteLabelUsername: userName,
+          remarks: Remarks,
         };
       } else if (auth.user?.role?.includes("WhiteLabel")) {
         data = {
           whiteLabelUsername: auth.user.userName,
           trnsfAmnt: Number(Amount),
           hyperAgentUserName: userName,
+          remarks: Remarks,
         };
       } else if (auth.user?.role?.includes("HyperAgent")) {
         data = {
           hyperAgentUserName: auth.user.userName,
           trnsfAmnt: Number(Amount),
           SuperAgentUserName: userName,
+          remarks: Remarks,
         };
       } else if (auth.user?.role?.includes("SuperAgent")) {
         data = {
           SuperAgentUserName: auth.user.userName,
           trnsfAmnt: Number(Amount),
           masterAgentUserName: userName,
+          remarks: Remarks,
         };
       }
       console.log("data", data);
@@ -61,17 +71,18 @@ const TransferBalance = ({ userName }) => {
         .catch((error) => {
           console.log(error);
           alert(error.response.data.message);
+          handleReset()
         });
     } catch (error) {
       console.error("Error:", error);
     }
   };
   return (
-    <div className="modal fade" id={`transferbalance-${userName}`} tabIndex="-1" aria-labelledby={`transferbalanceModal-${userName}`} aria-hidden="true">
+    <div className="modal fade" id={`transferbalance-${userName}`} tabIndex="-1" aria-labelledby={`transferbalance-${userName}`} aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="transferbalanceModal">
+            <h5 className="modal-title" >
               Amount
             </h5>
             <button
@@ -106,6 +117,14 @@ const TransferBalance = ({ userName }) => {
                   value={Amount}
                 />
               </div>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Remarks *"
+                onChange={handelRemarkschange}
+                value={Remarks}
+                required
+              />
             </form>
           </div>
           <div className="modal-footer">
