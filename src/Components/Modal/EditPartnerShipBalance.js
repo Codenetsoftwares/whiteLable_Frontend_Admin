@@ -5,11 +5,15 @@ import { toast } from 'react-toastify';
 
 const EditPartnerShipBalance = () => {
     const auth = useAuth();
+    console.log('-------AUTHETICATION',auth)
     const [Amount, SetAmount] = useState(0);
     const id = auth.user.id;
+
+    console.log('......MMMM>>>ID--->',id)
     const handelamtchange = (e) => {
         SetAmount(e.target.value);
     };
+
     const handleReset = () => {
         SetAmount(0);
     }

@@ -11,6 +11,7 @@ const Card = ({
   role,
   userId,
   userName,
+  statusId,
   creditRef,
   balance,
   loadBalance,
@@ -19,34 +20,21 @@ const Card = ({
   const auth = useAuth();
   const [userid, setUserId] = useState("");
   const [userID, setUserID] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState('');
-  //creating to diplay modal 
-  const [showModal, setShowModal] = useState(false);
-
-
-  //creating the handle show button 
-  const handleShowModal = () => {
-    // Additional logic if needed before showing the modal
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    // Additional logic if needed before hiding the modal
-    setShowModal(false);
-  };
+  const [status, setStatus] = useState("");
+  console.log("99999999LOADBALAN", loadBalance);
 
   const handleId = (id) => {
     setUserId(id);
   };
 
-  const handlestatus = (id) => {
-    setUserId(id);
+  const handlestatus = (userId) => {
+    setUserId(userId);
   };
 
   const handleUserName = (UserName) => {
     setUserID(UserName);
   };
-
+  console.log("OOOOOOOOOOOUID--->", userID);
   const handeldelete = (id) => {
     // e.preventDefault();
     console.log("Line 88", id);
@@ -67,7 +55,6 @@ const Card = ({
         });
     }
   };
-
 
   return (
     <tbody>
@@ -90,10 +77,7 @@ const Card = ({
               data-bs-toggle="modal"
               data-bs-target={`#EditCreditRefBalance-${userId}`}
             >
-              <i
-                className="fa-solid fa-pen-to-square"
-
-              ></i>
+              <i className="fa-solid fa-pen-to-square"></i>
             </button>
           </span>
           <span className="m-2">
@@ -144,24 +128,23 @@ const Card = ({
             </button>
           </span>
           <span className="mx-1">
-          <button
-        className="btn border border-2 rounded"
-        title="Setting"
-        type="button"
-        data-toggle="modal"
-        data-target={`#activeInactive-${userId}`}
-        onClick={handleShowModal}
-      >
-        <i className="fa-thin fas fa-gear"></i>
-      </button>
+            <button
+              className="btn border border-2 rounded"
+              title="Setting"
+              type="button"
+              data-toggle="modal"
+              data-target={`#activeInactive-${userId}`}
+              onClick={handlestatus}
+            >
+              <i className="fa-thin fas fa-gear"></i>
+            </button>
           </span>
           <span className="mx-1">
-               <Link to={`/account-landing/${userId}`}>
-            <button className="btn border border-2 rounded" title="Profile">
-              <i class="fa-solid fa-user"></i>
+            <Link to={`/account-landing/${userId}`}>
+              <button className="btn border border-2 rounded" title="Profile">
+                <i class="fa-solid fa-user"></i>
               </button>
-              </Link>
-
+            </Link>
           </span>
           <span className="mx-1">
             <button className="btn border border-2 rounded" title="Profile">
@@ -169,12 +152,13 @@ const Card = ({
             </button>
           </span>
           <span className="mx-1">
-            <button 
-            className="btn border border-2 rounded" 
-            title="Delete" 
-            onClick={(e) => {
-              handeldelete(userId);
-            }}>
+            <button
+              className="btn border border-2 rounded"
+              title="Delete"
+              onClick={(e) => {
+                handeldelete(userId);
+              }}
+            >
               <i class="fa-light fas fa-trash"></i>
             </button>
           </span>
@@ -186,18 +170,25 @@ const Card = ({
         </td>
       </tr>
 
-      <TransferBalance userName={userName} key={`transferbalance-${userName}`} />
+      <TransferBalance
+        userName={userName}
+        key={`transferbalance-${userName}`}
+      />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
-      <StatusModal 
-       show={showModal} 
-       handleClose={handleCloseModal} 
-        key={`activeInactive-${userId}`} />
+      <StatusModal
+        statusId={userId}
+        username={userName} // Pass the username as a prop
+        userRole={role}
+        // key={`activeInactive-${userId}`}
+      />
 
-      <EditCreditRefBalance userId={userId} key={`EditCreditRefBalance-${userId}`} />
+      <EditCreditRefBalance
+        userId={userId}
+        key={`EditCreditRefBalance-${userId}`}
+      />
       <EditPartnerShipBalance />
     </tbody>
   );
 };
 
 export default Card;
-

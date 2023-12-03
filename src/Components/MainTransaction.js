@@ -18,20 +18,20 @@ const MainTransaction = () => {
         if (auth.user) {
             TransactionServices.viewBalance(auth.user.id, auth.user)
                 .then((res) => {
-                    console.log("==========>", res.data);
+                    console.log("==========>uuuuuu", res.data);
                     setBalance(res.data.amount.balance);
                 })
                 .catch((err) => setBalance([]));
 
             AccountServices.getAllCreates(auth.user.id, auth.user)
                 .then((res) => {
-                    console.log("==========>", res.data);
+                    console.log("==========MmmmmHHHHHHHHHH>", res.data);
                     setUserList(res.data.user);
                 })
                 .catch((err) => setUserList([]));
         }
     }, []);
-    console.log("first", userList);
+    console.log("first========>", userList);
     return (
         <div className="mt-3 mb-3">
             <div className="text-center ">
