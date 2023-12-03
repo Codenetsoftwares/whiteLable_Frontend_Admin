@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Utils/Auth";
 import AccountServices from "../../Services/AccountServices";
-const StatusModal = ({ statusId,  username, userRole }) => {
+const StatusModal = ({ statusId, username, userRole }) => {
   const auth = useAuth();
   const [userStatus, setUserStatus] = useState({
     active: true,
@@ -12,16 +12,25 @@ const StatusModal = ({ statusId,  username, userRole }) => {
 
   console.log("----------xxxx>>>AUTH", auth);
   console.log("-------STATUS ID", statusId);
-  console.log('pppppppppp',username)
-  console.log('sssssssssss',userRole)
+  console.log("pppppppppp", username);
+  console.log("sssssssssss", userRole);
 
   useEffect(() => {
     AccountServices.getActiveStatus(auth.user.id, auth.user).then((res) => {
       console.log("xxxxxxxxxxxx----DaTa", res.data);
+      const { isActive, locked } = res.data;
       setActiveStatus(res.data);
+
+ // Update userStatus state based on the data received
+      setUserStatus({
+        active: isActive,
+        suspended: !isActive && !locked,
+        locked: locked,
+      });
+    
     });
   }, []);
-  console.log(']]]]]]]]]]]]st',activeStatus)
+  console.log("]]]]]]]]]]]]st", activeStatus);
 
   const handleStatusChange = (statusType) => {
     if (statusType === "active") {
@@ -52,13 +61,13 @@ const StatusModal = ({ statusId,  username, userRole }) => {
       locked: false,
     });
   };
+  // Send a request to the server to unlock the user
+  const Data = {
+    adminId: statusId,
+    locked: false,
+  };
 
   const handleChange = () => {
-    // Add your logic to trigger the API call with the updated user status
-    // For example, you can make a POST request to update the user status
-    // using your API endpoint and the user status in the state.
-    // Make sure to include any necessary authentication headers.
-
     const { active, suspended, locked } = userStatus;
 
     let Data;
@@ -68,7 +77,7 @@ const StatusModal = ({ statusId,  username, userRole }) => {
       Data = {
         adminId: statusId,
         isActive: true,
-        locked: false,
+        // locked: false,
       };
       // alert("Admin activated successfully");
     } else if (!active && suspended && !locked) {
@@ -76,23 +85,23 @@ const StatusModal = ({ statusId,  username, userRole }) => {
       Data = {
         adminId: statusId,
         isActive: false,
-        locked: false,
+        // locked: false,
       };
       // alert("Admin suspended successfully");
     } else if (!active && !suspended && locked) {
       // If the user is locked
       Data = {
         adminId: statusId,
-        isActive: false,
-        locked: true,
+        // isActive: false,
+        locked: false,
       };
       // alert("Admin locked successfully");
     } else if (!active && !suspended && !locked) {
       // If the user is unlocked
       Data = {
         adminId: statusId,
-        isActive: false,
-        locked: false,
+        // isActive: false,
+        locked: true,
       };
       // alert("Admin unlocked successfully");
     } else {
@@ -102,18 +111,18 @@ const StatusModal = ({ statusId,  username, userRole }) => {
       return;
     }
     AccountServices.ActiveInactive(Data, statusId, auth.user)
-    .then((res) => {
-      console.log("res==========>", res);
-      alert(res.data.message);
-      // window.location.reload();
-    })
+      .then((res) => {
+        console.log("res==========>", res);
+        alert(res.data.message);
+        window.location.reload();
+      })
 
-    .catch((err) => {
-      console.log("errorrr", err.response.data.message);
-      alert(err.response.data.message);
-      return;
-    });
-  }
+      .catch((err) => {
+        console.log("errorrr", err.response.data.message);
+        alert(err.response.data.message);
+        return;
+      });
+  };
   return (
     <div
       className="modal fade"
@@ -166,12 +175,30 @@ const StatusModal = ({ statusId,  username, userRole }) => {
                 </div>
 
                 <div>
-                  <p
-                    className="btn btn-success position-relative"
+                <p
+                    className={`btn ${
+                      userStatus.active
+                        ? "btn-success"
+                        : userStatus.locked
+                        ? "btn-secondary"
+                        : "btn-danger"
+                    } position-relative`}
                     style={{ marginRight: "10px" }}
                   >
-                    Active
-                    <span className="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle"></span>
+                    {userStatus.active
+                      ? "Active"
+                      : userStatus.locked
+                      ? "Locked"
+                      : "Suspended"}
+                    <span
+                      className={`position-absolute top-0 start-100 translate-middle p-2 ${
+                        userStatus.active
+                          ? "bg-success"
+                          : userStatus.locked
+                          ? "bg-secondary"
+                          : "bg-danger"
+                      } border border-light rounded-circle`}
+                    ></span>
                   </p>
                 </div>
               </div>
@@ -190,7 +217,6 @@ const StatusModal = ({ statusId,  username, userRole }) => {
                 }`}
                 style={{ margin: "10px 20px" }}
                 onClick={() => handleStatusChange("active")}
-                
               >
                 <i className="fas fa-check-circle"></i>
                 <div> Active</div>
@@ -199,13 +225,10 @@ const StatusModal = ({ statusId,  username, userRole }) => {
               <button
                 type="button"
                 className={`btn ${
-                  userStatus.suspended
-                    ? "btn-danger"
-                    : "btn-outline-danger"
+                  userStatus.suspended ? "btn-danger" : "btn-outline-danger"
                 }`}
                 style={{ margin: "10px 10px" }}
                 onClick={() => handleStatusChange("suspended")}
-                
               >
                 <i className="fa fa-user-times"></i>
                 <div>Suspended </div>
@@ -236,13 +259,15 @@ const StatusModal = ({ statusId,  username, userRole }) => {
                     <div>Unlock</div>
                   </>
                 )}
-              
-              
               </button>
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" type="submit"  onClick={handleChange}>
+            <button
+              class="btn btn-primary"
+              type="submit"
+              onClick={handleChange}
+            >
               Change
             </button>
           </div>
