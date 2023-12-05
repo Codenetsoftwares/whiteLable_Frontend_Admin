@@ -18,10 +18,17 @@ const Card = ({
   refProfitLoss,
 }) => {
   const auth = useAuth();
+  const [Istatus, setIStatus] = useState('');
   const [userid, setUserId] = useState("");
   const [userID, setUserID] = useState("");
   const [status, setStatus] = useState("");
   console.log("99999999LOADBALAN", loadBalance);
+
+ // Function to receive the status from the child
+ const handleStatusChange = (newStatus) => {
+  setIStatus(newStatus);
+};
+console.log("----------Status--->>>",Istatus)
 
   const handleId = (id) => {
     setUserId(id);
@@ -113,7 +120,7 @@ const Card = ({
         </td>
         <td scope="row" className="fs-6 text-center">
           <p className="border border-1 w-75 text-center bg-success rounded-pill">
-            Active
+         {Istatus}
           </p>
         </td>
         <td scope="row" className="fs-6 text-center">
@@ -179,6 +186,7 @@ const Card = ({
         statusId={userId}
         username={userName} // Pass the username as a prop
         userRole={role}
+        onStatusChange={handleStatusChange} // Pass the function to receive status
         // key={`activeInactive-${userId}`}
       />
 

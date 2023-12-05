@@ -1,128 +1,105 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Utils/Auth";
 import AccountServices from "../../Services/AccountServices";
-const StatusModal = ({ statusId, username, userRole }) => {
+
+const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
   const auth = useAuth();
-  const [userStatus, setUserStatus] = useState({
-    active: true,
-    suspended: false,
-    locked: false,
-  });
-  const [activeStatus, setActiveStatus] = useState([]);
+  const [active, setActive] = useState(true);
+  const [btncolor1, setBtncolor1] = useState(false);
+  const [btncolor2, setBtncolor2] = useState(false);
+  const [btncolor3, setBtncolor3] = useState(false);
+  const [data, setData] = useState(0);
+  const [lock, setLock] = useState(true);
+  const [statusSubmitted, setStatusSubmitted] = useState(false);
+  const [activeStatus, setActiveStatus] = useState({});
 
   console.log("----------xxxx>>>AUTH", auth);
   console.log("-------STATUS ID", statusId);
-  console.log("pppppppppp", username);
-  console.log("sssssssssss", userRole);
 
   useEffect(() => {
-    AccountServices.getActiveStatus(auth.user.id, auth.user).then((res) => {
+    AccountServices.getActiveStatus(statusId, auth.user).then((res) => {
       console.log("xxxxxxxxxxxx----DaTa", res.data);
-      const { isActive, locked } = res.data;
+
       setActiveStatus(res.data);
-
- // Update userStatus state based on the data received
-      setUserStatus({
-        active: isActive,
-        suspended: !isActive && !locked,
-        locked: locked,
-      });
-    
+      console.log("Line 26=>>", activeStatus);
     });
-  }, []);
-  console.log("]]]]]]]]]]]]st", activeStatus);
+  }, [statusId, auth.user]);
+  
+  
+  const handleActiveChange = () => {
+    setActive(true);
+    setBtncolor1(true);
+    setBtncolor2(false);
+    setBtncolor3(false);
 
-  const handleStatusChange = (statusType) => {
-    if (statusType === "active") {
-      setUserStatus({
-        active: true,
-        suspended: false,
-        locked: false,
-      });
-    } else if (statusType === "suspended") {
-      setUserStatus({
-        active: false,
-        suspended: true,
-        locked: false,
-      });
-    } else if (statusType === "locked") {
-      setUserStatus({
-        active: false,
-        suspended: false,
-        locked: true,
-      });
-    }
+    setData(1);
   };
 
-  const handleUnlock = () => {
-    setUserStatus({
-      active: true,
-      suspended: false,
-      locked: false,
-    });
-  };
-  // Send a request to the server to unlock the user
-  const Data = {
-    adminId: statusId,
-    locked: false,
+  const handleInactiveChange = () => {
+    setActive(false);
+    setBtncolor2(true);
+    setBtncolor1(false);
+    setBtncolor3(false);
+    setLock(true);
+    setData(2);
   };
 
-  const handleChange = () => {
-    const { active, suspended, locked } = userStatus;
+  const handleLockChange = () => {
+    setLock(false);
+    setData(3);
+    setActive(false);
+    setBtncolor3(true);
+    setBtncolor1(false);
+    setBtncolor2(false);
+  };
 
-    let Data;
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    if (active && !suspended && !locked) {
-      // If the user is active
-      Data = {
-        adminId: statusId,
-        isActive: true,
-        // locked: false,
-      };
-      // alert("Admin activated successfully");
-    } else if (!active && suspended && !locked) {
-      // If the user is suspended
-      Data = {
-        adminId: statusId,
-        isActive: false,
-        // locked: false,
-      };
-      // alert("Admin suspended successfully");
-    } else if (!active && !suspended && locked) {
-      // If the user is locked
-      Data = {
-        adminId: statusId,
-        // isActive: false,
-        locked: false,
-      };
-      // alert("Admin locked successfully");
-    } else if (!active && !suspended && !locked) {
-      // If the user is unlocked
-      Data = {
-        adminId: statusId,
-        // isActive: false,
-        locked: true,
-      };
-      // alert("Admin unlocked successfully");
-    } else {
-      // If none of the above conditions match, show an error alert
-      alert("Invalid state");
-      console.error("Invalid state");
-      return;
-    }
-    AccountServices.ActiveInactive(Data, statusId, auth.user)
+    setStatusSubmitted(true);
+
+    const data = {
+      isActive: active,
+      locked: lock,
+    };
+
+    AccountServices.ActiveInactive(
+      data,
+      statusId,
+      auth.user,
+      data.isActive,
+      data.locked
+    )
       .then((res) => {
         console.log("res==========>", res);
-        alert(res.data.message);
+        // alert(res.data.message);
         window.location.reload();
       })
-
       .catch((err) => {
         console.log("errorrr", err.response.data.message);
-        alert(err.response.data.message);
+        // alert(err.response.data.message);
         return;
       });
   };
+  const hi = () => {
+    console.log(activeStatus);
+  };
+
+  let status = "";
+
+  if (activeStatus.isActive && activeStatus.locked) {
+    status = "Active";
+  } else if (!activeStatus.isActive && activeStatus.locked) {
+    status = "Suspended";
+  } else if (!activeStatus.isActive && !activeStatus.locked) {
+    status = "Locked";
+  }
+
+   // Call the onStatusChange function to pass the status back to the parent
+   useEffect(() => {
+    onStatusChange(status);
+  }, [status, onStatusChange]);
+
   return (
     <div
       className="modal fade"
@@ -155,110 +132,45 @@ const StatusModal = ({ statusId, username, userRole }) => {
               type="button"
               class="btn-close btn-close-white"
               aria-label="Close"
+              onClick={hi}
             ></button>
           </div>
           <div class="modal-body">
-            <div className="container mt-1 mb-6">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "5px",
-                }}
-              >
-                <div>
-                  <p className="border border-1 w-100 text-center bg-success rounded-pill">
-                    {userRole}
-                  </p>
-                  <p>{username}</p>
-                </div>
-
-                <div>
-                <p
-                    className={`btn ${
-                      userStatus.active
-                        ? "btn-success"
-                        : userStatus.locked
-                        ? "btn-secondary"
-                        : "btn-danger"
-                    } position-relative`}
-                    style={{ marginRight: "10px" }}
-                  >
-                    {userStatus.active
-                      ? "Active"
-                      : userStatus.locked
-                      ? "Locked"
-                      : "Suspended"}
-                    <span
-                      className={`position-absolute top-0 start-100 translate-middle p-2 ${
-                        userStatus.active
-                          ? "bg-success"
-                          : userStatus.locked
-                          ? "bg-secondary"
-                          : "bg-danger"
-                      } border border-light rounded-circle`}
-                    ></span>
-                  </p>
-                </div>
+            <div className="d-flex justify-content-between mb-3">
+              <div>
+                <span style={{ fontWeight: "bold" }}>{userRole}</span>
+                <br />
+                <span>{username}</span>
               </div>
+              <span style={{ fontWeight: "bold" }}>{status}</span>
             </div>
-
-            <div
-              className="align-middle"
-              role="group"
-              aria-label="User Status"
-              style={{ display: "flex", justifyContent: "center" }}
-            >
+            <div className="modal-body d-flex justify-content-between">
               <button
-                type="button"
                 className={`btn ${
-                  userStatus.active ? "btn-success" : "btn-outline-success"
+                  btncolor1 ? "btn-success" : "btn-outline-danger"
                 }`}
-                style={{ margin: "10px 20px" }}
-                onClick={() => handleStatusChange("active")}
+                disabled={activeStatus.isActive}
+                onClick={handleActiveChange}
               >
-                <i className="fas fa-check-circle"></i>
-                <div> Active</div>
+                Active
               </button>
-
               <button
-                type="button"
                 className={`btn ${
-                  userStatus.suspended ? "btn-danger" : "btn-outline-danger"
+                  btncolor2 ? "btn-danger" : "btn-outline-danger"
                 }`}
-                style={{ margin: "10px 10px" }}
-                onClick={() => handleStatusChange("suspended")}
+                onClick={handleInactiveChange}
+                disabled={!activeStatus.isActive}
               >
-                <i className="fa fa-user-times"></i>
-                <div>Suspended </div>
+                Suspended
               </button>
-
               <button
-                type="button"
                 className={`btn ${
-                  userStatus.locked ? "btn-secondary" : "btn-outline-secondary"
+                  btncolor3 ? "btn-warning" : "btn-outline-warning"
                 }`}
-                style={{ margin: "10px 20px" }}
-                onClick={() => {
-                  if (userStatus.locked) {
-                    handleUnlock();
-                  } else {
-                    handleStatusChange("locked");
-                  }
-                }}
+                onClick={handleLockChange}
+                disabled={!activeStatus.locked}
               >
-                {userStatus.locked ? (
-                  <>
-                    <i className="fas fa-lock"></i>
-                    <div>Locked</div>
-                  </>
-                ) : (
-                  <>
-                    <i className="fas fa-unlock"></i>
-                    <div>Unlock</div>
-                  </>
-                )}
+                Lock
               </button>
             </div>
           </div>
@@ -266,7 +178,7 @@ const StatusModal = ({ statusId, username, userRole }) => {
             <button
               class="btn btn-primary"
               type="submit"
-              onClick={handleChange}
+              onClick={handleSubmit}
             >
               Change
             </button>
