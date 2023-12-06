@@ -15,6 +15,7 @@ const AccountLandingModal = () => {
   console.log("13=>>>", userId);
   const [documentView, setDocumentView] = useState([]);
   const [toggle, settoggle] = useState(1);
+  const [activeItem, setActiveItem] = useState("statement");
   const Id = userId.userId;
   useEffect(() => {
     MyAccountServices.getAccountStatement(userId, auth.user)
@@ -27,13 +28,17 @@ const AccountLandingModal = () => {
 
   const handelStatement = () => {
     settoggle(1);
+    setActiveItem("statement");
+
     console.log(toggle);
   };
   const handelActivity = () => {
     settoggle(2);
+    setActiveItem("activity");
   };
   const handelProfile = () => {
     settoggle(3);
+    setActiveItem("profile");
   };
 
   if (toggle === 1) {
@@ -49,7 +54,7 @@ const AccountLandingModal = () => {
       <div className="row row-no-gutters">
         {/* First Section */}
         <div className="col-sm-4">
-          <div className="white_card_body">
+          {/* <div className="white_card_body">
             <Link to="#">
               <div
                 className="alert text-white bg-danger w-75 mt-3"
@@ -127,6 +132,47 @@ const AccountLandingModal = () => {
                 </div>
               </div>
             </Link>
+          </div> */}
+
+          <div class="card mt-3" style={{ width: "18rem" }}>
+            <ul class="list-group list-group-flush">
+              <li
+                class="list-group-item text-white fs-6"
+                style={{ backgroundColor: "#26416e" }}
+              >
+                My Account
+              </li>
+              <li
+                className={`list-group-item`}
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: activeItem === "statement" ? "#d1d9f0" : "",
+                }}
+                onClick={handelStatement}
+              >
+                Account Statement
+              </li>
+              <li
+                className={`list-group-item `}
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: activeItem === "activity" ? "#d1d9f0" : "",
+                }}
+                onClick={handelActivity}
+              >
+                Activity Log
+              </li>
+              <li
+                className={`list-group-item`}
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: activeItem === "profile" ? "#d1d9f0" : "",
+                }}
+                onClick={handelProfile}
+              >
+                Profile
+              </li>
+            </ul>
           </div>
         </div>
 

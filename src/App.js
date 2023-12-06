@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import MainTransaction from "./Components/MainTransaction";
 import AgentDelete from "./Components/AgentDelete";
 import AccountLandingModal from "./Components/MyAccount/AccountLandingModal";
+import HierarchyPageView from "./Components/HierarchyPageView";
 
 function App() {
   return (
@@ -85,7 +86,14 @@ function App() {
                   </RequireAuth>
                 }
               />
-
+              <Route
+                path="/hierarchypageview/:userId"
+                element={
+                  <RequireAuth>
+                    <HierarchyPageView />
+                  </RequireAuth>
+                }
+              />
             </Route>
           </Routes>
         </BrowserRouter>
