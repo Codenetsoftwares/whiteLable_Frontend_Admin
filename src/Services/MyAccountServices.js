@@ -1,7 +1,6 @@
 import axios from "axios";
 const API_HOST = process.env.REACT_APP_API_HOST;
 
-
 class MyAccountServices {
   getAccountStatement(id, user) {
     return axios({
@@ -12,6 +11,16 @@ class MyAccountServices {
       },
     });
   }
+
+  getAccountProfile(id, user) {
+    return axios({
+      method: "get",
+      url: `${API_HOST}/api/User-Profile-view/${id}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }    
 }
 
-export default new MyAccountServices() ;
+export default new MyAccountServices();

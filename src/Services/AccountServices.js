@@ -2,7 +2,6 @@ import axios from "axios";
 const API_HOST = process.env.REACT_APP_API_HOST;
 
 class AccountService {
-
   AllLogin(data) {
     return axios({
       method: "POST",
@@ -43,7 +42,6 @@ class AccountService {
     });
   }
 
-
   deleteAgent(data, user) {
     return axios({
       method: "post",
@@ -55,9 +53,8 @@ class AccountService {
     });
   }
 
-
   ActiveInactive(data, id, user) {
-    console.log(data, id)
+    console.log(data, id);
     return axios({
       method: "POST",
       url: `${API_HOST}/api/activate/${id}`,
@@ -67,7 +64,6 @@ class AccountService {
       },
     });
   }
-
 
   ViewAgentDelete(user) {
     return axios({
@@ -110,7 +106,15 @@ class AccountService {
     });
   }
 
-
+  getHierarchy(id, user) {
+    return axios({
+      method: "GET",
+      url: `${API_HOST}/api/view-all-creates/${id}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
 }
 
 export default new AccountService();

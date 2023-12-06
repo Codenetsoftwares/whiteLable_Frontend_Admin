@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import DepositBalance from "./Modal/DepositBalance";
-
 import TransactionServices from "../Services/TransactionServices";
 import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
-import TransactionView from "./Modal/TransactionView";
 
 const MainTransaction = () => {
     const auth = useAuth();
@@ -101,7 +99,7 @@ const MainTransaction = () => {
                     </div>
                 </div>
             </div>
-            <TransactionView />
+            
             <DepositBalance />
         </div>
     );

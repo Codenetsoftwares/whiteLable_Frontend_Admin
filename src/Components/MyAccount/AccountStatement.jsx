@@ -19,121 +19,127 @@ const AccountStatement = ({ props }) => {
 
   return (
     <div className="col-sm-8 mt-3">
-      <div
-        className={`card_box position-relative mb_30 `}
-        style={{ backgroundColor: "#fd517d" }}
-      >
-        <div className="box_body w-100">
-          <div class="main_content_iner rounded ">
-            <div class="container-fluid p-0">
-              <div class="row justify-content-center">
-                <div class="white_card_body">
-                  <div class="QA_section">
-                    <div class=" list_header">
-                      <div class="box_right d-flex lms_block">
-                        <div class="serach_field_2">
-                          <div class="search_inner">
-                            <form Active="#">
-                              <div class="search_field w-50">
-                                <input
-                                  type="text"
-                                  placeholder="Search content here..."
-                                />
-                              </div>
-                              <button type="submit">
-                                {" "}
-                                <i class="ti-search"></i>{" "}
-                              </button>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="QA_table mb_30">
-                      <table class="table lms_table_active3 ">
-                        <thead>
-                          <tr>
-                            <th scope="col">Date/Time</th>
-                            <th scope="col">Txn Type</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Balance</th>
-                            <th scope="col">Remark</th>
-                            <th scope="col">From//To</th>
-                          </tr>
-                        </thead>
-                        {props.map((transaction) => (
-                          <tr key={transaction._id}>
-                            <th scope="row">
-                              <a href="#" className="question_content">
-                                {formatDate(transaction.date)}
-                              </a>
-                            </th>
-                            <td>{transaction.transactionType}</td>
-                            <td>{transaction.amount}</td>
-                            <td>
-                              {transaction.transactionType === "Debit"
-                                ? transaction.debitBalance
-                                : transaction.balance}
+      {/* card */}
+      <div class="card w-100 rounded">
+        <div
+          class="card-heade text-white p-1"
+          style={{ backgroundColor: "#26416e" }}
+        >
+          <b>&nbsp;&nbsp;Account Statement</b>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <div class="white_card_body">
+              {/* Table */}
+              <div class="QA_section">
+                <div class="QA_table mb_30">
+                  <table class="table lms_table_active3 ">
+                    <thead>
+                      <tr
+                        style={{
+                          backgroundColor: "#e6e9ed",
+                          color: "#5562a3",
+                        }}
+                      >
+                        <th scope="col">
+                         <b>Date/Time</b>
+                        </th>
+                        <th scope="col">
+                          <b>Deposit</b>
+                        </th>
+                        <th scope="col">
+                          <b>Withdraw</b>
+                        </th>
+                        <th scope="col">
+                          <b>Balance</b>
+                        </th>
+                        <th scope="col">
+                          <b>Remark</b>
+                        </th>
+                        <th scope="col">
+                          <b>From//To</b>
+                        </th>
+                      </tr>
+                    </thead>
+                    {props.map((transaction) => (
+                      <tr key={transaction._id}>
+                        <th scope="row">
+                          <a href="#" className="question_content">
+                            {formatDate(transaction.date)}
+                          </a>
+                        </th>
+                        {transaction.transactionType === "Debit" ? (
+                          <>
+                            <td></td>
+                            <td className="text-danger">
+                              {transaction.amount}
                             </td>
-                            <td>{transaction.remarks}</td>
-                            <td>{`${transaction.From} / ${transaction.To}`}</td>
-                          </tr>
-                        ))}
-                      </table>
-                    </div>
+                          </>
+                        ) : (
+                          <>
+                            <td>{transaction.amount}</td>
+                            <td></td>
+                          </>
+                        )}
 
-                    <div class="col-lg-12">
-                      <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                          <li class="page-item disabled">
-                            <a
-                              class="page-link"
-                              href="#"
-                              tabindex="-1"
-                              aria-disabled="true"
-                            >
-                              Previous
-                            </a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">
-                              1
-                            </a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">
-                              2
-                            </a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">
-                              3
-                            </a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">
-                              Next
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                  </div>
+                        <td>
+                          {transaction.transactionType === "Debit"
+                            ? transaction.debitBalance
+                            : transaction.balance}
+                        </td>
+                        <td>{transaction.remarks}</td>
+                        <td>{`${transaction.From} / ${transaction.To}`}</td>
+                      </tr>
+                    ))}
+                  </table>
                 </div>
-                <div class="col-lg-2">
-                  <div class="loader--ellipsis colord_bg_3 mb_30">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                </div>
+                {/* Table */}
               </div>
             </div>
-          </div>
-        </div>
+          </li>
+          <li class="list-group-item">
+            {/* Pagiantion */}
+            <div class="col-lg-12">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item disabled">
+                    <a
+                      class="page-link"
+                      href="#"
+                      tabindex="-1"
+                      aria-disabled="true"
+                    >
+                      Previous
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      1
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      2
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      3
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="#">
+                      Next
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            {/* Pagiantion */}
+          </li>
+        </ul>
       </div>
+      {/* card */}
     </div>
   );
 };
