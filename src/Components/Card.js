@@ -7,6 +7,7 @@ import AccountServices from "../Services/AccountServices";
 import { toast } from "react-toastify";
 import StatusModal from "./Modal/StatusModal";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Card = ({
   role,
   userId,
@@ -22,6 +23,9 @@ const Card = ({
   const [userid, setUserId] = useState("");
   const [userID, setUserID] = useState("");
   const [status, setStatus] = useState("");
+  const [userhierarchy, setHierarchy] = useState("");
+  const navigate = useNavigate();
+  
   console.log("99999999LOADBALAN", loadBalance);
 
  // Function to receive the status from the child
@@ -63,17 +67,31 @@ console.log("----------Status--->>>",Istatus)
     }
   };
 
+    const takeMeToAccount = (userId) => {
+      navigate(`/account-landing/${userId}`);
+  };
+  
+  const takeMeTohierarchy = (userId) => {
+    navigate(`/hierarchypageview/${userId}`);
+  };
+
+
   return (
     <tbody>
       <tr>
         <th scope="row" className="">
           <button
             className="border border-1 w-75 text-center bg-success rounded-pill "
-            data-bs-toggle="modal"
-            data-bs-target="#myModal"
+            // data-bs-toggle="modal"
+            // data-bs-target={`#hierarchyview-${userId}`}
+
+            onClick={(e) => {
+              takeMeTohierarchy(userId);
+            }}
           >
             {role}
           </button>
+
           <p>{userName}</p>
         </th>
         <td scope="row" className="fs-6 text-center">
@@ -116,11 +134,11 @@ console.log("----------Status--->>>",Istatus)
           {balance}
         </td>
         <td scope="row" className="fs-6 text-center text-danger">
-          {refProfitLoss}
+          {creditRef - balance}
         </td>
         <td scope="row" className="fs-6 text-center">
           <p className="border border-1 w-75 text-center bg-success rounded-pill">
-         {Istatus}
+            {Istatus}
           </p>
         </td>
         <td scope="row" className="fs-6 text-center">
@@ -147,17 +165,21 @@ console.log("----------Status--->>>",Istatus)
             </button>
           </span>
           <span className="mx-1">
-            <Link to={`/account-landing/${userId}`}>
-              <button className="btn border border-2 rounded" title="Profile">
-                <i class="fa-solid fa-user"></i>
-              </button>
-            </Link>
-          </span>
-          <span className="mx-1">
-            <button className="btn border border-2 rounded" title="Profile">
+            <button
+              className="btn border border-2 rounded"
+              title="Profile"
+              onClick={() => {
+                takeMeToAccount(userId);
+              }}
+            >
               <i class="fa-solid fa-user"></i>
             </button>
           </span>
+          {/* <span className="mx-1">
+            <button className="btn border border-2 rounded" title="Profile">
+              <i class="fa-solid fa-user"></i>
+            </button>
+          </span> */}
           <span className="mx-1">
             <button
               className="btn border border-2 rounded"
