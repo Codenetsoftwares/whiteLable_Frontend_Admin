@@ -23,10 +23,10 @@ class TransactionServices {
     });
   }
 
-  transferBalance(data, user) {
+  transferBalance(id, data, user) {
     return axios({
       method: "POST",
-      url: `${API_HOST}/api/transfer-amount`,
+      url: `${API_HOST}/api/transfer-amount/${id}`,
       data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -57,8 +57,8 @@ class TransactionServices {
 
   EditPartnership(data, id, user) {
     return axios({
-      method: "Put",
-      url: `${API_HOST}/api/view-balance/${id}`,
+      method: "Post",
+      url: `${API_HOST}/api/admin/partnership/${id}`,
       data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -66,8 +66,8 @@ class TransactionServices {
     });
   }
 
-  
-  }
+
+}
 
 
 export default new TransactionServices();

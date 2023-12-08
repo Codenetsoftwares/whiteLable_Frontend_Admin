@@ -17,6 +17,7 @@ const Card = ({
   balance,
   loadBalance,
   refProfitLoss,
+  partnership,
 }) => {
   const auth = useAuth();
   const [Istatus, setIStatus] = useState('');
@@ -25,14 +26,14 @@ const Card = ({
   const [status, setStatus] = useState("");
   const [userhierarchy, setHierarchy] = useState("");
   const navigate = useNavigate();
-  
+
   console.log("99999999LOADBALAN", loadBalance);
 
- // Function to receive the status from the child
- const handleStatusChange = (newStatus) => {
-  setIStatus(newStatus);
-};
-console.log("----------Status--->>>",Istatus)
+  // Function to receive the status from the child
+  const handleStatusChange = (newStatus) => {
+    setIStatus(newStatus);
+  };
+  console.log("----------Status--->>>", Istatus)
 
   const handleId = (id) => {
     setUserId(id);
@@ -66,15 +67,18 @@ console.log("----------Status--->>>",Istatus)
         });
     }
   };
-
-    const takeMeToAccount = (userId) => {
-      navigate(`/account-landing/${userId}`);
+  console.log("userid.......", userId)
+  const takeMeToAccount = (userId) => {
+    navigate(`/account-landing/${userId}`);
   };
-  
+
   const takeMeTohierarchy = (userId) => {
     navigate(`/hierarchypageview/${userId}`);
   };
 
+  const takeMeToViewPartnershipLog = (userId) => {
+    navigate(`/partnershipViewLog/${userId}`);
+  };
 
   return (
     <tbody>
@@ -110,7 +114,7 @@ console.log("----------Status--->>>",Istatus)
           </span>
         </td>
         <td scope="row" className="fs-6 text-center">
-          <span>100</span>
+          <span>{partnership}</span>
           <span className="m-2">
             <i
               className="fa-solid fa-pen-to-square"
@@ -118,10 +122,10 @@ console.log("----------Status--->>>",Istatus)
               data-bs-target="#EditPartnerShipBalance"
               aria-label="Close"
               z
-            ></i>
+            ></i>   
           </span>
           <span className="m-2">
-            <i class="fa-regular fa-eye"></i>
+            <i class="fa-regular fa-eye" onClick={() => { takeMeToViewPartnershipLog(userId) }}></i>
           </span>
         </td>
         <td scope="row" className="fs-6 text-center">
@@ -145,7 +149,7 @@ console.log("----------Status--->>>",Istatus)
           <span className="mx-1">
             <button
               data-bs-toggle="modal"
-              data-bs-target={`#transferbalance-${userName}`}
+              data-bs-target={`#transferbalance-${userId}`}
               className="btn border border-2 rounded"
               title="Addmoney"
             >
@@ -200,8 +204,8 @@ console.log("----------Status--->>>",Istatus)
       </tr>
 
       <TransferBalance
-        userName={userName}
-        key={`transferbalance-${userName}`}
+        userId={userId}
+        key={`transferbalance-${userId}`}
       />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
       <StatusModal
@@ -209,7 +213,7 @@ console.log("----------Status--->>>",Istatus)
         username={userName} // Pass the username as a prop
         userRole={role}
         onStatusChange={handleStatusChange} // Pass the function to receive status
-        // key={`activeInactive-${userId}`}
+      // key={`activeInactive-${userId}`}
       />
 
       <EditCreditRefBalance

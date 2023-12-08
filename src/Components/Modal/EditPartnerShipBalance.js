@@ -5,11 +5,11 @@ import { toast } from 'react-toastify';
 
 const EditPartnerShipBalance = () => {
     const auth = useAuth();
-    console.log('-------AUTHETICATION',auth)
+    console.log('-------AUTHETICATION', auth)
     const [Amount, SetAmount] = useState(0);
     const id = auth.user.id;
 
-    console.log('......MMMM>>>ID--->',id)
+    console.log('......MMMM>>>ID--->', id)
     const handelamtchange = (e) => {
         SetAmount(e.target.value);
     };
@@ -32,7 +32,7 @@ const EditPartnerShipBalance = () => {
         };
 
         console.log("data", data);
-        TransactionServices.depositAmount(data, id, auth.user)
+        TransactionServices.EditPartnership(data, id, auth.user)
             .then((res) => {
                 // console.log(response.data);
                 if (res.status === 200) {
@@ -52,7 +52,7 @@ const EditPartnerShipBalance = () => {
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="depositBalanceModal">Provide Deposit Amount</h5>
+                        <h5 class="modal-title" id="depositBalanceModal">Provide Edit PartnerShip Amount</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleReset}></button>
                     </div>
                     <div className="modal-body">
