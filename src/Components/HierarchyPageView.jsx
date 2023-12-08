@@ -19,7 +19,7 @@ const HierarchyPageView = () => {
 
 
   const handleId = (id) => {
-    console.log("id========")
+    console.log("id========", id)
     setUserID(id)
   }
 
