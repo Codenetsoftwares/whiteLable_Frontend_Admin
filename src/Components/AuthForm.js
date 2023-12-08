@@ -26,16 +26,28 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
 
   const handleAuthForm = (e) => {
     e.preventDefault();
-    if (role === "") {
+    let data;
+    if (purpose === "create") {
+      if (role === "") {
 
-      toast.error("Select the role");
-      return;
+        toast.error("Select the role");
+        return;
+      }
+      data = {
+        userName: username,
+        password: password,
+        roles: [role],
+      };
     }
-    const data = {
-      userName: username,
-      password: password,
-      roles: [role],
-    };
+    else if (purpose === "login") {
+      data = {
+        userName: username,
+        password: password,
+        roles: [role],
+      };
+    }
+
+
 
     console.log('============++++++>', data)
     if (role === "user") {
