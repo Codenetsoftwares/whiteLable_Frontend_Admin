@@ -7,13 +7,21 @@ const HierarchyPageView = () => {
   const { userId } = useParams();
   const auth = useAuth();
   const [hierarchydata, sethierarchyData] = useState([]);
+  const [userID, setUserID] = useState("");
 
   useEffect(() => {
+
     AccountServices.getHierarchy(userId, auth.user).then((res) => {
       console.log("xxxxxxxxxxxx", res.data.user);
       sethierarchyData(res.data.user);
     });
   }, [userId, auth]);
+
+
+  const handleId = (id) => {
+    console.log("id========")
+    setUserID(id)
+  }
 
   return (
     <div class="main_content_iner overly_inner ">
@@ -102,10 +110,10 @@ const HierarchyPageView = () => {
                                   <b>{index + 1}</b>
                                 </a>
                               </th>
-                              <td>{user.userName}</td>
+                              <td >{user.userName}</td>
                               <td>
                                 <a href="#" className="status_btn">
-                                  <b>{user.roles[0]}</b>
+                                  <b onClick={() => { handleId(user.id) }} >{user.roles[0]}</b>
                                 </a>
                               </td>
                               {/* Uncomment the following lines for action buttons */}
