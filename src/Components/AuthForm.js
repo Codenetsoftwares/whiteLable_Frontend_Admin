@@ -24,7 +24,13 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
     setRole(value);
   };
 
-  const handleAuthForm = () => {
+  const handleAuthForm = (e) => {
+    e.preventDefault();
+    if (role === "") {
+
+      toast.error("Select the role");
+      return;
+    }
     const data = {
       userName: username,
       password: password,
@@ -107,7 +113,7 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
                           autoComplete="off"
                           onChange={handleChange}
                         >
-                          <option selected>Open this select menu</option>
+                          <option selected>Open this select role</option>
                           {auth.user.role.some(
                             (role) => role === "superAdmin"
                           ) && <option value="WhiteLabel">WhiteLabel</option>}
