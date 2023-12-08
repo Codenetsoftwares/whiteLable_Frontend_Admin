@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useAuth } from "../../Utils/Auth";
 import { toast } from "react-toastify";
 import TransactionServices from "../../Services/TransactionServices";
-const TransferBalance = ({ userName }) => {
-  console.log("username...", userName)
+const TransferBalance = ({ userId }) => {
+  console.log("username...", userId)
   const auth = useAuth();
   const [Amount, setAmount] = useState(0);
   const [Remarks, SetRemarks] = useState("");
@@ -29,38 +29,13 @@ const TransferBalance = ({ userName }) => {
       return;
     }
     try {
-      let data;
-      if (auth.user?.role?.includes("superAdmin")) {
-        data = {
-          adminUserName: auth.user.userName,
-          trnsfAmnt: Number(Amount),
-          whiteLabelUsername: userName,
-          remarks: Remarks,
-        };
-      } else if (auth.user?.role?.includes("WhiteLabel")) {
-        data = {
-          whiteLabelUsername: auth.user.userName,
-          trnsfAmnt: Number(Amount),
-          hyperAgentUserName: userName,
-          remarks: Remarks,
-        };
-      } else if (auth.user?.role?.includes("HyperAgent")) {
-        data = {
-          hyperAgentUserName: auth.user.userName,
-          trnsfAmnt: Number(Amount),
-          SuperAgentUserName: userName,
-          remarks: Remarks,
-        };
-      } else if (auth.user?.role?.includes("SuperAgent")) {
-        data = {
-          SuperAgentUserName: auth.user.userName,
-          trnsfAmnt: Number(Amount),
-          masterAgentUserName: userName,
-          remarks: Remarks,
-        };
-      }
-      console.log("data", data);
-      TransactionServices.transferBalance(data, auth.user)
+      const data = {
+        trnsfAmnt: Number(Amount),
+        receiveUserId: userId,
+        remarks: Remarks,
+      };
+
+      TransactionServices.transferBalance(auth.user.id, data, auth.user)
         .then((res) => {
           if (res.status === 200) {
             console.log(res);
@@ -78,7 +53,7 @@ const TransferBalance = ({ userName }) => {
     }
   };
   return (
-    <div className="modal fade" id={`transferbalance-${userName}`} tabIndex="-1" aria-labelledby={`transferbalance-${userName}`} aria-hidden="true">
+    <div className="modal fade" id={`transferbalance-${userId}`} tabIndex="-1" aria-labelledby={`transferbalance-${userId}`} aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">

@@ -115,6 +115,16 @@ class AccountService {
       },
     });
   }
+
+  getPartnershipData(id, user) {
+    return axios({
+      method: "GET",
+      url: `${API_HOST}/api/partnershipView/${id}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
 }
 
 export default new AccountService();

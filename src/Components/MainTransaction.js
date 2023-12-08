@@ -11,6 +11,8 @@ const MainTransaction = () => {
     console.log("=======>>>>>>", auth);
     const [balance, setBalance] = useState(0);
     const [userList, setUserList] = useState([]);
+    const [partnershipData, setPartnershipData] = useState([]);
+
 
     useEffect(() => {
         if (auth.user) {
@@ -27,6 +29,12 @@ const MainTransaction = () => {
                     setUserList(res.data.user);
                 })
                 .catch((err) => setUserList([]));
+            AccountServices.getPartnershipData(auth.user.id, auth.user)
+                .then((res) => {
+                    console.log("==========aaaaaaaaaMMMMMMM>", res.data);
+                    setPartnershipData(res.data.user);
+                })
+                .catch((err) => setPartnershipData([]));
         }
     }, []);
     console.log("first========>", userList);
@@ -92,6 +100,7 @@ const MainTransaction = () => {
                                         loadBalance={data.loadBalance}
                                         refProfitLoss={data.refProfitLoss}
                                         userId={data.id}
+                                        partnership={data.partnership}
                                     />
                                 ))}
                             </table>
@@ -99,7 +108,7 @@ const MainTransaction = () => {
                     </div>
                 </div>
             </div>
-            
+
             <DepositBalance />
         </div>
     );

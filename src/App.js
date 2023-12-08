@@ -14,6 +14,7 @@ import MainTransaction from "./Components/MainTransaction";
 import AgentDelete from "./Components/AgentDelete";
 import AccountLandingModal from "./Components/MyAccount/AccountLandingModal";
 import HierarchyPageView from "./Components/HierarchyPageView";
+import PartnershipViewLog from "./Pages/PartnershipViewLog";
 
 function App() {
   return (
@@ -53,14 +54,14 @@ function App() {
                   </RequireAuth>
                 }
               />
-              {/* <Route
-                path="userCreate"
+              <Route
+                path="partnershipViewLog/:userId"
                 element={
                   <RequireAuth>
-                    <UserCreate />
+                    <PartnershipViewLog />
                   </RequireAuth>
                 }
-              /> */}
+              />
 
               <Route
                 path="maintransaction"
