@@ -56,18 +56,18 @@ const MainTransaction = () => {
             </div>
             <div className="white_card_body m-3">
                 <div className="QA_section">
-                    <div className="QA_table mb_30">
+                    <div className="QA_table mb_30" style={{ overflow: "auto" }}>
                         {userList.length > 0 && (
-                            <table className="table lms_table_active3  table-bordered table-sm table-responsive-sm table-responsive-md table-responsive-lg table-responsive-xl">
+                            <table className="table lms_table_active3 table-bordered table-sm">
                                 <thead>
                                     <tr>
                                         <th scope="col" className="text-bolder fs-6 ">
                                             Username
                                         </th>
-                                        <th scope="col" className="text-bolder fs-6 text-center">
+                                        <th scope="col" className="text-bolder fs-6 text-center" style={{ width: "150px"}}>
                                             Credit Ref.
                                         </th>
-                                        <th scope="col" className="text-bolder fs-6 text-center">
+                                        <th scope="col" className="text-bolder fs-6 text-center" style={{ width: "150px"}}>
                                             Partnership
                                         </th>
                                         <th scope="col" className="text-bolder fs-6 text-center">

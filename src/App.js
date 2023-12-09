@@ -88,7 +88,7 @@ function App() {
                 }
               />
               <Route
-                path="/hierarchypageview/:userId"
+                path="hierarchypageview/:userId"
                 element={
                   <RequireAuth>
                     <HierarchyPageView />

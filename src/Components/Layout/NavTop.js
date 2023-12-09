@@ -22,7 +22,7 @@ const NavTop = () => {
                 <i className="ti-menu"></i>
               </div>
               <div className="line_icon open_miniSide d-none d-lg-block">
-                <img src="img/line_img.png" alt="" />
+                <img src="../img/line_img.png" alt="" />
               </div>
               <div className="serach_field-area d-flex align-items-center">
                 <div className="search_inner">
@@ -32,7 +32,7 @@ const NavTop = () => {
                     </div>
                     <button type="submit">
                       {" "}
-                      <img src="img/icon/icon_search.svg" alt="" />{" "}
+                      <img src="../img/icon/icon_search.svg" alt="" />{" "}
                     </button>
                   </form>
                 </div>
@@ -42,7 +42,7 @@ const NavTop = () => {
                   <li>
                     <a className="bell_notification_clicker" href="#">
                       {" "}
-                      <img src="img/icon/bell.svg" alt="" />
+                      <img src="../img/icon/bell.svg" alt="" />
                       <span>2</span>
                     </a>
 
@@ -54,7 +54,7 @@ const NavTop = () => {
                         <div className="single_notify d-flex align-items-center">
                           <div className="notify_thumb">
                             <a href="#">
-                              <img src="img/staf/2.png" alt="" />
+                              <img src="../img/staf/2.png" alt="" />
                             </a>
                           </div>
                           <div className="notify_content">
@@ -68,7 +68,7 @@ const NavTop = () => {
                         <div className="single_notify d-flex align-items-center">
                           <div className="notify_thumb">
                             <a href="#">
-                              <img src="img/staf/4.png" alt="" />
+                              <img src="../img/staf/4.png" alt="" />
                             </a>
                           </div>
                           <div className="notify_content">
@@ -82,7 +82,7 @@ const NavTop = () => {
                         <div className="single_notify d-flex align-items-center">
                           <div className="notify_thumb">
                             <a href="#">
-                              <img src="img/staf/3.png" alt="" />
+                              <img src="../img/staf/3.png" alt="" />
                             </a>
                           </div>
                           <div className="notify_content">
@@ -96,7 +96,7 @@ const NavTop = () => {
                         <div className="single_notify d-flex align-items-center">
                           <div className="notify_thumb">
                             <a href="#">
-                              <img src="img/staf/2.png" alt="" />
+                              <img src="../img/staf/2.png" alt="" />
                             </a>
                           </div>
                           <div className="notify_content">
@@ -110,7 +110,7 @@ const NavTop = () => {
                         <div className="single_notify d-flex align-items-center">
                           <div className="notify_thumb">
                             <a href="#">
-                              <img src="img/staf/4.png" alt="" />
+                              <img src="../img/staf/4.png" alt="" />
                             </a>
                           </div>
                           <div className="notify_content">
@@ -124,7 +124,7 @@ const NavTop = () => {
                         <div className="single_notify d-flex align-items-center">
                           <div className="notify_thumb">
                             <a href="#">
-                              <img src="img/staf/3.png" alt="" />
+                              <img src="../img/staf/3.png" alt="" />
                             </a>
                           </div>
                           <div className="notify_content">
@@ -147,12 +147,12 @@ const NavTop = () => {
                   <li>
                     <a className="CHATBOX_open" href="#">
                       {" "}
-                      <img src="img/icon/msg.svg" alt="" /> <span>2</span>{" "}
+                      <img src="../img/icon/msg.svg" alt="" /> <span>2</span>{" "}
                     </a>
                   </li>
                 </div>
                 <div className="profile_info">
-                  <img src="img/client_img.png" alt="#" />
+                  <img src="../img/client_img.png" alt="#" />
                   <div className="profile_info_iner">
                     <div className="profile_author_name">
                       <p>Neurologist </p>

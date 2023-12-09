@@ -83,7 +83,10 @@ $("#sidebar_menu >li a").filter(function() {
         });
     //progressbar js
     $(document).ready(function(){
+        try {
+            
         var proBar = $('#bar1');
+        
         if(proBar.length){
             proBar.barfiller({barColor: '#FFBF43', duration: 2000});
         }
@@ -111,7 +114,9 @@ $("#sidebar_menu >li a").filter(function() {
         if(proBar.length){
             proBar.barfiller({barColor: '#FFB822', duration: 2200});
         }
-        
+        } catch (error) {
+            
+        }
     });
     
     

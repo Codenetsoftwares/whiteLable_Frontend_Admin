@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
+import { useNavigate } from "react-router-dom";
 
 const HierarchyPageView = () => {
   const { userId } = useParams();
   const auth = useAuth();
   const [hierarchydata, sethierarchyData] = useState([]);
   const [userID, setUserID] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -17,6 +19,10 @@ const HierarchyPageView = () => {
     });
   }, [userId, auth]);
 
+
+  const takeMeTohierarchy = (userId) => {
+    navigate(`/hierarchypageview/${userId}`);
+  };
 
   const handleId = (id) => {
     console.log("id========", id)
@@ -41,7 +47,7 @@ const HierarchyPageView = () => {
                   </li>
                   <li class="breadcrumb-item active">
                     {" "}
-                    <Link to="/maintransaction">Back to Previous</Link>
+                    <a href="#" onClick={() => navigate(-1)}>Back to Previous</a>
                   </li>
                 </ol>
               </div>
@@ -112,9 +118,9 @@ const HierarchyPageView = () => {
                               </th>
                               <td >{user.userName}</td>
                               <td>
-                                <a href="#" className="status_btn">
-                                  <b onClick={() => { handleId(user.id) }} >{user.roles[0]}</b>
-                                </a>
+                                <Link to={{ pathname: `/hierarchypageview/${user.id}` } } className="status_btn">
+                                  <b>{user.roles[0]}</b>
+                                </Link>
                               </td>
                               {/* Uncomment the following lines for action buttons */}
                               {/* <td>
