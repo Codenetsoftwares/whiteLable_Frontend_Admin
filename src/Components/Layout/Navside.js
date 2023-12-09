@@ -14,24 +14,23 @@ const Navside = () => {
   };
 
   return (
-    <div>
-      <nav className="sidebar ">
+      <nav className="sidebar">
         <div className="logo d-flex justify-content-between">
           <a className="large_logo" href="#">
-            <img src="img/logo.png" alt="" />
+            <img src="../img/logo.png" alt="" />
           </a>
           <a className="small_logo" href="#">
-            <img src="img/mini_logo.png" alt="" />
+            <img src="../img/mini_logo.png" alt="" />
           </a>
           <div className="sidebar_close_icon d-lg-none">
             <i className="ti-close"></i>
           </div>
         </div>
-        <ul id="sidebar_menu">
+        <ul id="sidebar_menu" class="metismenu">
           {isUser ? (<li className="" onClick={handleUserToggle}>
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/dashboard.svg" alt="" />
+                <img src="../img/menu-icon/dashboard.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>User Management </span>
@@ -40,7 +39,7 @@ const Navside = () => {
           </li>) : (<li className="" onClick={handleUserToggle}>
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/dashboard.svg" alt="" />
+                <img src="../img/menu-icon/dashboard.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>User Management </span>
@@ -62,7 +61,7 @@ const Navside = () => {
           {isRequest ? (<li className="" onClick={handleRequestToggle}>
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/dashboard.svg" alt="" />
+                <img src="../img/menu-icon/dashboard.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Request </span>
@@ -71,7 +70,7 @@ const Navside = () => {
           </li>) : (<li className="" onClick={handleRequestToggle}>
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/dashboard.svg" alt="" />
+                <img src="../img/menu-icon/dashboard.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Request </span>
@@ -87,7 +86,7 @@ const Navside = () => {
           {/* <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/2.svg" alt="" />
+                <img src="../img/menu-icon/2.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Application </span>
@@ -111,7 +110,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/3.svg" alt="" />
+                <img src="../img/menu-icon/3.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Pages</span>
@@ -141,7 +140,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/4.svg" alt="" />
+                <img src="../img/menu-icon/4.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Admins</span>
@@ -159,7 +158,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/11.svg" alt="" />
+                <img src="../img/menu-icon/11.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Role & Permissions</span>
@@ -177,7 +176,7 @@ const Navside = () => {
           <li className="">
             <a href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/12.svg" alt="" />
+                <img src="../img/menu-icon/12.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Navs</span>
@@ -187,7 +186,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/5.svg" alt="" />
+                <img src="../img/menu-icon/5.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Users</span>
@@ -205,7 +204,7 @@ const Navside = () => {
           <li>
             <a href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/6.svg" alt="" />
+                <img src="../img/menu-icon/6.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Builder </span>
@@ -215,7 +214,7 @@ const Navside = () => {
           <li className="">
             <a href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/7.svg" alt="" />
+                <img src="../img/menu-icon/7.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Invoice</span>
@@ -225,7 +224,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/8.svg" alt="" />
+                <img src="../img/menu-icon/8.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>forms</span>
@@ -249,7 +248,7 @@ const Navside = () => {
           <li className="">
             <a href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/9.svg" alt="" />
+                <img src="../img/menu-icon/9.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Board</span>
@@ -259,7 +258,7 @@ const Navside = () => {
           <li className="">
             <a href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/10.svg" alt="" />
+                <img src="../img/menu-icon/10.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Calander</span>
@@ -269,7 +268,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/11.svg" alt="" />
+                <img src="../img/menu-icon/11.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Themes</span>
@@ -287,7 +286,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/12.svg" alt="" />
+                <img src="../img/menu-icon/12.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>General</span>
@@ -308,7 +307,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/13.svg" alt="" />
+                <img src="../img/menu-icon/13.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Products</span>
@@ -332,7 +331,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/14.svg" alt="" />
+                <img src="../img/menu-icon/14.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Icons</span>
@@ -350,7 +349,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/15.svg" alt="" />
+                <img src="../img/menu-icon/15.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Animations</span>
@@ -371,7 +370,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/16.svg" alt="" />
+                <img src="../img/menu-icon/16.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Components</span>
@@ -398,7 +397,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/17.svg" alt="" />
+                <img src="../img/menu-icon/17.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Table</span>
@@ -416,7 +415,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/18.svg" alt="" />
+                <img src="../img/menu-icon/18.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Cards</span>
@@ -437,7 +436,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/19.svg" alt="" />
+                <img src="../img/menu-icon/19.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Charts</span>
@@ -464,7 +463,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/20.svg" alt="" />
+                <img src="../img/menu-icon/20.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>UI Kits </span>
@@ -506,7 +505,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/21.svg" alt="" />
+                <img src="../img/menu-icon/21.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Widgets</span>
@@ -524,7 +523,7 @@ const Navside = () => {
           <li className="">
             <a className="has-arrow" href="#" aria-expanded="false">
               <div className="nav_icon_small">
-                <img src="img/menu-icon/12.svg" alt="" />
+                <img src="../img/menu-icon/12.svg" alt="" />
               </div>
               <div className="nav_title">
                 <span>Maps</span>
@@ -541,7 +540,6 @@ const Navside = () => {
           </li> */}
         </ul>
       </nav>
-    </div>
   );
 };
 

@@ -146,7 +146,17 @@ const Card = ({
           </p>
         </td>
         <td scope="row" className="fs-6 text-center">
-          <span className="mx-1">
+          {/* <div class="dropdown">
+              <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+          </div> */}
+          {/* <span className="mx-1">
             <button
               data-bs-toggle="modal"
               data-bs-target={`#transferbalance-${userId}`}
@@ -179,11 +189,6 @@ const Card = ({
               <i class="fa-solid fa-user"></i>
             </button>
           </span>
-          {/* <span className="mx-1">
-            <button className="btn border border-2 rounded" title="Profile">
-              <i class="fa-solid fa-user"></i>
-            </button>
-          </span> */}
           <span className="mx-1">
             <button
               className="btn border border-2 rounded"
@@ -199,7 +204,7 @@ const Card = ({
             <button className="btn border border-2 rounded" title="Wallet">
               <i class="fa-regular fas fa-wallet"></i>
             </button>
-          </span>
+          </span> */}
         </td>
       </tr>
 
