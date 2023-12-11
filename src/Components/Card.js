@@ -146,7 +146,7 @@ const Card = ({
           </p>
         </td>
         <td scope="row" className="fs-6 text-center">
-          {/* <div class="dropdown">
+          <div class="dropdown">
               <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa-solid fa-ellipsis-vertical"></i>
               </button>
@@ -155,8 +155,8 @@ const Card = ({
                 <li><a class="dropdown-item" href="#">Another action</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
-          </div> */}
-          {/* <span className="mx-1">
+          </div> 
+           <span className="mx-1">
             <button
               data-bs-toggle="modal"
               data-bs-target={`#transferbalance-${userId}`}
@@ -171,9 +171,9 @@ const Card = ({
               className="btn border border-2 rounded"
               title="Setting"
               type="button"
-              data-toggle="modal"
-              data-target={`#activeInactive-${userId}`}
-              onClick={handlestatus}
+              data-bs-toggle="modal"
+              data-bs-target={`#activeInactive-${userId}`}
+              // onClick={handlestatus}
             >
               <i className="fa-thin fas fa-gear"></i>
             </button>
@@ -204,7 +204,7 @@ const Card = ({
             <button className="btn border border-2 rounded" title="Wallet">
               <i class="fa-regular fas fa-wallet"></i>
             </button>
-          </span> */}
+          </span>
         </td>
       </tr>
 
@@ -218,7 +218,7 @@ const Card = ({
         username={userName} // Pass the username as a prop
         userRole={role}
         onStatusChange={handleStatusChange} // Pass the function to receive status
-      // key={`activeInactive-${userId}`}
+      key={`activeInactive-${userId}`}
       />
 
       <EditCreditRefBalance
