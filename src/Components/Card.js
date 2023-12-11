@@ -145,17 +145,8 @@ const Card = ({
             {Istatus}
           </p>
         </td>
-        <td scope="row" className="fs-6 text-center">
-          <div class="dropdown">
-              <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-ellipsis-vertical"></i>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-          </div> 
+        {/* <td scope="row" className="fs-6 text-center">
+         
            <span className="mx-1">
             <button
               data-bs-toggle="modal"
@@ -205,7 +196,42 @@ const Card = ({
               <i class="fa-regular fas fa-wallet"></i>
             </button>
           </span>
-        </td>
+        </td> */}
+        <td scope="row" className="fs-6 text-center">
+  <div class="dropdown">
+    <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target={`#transferbalance-${userId}`} href="#">
+          Add Money
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target={`#activeInactive-${userId}`} href="#">
+          Settings
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" onClick={() => takeMeToAccount(userId)} href="#">
+          Profile
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" onClick={(e) => handeldelete(userId)} href="#">
+          Delete
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" href="#">
+          Wallet
+        </a>
+      </li>
+    </ul>
+  </div>
+</td>
+
       </tr>
 
       <TransferBalance
