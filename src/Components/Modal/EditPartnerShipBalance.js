@@ -3,7 +3,7 @@ import { useAuth } from '../../Utils/Auth';
 import TransactionServices from '../../Services/TransactionServices';
 import { toast } from 'react-toastify';
 
-const EditPartnerShipBalance = () => {
+const EditPartnerShipBalance = ({ userId }) => {
     const auth = useAuth();
     console.log('-------AUTHETICATION', auth)
     const [Amount, SetAmount] = useState(0);
@@ -28,16 +28,16 @@ const EditPartnerShipBalance = () => {
             return;
         }
         const data = {
-            depositeAmount: Number(Amount),
+            partnership: Number(Amount),
         };
 
         console.log("data", data);
-        TransactionServices.EditPartnership(data, id, auth.user)
+        TransactionServices.EditPartnership(data, userId, auth.user)
             .then((res) => {
                 // console.log(response.data);
                 if (res.status === 200) {
                     console.log(res);
-                    alert(res.data.message);
+                    alert("Partnership Udated Succesfully");
                     window.location.reload();
                 }
             })
@@ -48,7 +48,7 @@ const EditPartnerShipBalance = () => {
             });
     };
     return (
-        <div class="modal fade" id="EditPartnerShipBalance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id={`EditPartnerShipBalance-${userId}`} tabindex="-1" aria-labelledby={`EditPartnerShipBalance-${userId}`} aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
