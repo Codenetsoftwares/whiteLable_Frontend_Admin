@@ -12,7 +12,7 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
   const [lock, setLock] = useState(true);
   const [statusSubmitted, setStatusSubmitted] = useState(false);
   const [activeStatus, setActiveStatus] = useState({});
-
+  const [previousState, setPreviousState] = useState({});
   console.log("----------xxxx>>>AUTH", auth);
   console.log("-------STATUS ID", statusId);
 
@@ -22,17 +22,46 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
 
       setActiveStatus(res.data);
       console.log("Line 26=>>", activeStatus);
+
+         // Call the onStatusChange function to pass the status back to the parent
+        //  const status =  calculateStatus(res)
+        //  onStatusChange(status);
     });
   }, [statusId, auth.user]);
+
+  // const calculateStatus = (response) => {
+  
+
+  //   if (response && response.data && response.data.isActive && response.data.locked) {
+  //     return "Active";
+  //   } else if (response && response.data && !response.data.isActive && response.data.locked) {
+  //     return "Suspended";
+  //   } else if (response && response.data && !response.data.isActive && !response.data.locked) {
+  //     return "Locked";
+  //   }
+
+  //   // Return a default status if none of the conditions are met
+  //   return "Unknown Status";
+  // };
+
   
   
   const handleActiveChange = () => {
+
+    setPreviousState({
+      isActive: activeStatus.active,
+      locked: activeStatus.lock,
+    }); 
+     
     setActive(true);
     setBtncolor1(true);
     setBtncolor2(false);
     setBtncolor3(false);
 
     setData(1);
+
+    
+ 
   };
 
   const handleInactiveChange = () => {
@@ -61,6 +90,7 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
     const data = {
       isActive: active,
       locked: lock,
+      previousState: previousState,
     };
 
     AccountServices.ActiveInactive(
@@ -95,7 +125,7 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
     status = "Locked";
   }
 
-   // Call the onStatusChange function to pass the status back to the parent
+  //  Call the onStatusChange function to pass the status back to the parent
    useEffect(() => {
     onStatusChange(status);
   }, [status, onStatusChange]);

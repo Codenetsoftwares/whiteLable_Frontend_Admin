@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import TransferBalance from "./Modal/TransferBalance";
 import EditCreditRefBalance from "./Modal/EditCreditRefBalance";
 import EditPartnerShipBalance from "./Modal/EditPartnerShipBalance";
@@ -19,12 +20,12 @@ const Card = ({
   loadBalance,
   refProfitLoss,
   partnership,
+  Status,
 }) => {
   const auth = useAuth();
   const [Istatus, setIStatus] = useState("");
   const [userid, setUserId] = useState("");
   const [userID, setUserID] = useState("");
-  const [status, setStatus] = useState("");
   const [userhierarchy, setHierarchy] = useState("");
   const navigate = useNavigate();
 
@@ -34,7 +35,6 @@ const Card = ({
   const handleStatusChange = (newStatus) => {
     setIStatus(newStatus);
   };
-  console.log("----------Status--->>>", Istatus);
 
   const handleId = (id) => {
     setUserId(id);
@@ -122,14 +122,17 @@ const Card = ({
               data-bs-toggle="modal"
               data-bs-target={`#EditPartnerShipBalance-${userId}`}
               aria-label="Close"
+
             ></i>
           </span>
           <span className="m-2">
             <i
+
               className="fa-regular fa-eye"
               data-bs-toggle="modal"
               data-bs-target={`#PartnerShipLog-${userId}`}
               aria-label="Close"
+
             ></i>
           </span>
         </td>
@@ -147,12 +150,11 @@ const Card = ({
         </td>
         <td scope="row" className="fs-6 text-center">
           <p className="border border-1 w-75 text-center bg-success rounded-pill">
-            {Istatus}
+            {Status}
           </p>
         </td>
-        {/* <td scope="row" className="fs-6 text-center">
-         
-           <span className="mx-1">
+        <td scope="row" className="fs-6 text-center">
+          <span className="mx-1">
             <button
               data-bs-toggle="modal"
               data-bs-target={`#transferbalance-${userId}`}
@@ -201,6 +203,7 @@ const Card = ({
               <i class="fa-regular fas fa-wallet"></i>
             </button>
           </span>
+
         </td> */}
         <td scope="row" className="fs-6 text-center">
           <div class="dropdown">
@@ -259,14 +262,16 @@ const Card = ({
             </ul>
           </div>
         </td>
+
       </tr>
 
       <TransferBalance userId={userId} key={`transferbalance-${userId}`} />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
       <StatusModal
         statusId={userId}
-        username={userName} // Pass the username as a prop
+        username={userName}
         userRole={role}
+
         onStatusChange={handleStatusChange} // Pass the function to receive status
         key={`activeInactive-${userId}`}
       />
