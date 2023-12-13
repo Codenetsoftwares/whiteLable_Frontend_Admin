@@ -15,6 +15,7 @@ import AgentDelete from "./Components/AgentDelete";
 import AccountLandingModal from "./Components/MyAccount/AccountLandingModal";
 import HierarchyPageView from "./Components/HierarchyPageView";
 import PartnershipViewLog from "./Pages/PartnershipViewLog";
+import AppRoutes from "./Routes/AppRoutes";
 
 function App() {
   return (
@@ -32,72 +33,7 @@ function App() {
         theme="dark"
       />
       <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="authform" element={<Authform />} />
-            <Route index element={<Login />} />
-            <Route path="*" element={<ErrorPage />} />
-            <Route path="/" element={<AdminLayout />}>
-              <Route
-                path="welcome"
-                element={
-                  <RequireAuth>
-                    <Welcome />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="Create"
-                element={
-                  <RequireAuth>
-                    <Create />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="partnershipViewLog/:userId"
-                element={
-                  <RequireAuth>
-                    <PartnershipViewLog />
-                  </RequireAuth>
-                }
-              />
-
-              <Route
-                path="maintransaction"
-                element={
-                  <RequireAuth>
-                    <MainTransaction />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="agentDelete"
-                element={
-                  <RequireAuth>
-                    <AgentDelete />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="/account-landing/:userId"
-                element={
-                  <RequireAuth>
-                    <AccountLandingModal />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="hierarchypageview/:userId"
-                element={
-                  <RequireAuth>
-                    <HierarchyPageView />
-                  </RequireAuth>
-                }
-              />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <AppRoutes />
       </AuthProvider>
     </React.Fragment>
   );
