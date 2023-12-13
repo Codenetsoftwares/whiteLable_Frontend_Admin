@@ -57,8 +57,8 @@ class TransactionServices {
 
   EditPartnership(data, id, user) {
     return axios({
-      method: "Post",
-      url: `${API_HOST}/api/admin/partnership/${id}`,
+      method: "Put",
+      url: `${API_HOST}/api/admin/update-partnership/${id}`,
       data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,

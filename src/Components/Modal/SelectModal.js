@@ -67,7 +67,7 @@ const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
 
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id={`activeInactive-${userId}`}
       tabindex="-1"
       role="dialog"
@@ -75,8 +75,8 @@ const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
       
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+      <div className="modal-dialog modal-dialog-centered" role="document">
+        <div className="modal-content">
           <div
             className="modal-header"
             style={{ backgroundColor: "#006699", color: "white" }}
@@ -88,12 +88,12 @@ const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
               Change Status
             </h5>
           </div>
-          <div class="modal-body d-flex justify-content-center align-items-center">
-            {/* {activeStatus.locked === false?(<button type="button" class="btn btn-outline-danger mx-2"  onClick={() =>handleButtonChange(true)}>UnLocked</button>):({activeStatus.isActive?})} */}
+          <div className="modal-body d-flex justify-content-center align-items-center">
+            {/* {activeStatus.locked === false?(<button type="button" className="btn btn-outline-danger mx-2"  onClick={() =>handleButtonChange(true)}>UnLocked</button>):({activeStatus.isActive?})} */}
             {activeStatus.isactive ? (
               <button
                 type="button"
-                class="btn btn-outline-secondary mx-2"
+                className="btn btn-outline-secondary mx-2"
                 onClick={() => handleButtonClick(false)}
               >
                 Inactive
@@ -101,7 +101,7 @@ const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
             ) : (
               <button
                 type="button"
-                class="btn btn-outline-success mx-2"
+                className="btn btn-outline-success mx-2"
                 onClick={() => handleButtonClick(true)}
               >
                 Active
@@ -110,7 +110,7 @@ const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
             {activeStatus.locked ? (
               <button
                 type="button"
-                class="btn btn-outline-danger mx-2"
+                className="btn btn-outline-danger mx-2"
                 onClick={() => handleButtonChange(false)}
               >
                 Locked
@@ -118,7 +118,7 @@ const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
             ) : (
               <button
                 type="button"
-                class="btn btn-outline-danger mx-2"
+                className="btn btn-outline-danger mx-2"
                 onClick={() => handleButtonChange(true)}
               >
                 UnLocked
@@ -128,7 +128,7 @@ const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
           <div className="modal-footer">
             <button
               type="button"
-              class="btn btn-primary btn-sm"
+              className="btn btn-primary btn-sm"
               onClick={() => handleSubmit()}
             >
               CHANGE

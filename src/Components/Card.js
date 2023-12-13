@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import StatusModal from "./Modal/StatusModal";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import PartnerShipLog from "./Modal/PartnerShipLog";
 const Card = ({
   role,
   userId,
@@ -34,7 +35,6 @@ const Card = ({
   const handleStatusChange = (newStatus) => {
     setIStatus(newStatus);
   };
-  console.log("----------Status--->>>ZZZZZZ", Istatus);
 
   const handleId = (id) => {
     setUserId(id);
@@ -120,17 +120,19 @@ const Card = ({
             <i
               className="fa-solid fa-pen-to-square"
               data-bs-toggle="modal"
-              data-bs-target="#EditPartnerShipBalance"
+              data-bs-target={`#EditPartnerShipBalance-${userId}`}
               aria-label="Close"
-              z
+
             ></i>
           </span>
           <span className="m-2">
             <i
-              class="fa-regular fa-eye"
-              onClick={() => {
-                takeMeToViewPartnershipLog(userId);
-              }}
+
+              className="fa-regular fa-eye"
+              data-bs-toggle="modal"
+              data-bs-target={`#PartnerShipLog-${userId}`}
+              aria-label="Close"
+
             ></i>
           </span>
         </td>
@@ -201,41 +203,66 @@ const Card = ({
               <i class="fa-regular fas fa-wallet"></i>
             </button>
           </span>
+
+        </td> */}
+        <td scope="row" className="fs-6 text-center">
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#transferbalance-${userId}`}
+                  href="#"
+                >
+                  Add Money
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  data-bs-toggle="modal"
+                  data-bs-target={`#activeInactive-${userId}`}
+                  href="#"
+                >
+                  Settings
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  onClick={() => takeMeToAccount(userId)}
+                  href="#"
+                >
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  onClick={(e) => handeldelete(userId)}
+                  href="#"
+                >
+                  Delete
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  Wallet
+                </a>
+              </li>
+            </ul>
+          </div>
         </td>
-        {/* <td scope="row" className="fs-6 text-center">
-  <div class="dropdown">
-    <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      <i class="fa-solid fa-ellipsis-vertical"></i>
-    </button>
-    <ul class="dropdown-menu">
-      <li>
-        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target={`#transferbalance-${userId}`} href="#">
-          Add Money
-        </a>
-      </li>
-      <li>
-        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target={`#activeInactive-${userId}`} href="#">
-          Settings
-        </a>
-      </li>
-      <li>
-        <a class="dropdown-item" onClick={() => takeMeToAccount(userId)} href="#">
-          Profile
-        </a>
-      </li>
-      <li>
-        <a class="dropdown-item" onClick={(e) => handeldelete(userId)} href="#">
-          Delete
-        </a>
-      </li>
-      <li>
-        <a class="dropdown-item" href="#">
-          Wallet
-        </a>
-      </li>
-    </ul>
-  </div>
-</td> */}
+
       </tr>
 
       <TransferBalance userId={userId} key={`transferbalance-${userId}`} />
@@ -244,7 +271,8 @@ const Card = ({
         statusId={userId}
         username={userName}
         userRole={role}
-        onStatusChange={handleStatusChange}
+
+        onStatusChange={handleStatusChange} // Pass the function to receive status
         key={`activeInactive-${userId}`}
       />
 
@@ -252,7 +280,14 @@ const Card = ({
         userId={userId}
         key={`EditCreditRefBalance-${userId}`}
       />
-      <EditPartnerShipBalance />
+      <EditPartnerShipBalance
+        userId={userId}
+        key={`EditPartnerShipBalance -${userId}`}
+      />
+      <PartnerShipLog
+        userId={userId}
+        key={`PartnerShipLog -${userId}`}
+      />
     </tbody>
   );
 };

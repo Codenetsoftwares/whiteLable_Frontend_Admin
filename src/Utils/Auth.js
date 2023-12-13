@@ -10,29 +10,28 @@ export const AuthProvider = ({ children }) => {
   const login = () => {
     try {
       console.log('logging in...');
-      const userString = localStorage.getItem('user');
+      const userString = sessionStorage.getItem('user');
       if (!userString) return;
 
       let userObject = {};
       userObject = jwtDecode(userString);
       if (!userObject) return;
-      
+
 
       userObject.token = userString;
       setUser(userObject);
-      
+
     } catch (error) {
       console.log(error);
     }
 
   };
   const logout = () => {
-    
-    localStorage.removeItem('user');
-    localStorage.removeItem('role');
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('role');
     setUser(null);
   };
-  
+
   return (
     <AuthContext.Provider value={{ user: user, login: login, logout: logout }}>
       {children}

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const EditCreditRefBalance = ({ userId }) => {
   const auth = useAuth();
+  console.log(auth)
   const [Amount, SetAmount] = useState(0);
   const id = auth.user.id;
   const handleAmtChange = (e) => {
@@ -39,8 +40,8 @@ const EditCreditRefBalance = ({ userId }) => {
       })
       .catch((error) => {
         console.log(error);
-        alert(error.response.data.message);
-        // alert.error("e.message");
+        alert(`${auth.user.role[0]} should be Locked Or Suspended`);
+        window.location.reload();
       });
   };
   return (
