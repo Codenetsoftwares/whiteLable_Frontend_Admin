@@ -25,7 +25,7 @@ const MainTransaction = () => {
 
             AccountServices.getAllCreates(auth.user.id, auth.user)
                 .then((res) => {
-                    console.log("==========MmmmmHHHHHHHHHH>", res.data);
+                    console.log("==========MmmmmHHHHHHHHHH>DDDDDD", res.data);
                     setUserList(res.data.user);
                 })
                 .catch((err) => setUserList([]));
@@ -37,7 +37,7 @@ const MainTransaction = () => {
                 .catch((err) => setPartnershipData([]));
         }
     }, []);
-    console.log("first========>", userList);
+    console.log("first========>UPDATED", userList);
     return (
         <div className="mt-3 mb-3">
             <div className="text-center ">
@@ -101,6 +101,7 @@ const MainTransaction = () => {
                                         refProfitLoss={data.refProfitLoss}
                                         userId={data.id}
                                         partnership={data.partnership}
+                                        Status={data.Status}                                        
                                     />
                                 ))}
                             </table>
