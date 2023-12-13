@@ -110,9 +110,9 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
       style={{ display: "none" }}
     >
       <div className="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+        <div className="modal-content">
           <div
-            class="modal-header"
+            className="modal-header"
             style={{
               height: "10px",
               backgroundColor: "#006699",
@@ -121,7 +121,7 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
             }}
           >
             <h5
-              class="modal-title"
+              className="modal-title"
               id="exampleModalLabel"
               style={{ fontWeight: "bold", color: "white" }}
             >
@@ -130,12 +130,12 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
 
             <button
               type="button"
-              class="btn-close btn-close-white"
+              className="btn-close btn-close-white"
               aria-label="Close"
               onClick={hi}
             ></button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <div className="d-flex justify-content-between mb-3">
               <div>
                 <span style={{ fontWeight: "bold" }}>{userRole}</span>
@@ -174,9 +174,9 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
               </button>
             </div>
           </div>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <button
-              class="btn btn-primary"
+              className="btn btn-primary"
               type="submit"
               onClick={handleSubmit}
             >

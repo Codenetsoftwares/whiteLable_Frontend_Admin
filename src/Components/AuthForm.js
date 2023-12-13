@@ -65,7 +65,8 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
         .then((res) => {
           console.log(res);
           if (purpose === "login") {
-            localStorage.setItem("user", res.data.token.accessToken);
+            sessionStorage.setItem("user", res.data.token.accessToken);
+            sessionStorage.setItem("role", res.data.token.role);
             toast.success("Login Successful.");
             auth.login();
             navigate("/welcome");
@@ -133,18 +134,13 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
                             (role) =>
                               role === "superAdmin" || role === "WhiteLabel"
                           ) && <>
-                              {auth.user.role.some(
-                                (role) => role === "WhiteLabel"
-                              ) && <option value="SubWhiteLabel">Sub WhiteLabel</option>}
                               <option value="HyperAgent">HyperAgent</option></>}
                           {auth.user.role.some(
                             (role) =>
                               role === "superAdmin" ||
                               role === "WhiteLabel" ||
                               role === "HyperAgent"
-                          ) && <>{auth.user.role.some(
-                            (role) => role === "HyperAgent"
-                          ) && <option value="SubHyperAgent">Sub HyperAgent</option>}
+                          ) && <>
                               <option value="SuperAgent">SuperAgent</option></>}
                           {auth.user.role.some(
                             (role) =>
@@ -152,13 +148,8 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
                               role === "WhiteLabel" ||
                               role === "HyperAgent" ||
                               role === "SuperAgent"
-                          ) && <>{auth.user.role.some(
-                            (role) => role === "SuperAgent"
-                          ) && <option value="SubSuperAgent">Sub SuperAgent</option>}
+                          ) && <>
                               <option value="MasterAgent">MasterAgent</option></>}
-                          {auth.user.role.some(
-                            (role) => role === "MasterAgent"
-                          ) && <option value="SubMasterAgent">Sub MasterAgent</option>}
                           {auth.user.role.some(
                             (role) => role === "WhiteLabel" ||
                               role === "HyperAgent" ||

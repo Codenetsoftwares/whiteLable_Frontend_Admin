@@ -1,26 +1,53 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../Utils/Auth';
-import TransactionServices from '../../Services/TransactionServices';
 import { toast } from 'react-toastify';
+import AccountServices from '../../Services/AccountServices';
 
 const PartnerShipLog = ({ userId }) => {
     const auth = useAuth();
     console.log("first", userId)
+    const [partnershipData, setPartnershipData] = useState([]);
+    useEffect(() => {
+        if (auth.user) {
+
+            AccountServices.getPartnershipData(userId, auth.user)
+                .then((res) => {
+                    console.log("==========aaaaaaaaaMMMMMMM>", res.data);
+                    setPartnershipData(res.data);
+                })
+                .catch((err) => setPartnershipData([]));
+        }
+    }, []);
+
+    const originalDate = new Date(partnershipData?.date);
+    const options = { day: 'numeric', month: 'short', year: 'numeric' };
+
+    const formattedDate = originalDate.toLocaleDateString('en-US', options);
+
+    console.log("hkhkhkuh", partnershipData)
     return (
-        <div class="modal fade" id={`PartnerShipLog-${userId}`} tabindex="-1" aria-labelledby={`PartnerShipLog-${userId}`} aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="depositBalanceModal">PartnerShip Log</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+        <div className="modal fade" id={`PartnerShipLog-${userId}`} tabindex="-1" aria-labelledby={`PartnerShipLog-${userId}`} aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title " id="depositBalanceModal">PartnerShip Log</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                     </div>
                     <div className="modal-body">
-                        <h1>{userId}</h1>
+                        <div className="card text-center">
+                            <div className="card-header">
+                                {partnershipData.userName}
+                            </div>
+                            <div className="card-body">
+                                <h5 className="card-title">Partnership Amount</h5>
+                                <p className="card-text">{partnershipData.partnership}</p>
+                            </div>
+                            <div className="card-footer text-muted">
+                                {formattedDate}
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
-                        <button type="button" class="btn btn-primary" >Save changes</button>
-                    </div>
+
                 </div>
             </div>
         </div>
