@@ -1,18 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 import { useAuth } from "../../Utils/Auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NavTop = () => {
   const auth = useAuth();
   const navigate = useNavigate();
-  const handlelogout = () => {
-    auth.logout();
-    navigate("/");
+  const [forcestoreauth, setForceStoreauth] = useState(null);
+
+  const handleLogout = () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to log out of this site?"
+    );
+    if (confirmed) {
+      auth.logout();
+      toast.success("Logout successfully");
+      navigate("/");
+    }
   };
 
-  return (
+  useEffect(() => {
+    setForceStoreauth(auth);
+  }, [auth]);
 
+  console.log("Auth=>>", forcestoreauth);
+
+  return (
     <section className="main_content dashboard_part large_header_bg">
       <div className="container-fluid g-0">
         <div className="row">
@@ -38,7 +53,7 @@ const NavTop = () => {
                 </div>
               </div>
               <div className="header_right d-flex justify-content-between align-items-center">
-                <div className="header_notification_warp d-flex align-items-center">
+                {/* <div className="header_notification_warp d-flex align-items-center">
                   <li>
                     <a className="bell_notification_clicker" href="#">
                       {" "}
@@ -150,18 +165,20 @@ const NavTop = () => {
                       <img src="../img/icon/msg.svg" alt="" /> <span>2</span>{" "}
                     </a>
                   </li>
-                </div>
+                </div> */}
                 <div className="profile_info">
                   <img src="../img/client_img.png" alt="#" />
                   <div className="profile_info_iner">
                     <div className="profile_author_name">
-                      <p>Neurologist </p>
-                      <h5>Dr. Nilkamal Seth</h5>
+                      {/* <p>{forcestoreauth.user.role[0]} </p> */}
+                      {/* <h5>{forcestoreauth.user.userName}</h5> */}
                     </div>
                     <div className="profile_info_details">
-                      <a href="#">My Profile </a>
-                      <a href="#">Settings</a>
-                      <a onClick={handlelogout}>Log Out </a>
+                      {/* <a href="#">My Profile </a> */}
+                      {/* <a href="#">Settings</a> */}
+                      <a style={{ cursor: "pointer" }} onClick={handleLogout}>
+                        <b className="text-danger">Logout</b>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -172,7 +189,6 @@ const NavTop = () => {
       </div>
       <Layout />
     </section>
-
   );
 };
 

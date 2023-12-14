@@ -9,7 +9,10 @@ const HierarchyPageView = () => {
   const auth = useAuth();
   const [hierarchydata, sethierarchyData] = useState([]);
   const [userID, setUserID] = useState("");
+  // const [pathname, setPathname] = useState([]);
   const navigate = useNavigate();
+  const garbage = [];
+
 
   useEffect(() => {
 
@@ -28,6 +31,13 @@ const HierarchyPageView = () => {
     console.log("id========", id)
     setUserID(id)
   }
+  const savePathName = (userName) => {
+    garbage.push(userName);
+    console.log("Path=>>>", garbage);
+  };
+
+ const pathname = Array.from(garbage);
+  console.log("=>>", pathname);
 
   return (
     <div class="main_content_iner overly_inner ">
@@ -41,13 +51,15 @@ const HierarchyPageView = () => {
                 </h3>
                 <ol class="breadcrumb page_bradcam mb-0">
                   <li class="breadcrumb-item">
-                    <a href="javascript:void(0);">
+                    <a href="#">
                       <Link to="/welcome">Home</Link>
                     </a>
                   </li>
                   <li class="breadcrumb-item active">
                     {" "}
-                    <a href="#" onClick={() => navigate(-1)}>Back to Previous</a>
+                    <a href="#" onClick={() => navigate(-1)}>
+                      Back to Previous
+                    </a>
                   </li>
                 </ol>
               </div>
@@ -98,30 +110,59 @@ const HierarchyPageView = () => {
                   </div>
 
                   <div class="QA_table mb_30">
-                    <table class="table lms_table_active ">
+                    <table class="table lms_table_active table-bordered">
                       <thead>
-                        <tr>
-                          <th scope="col">#</th>
+                        <tr className="text-bolder fs-6 text-center">
                           <th scope="col">Username</th>
-                          <th scope="col">Role</th>
+                          <th scope="col">Credit ref</th>
+                          <th scope="col">Partnership</th>
+                          <th scope="col">Balance</th>
+                          <th scope="col">Exposure</th>
+                          <th scope="col"> Avail. Bal.</th>
+                          <th scope="col"> Ref. P/L</th>
+                          <th scope="col"> Status</th>
+
                           {/* <th scope="col">Action</th> */}
                         </tr>
                       </thead>
                       <tbody>
                         {hierarchydata && hierarchydata.length > 0 ? (
                           hierarchydata.map((user, index) => (
-                            <tr key={index}>
-                              <th scope="row">
-                                <a href="#" className="question_content">
-                                  <b>{index + 1}</b>
-                                </a>
+                            <tr key={index} className="text-center">
+                              <th scope="row" className="">
+                                <button
+                                  className="border border-1 w-75 text-center bg-success rounded-pill "
+                                  // data-bs-toggle="modal"
+                                  // data-bs-target={`#hierarchyview-${userId}`}
+                                  style={{ cursor: "auto" }}
+                                >
+                                  {user.roles[0]}
+                                </button>
+
+                                <p onClick={()=>{savePathName(user.userName)}}>
+                                  <Link
+                                    to={{
+                                      pathname: `/hierarchypageview/${user.id}`,
+                                    }}
+                                  >
+                                    <b title="Click to show next hierarchy">
+                                      {user.userName}
+                                    </b>
+                                  </Link>
+                                </p>
                               </th>
-                              <td >{user.userName}</td>
-                              <td>
-                                <Link to={{ pathname: `/hierarchypageview/${user.id}` } } className="status_btn">
-                                  <b>{user.roles[0]}</b>
-                                </Link>
+                              <td>{user.creditRef}</td>
+                              <td>{user.partnership}</td>
+                              <td>{user.loadBalance}</td>
+                              <td>0</td>
+                              <td>{user.balance}</td>
+                              <td>{user.balance - user.creditRef}</td>
+                              <td className="text-danger">
+                                <p className="border border-1 w-75 text-center bg-danger rounded-pill">
+                                  No data from ServerSide
+                                </p>
                               </td>
+
                               {/* Uncomment the following lines for action buttons */}
                               {/* <td>
                 <div className="action_btns d-flex">
@@ -137,7 +178,7 @@ const HierarchyPageView = () => {
                           ))
                         ) : (
                           <tr>
-                            <td colSpan="3">
+                            <td colSpan="8">
                               <div
                                 class="alert text-white bg-danger"
                                 role="alert"
