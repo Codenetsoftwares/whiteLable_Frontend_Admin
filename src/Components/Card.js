@@ -89,16 +89,21 @@ const Card = ({
             className="border border-1 w-75 text-center bg-success rounded-pill "
             // data-bs-toggle="modal"
             // data-bs-target={`#hierarchyview-${userId}`}
-
-            onClick={(e) => {
-              takeMeTohierarchy(userId);
-            }}
+            style={{ cursor: "auto" }}
           >
             {role}
           </button>
 
-          <p>{userName}</p>
+          <p
+            onClick={(e) => {
+              takeMeTohierarchy(userId);
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            <b>{userName}</b>
+          </p>
         </th>
+
         <td scope="row" className="fs-6 text-center">
           <span>{creditRef}</span>
           <span className="m-2">
@@ -122,17 +127,14 @@ const Card = ({
               data-bs-toggle="modal"
               data-bs-target={`#EditPartnerShipBalance-${userId}`}
               aria-label="Close"
-
             ></i>
           </span>
           <span className="m-2">
             <i
-
               className="fa-regular fa-eye"
               data-bs-toggle="modal"
               data-bs-target={`#PartnerShipLog-${userId}`}
               aria-label="Close"
-
             ></i>
           </span>
         </td>
@@ -146,7 +148,7 @@ const Card = ({
           {balance}
         </td>
         <td scope="row" className="fs-6 text-center text-danger">
-          {creditRef - balance}
+          {balance - creditRef}
         </td>
         <td scope="row" className="fs-6 text-center">
           <p className="border border-1 w-75 text-center bg-success rounded-pill">
@@ -203,10 +205,7 @@ const Card = ({
               <i class="fa-regular fas fa-wallet"></i>
             </button>
           </span>
-
         </td>
-      
-
       </tr>
 
       <TransferBalance userId={userId} key={`transferbalance-${userId}`} />
@@ -215,7 +214,6 @@ const Card = ({
         statusId={userId}
         username={userName}
         userRole={role}
-
         onStatusChange={handleStatusChange} // Pass the function to receive status
         key={`activeInactive-${userId}`}
       />
@@ -228,10 +226,7 @@ const Card = ({
         userId={userId}
         key={`EditPartnerShipBalance -${userId}`}
       />
-      <PartnerShipLog
-        userId={userId}
-        key={`PartnerShipLog -${userId}`}
-      />
+      <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />
     </tbody>
   );
 };
