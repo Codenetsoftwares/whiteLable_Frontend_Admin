@@ -38,7 +38,7 @@ const PartnerShipLog = ({ userId }) => {
                             <thead>
                                 <tr>
                                     <th>Sl. No.</th>
-                                    <th>User Name</th>
+                                    {/* <th>User Name</th> */}
                                     <th>Date</th>
                                     <th>PartnerShip Amount</th>
 
@@ -49,7 +49,7 @@ const PartnerShipLog = ({ userId }) => {
                                     return (
                                         <tr key={data._id}>
                                             <td>{i + 1}</td>
-                                            <td>{data.userName}</td>
+                                            {/* <td>{data.userName}</td> */}
                                             <td>{data.date}</td>
                                             <td>{data.value}</td>
                                         </tr>
