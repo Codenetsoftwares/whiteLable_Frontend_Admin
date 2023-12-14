@@ -19,10 +19,7 @@ const PartnerShipLog = ({ userId }) => {
         }
     }, []);
 
-    const originalDate = new Date(partnershipData?.date);
-    const options = { day: 'numeric', month: 'short', year: 'numeric' };
 
-    const formattedDate = originalDate.toLocaleDateString('en-US', options);
 
     console.log("hkhkhkuh", partnershipData)
     return (
@@ -34,11 +31,11 @@ const PartnerShipLog = ({ userId }) => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                     </div>
                     <div className="modal-body">
+                        <h5>UserName:{auth.user.userName}</h5>
                         {partnershipData.length > 0 ? (<table className="table lms_table_active3 table-bordered table-sm">
                             <thead>
                                 <tr>
                                     <th>Sl. No.</th>
-                                    {/* <th>User Name</th> */}
                                     <th>Date</th>
                                     <th>PartnerShip Amount</th>
 
@@ -46,11 +43,15 @@ const PartnerShipLog = ({ userId }) => {
                             </thead>
                             <tbody>
                                 {partnershipData.map((data, i) => {
+                                    const originalDate = new Date(data?.date);
+                                    const options = { day: 'numeric', month: 'short', year: 'numeric' };
+
+                                    const formattedDate = originalDate.toLocaleDateString('en-US', options);
                                     return (
                                         <tr key={data._id}>
                                             <td>{i + 1}</td>
-                                            {/* <td>{data.userName}</td> */}
-                                            <td>{data.date}</td>
+
+                                            <td>{formattedDate}</td>
                                             <td>{data.value}</td>
                                         </tr>
                                     )
