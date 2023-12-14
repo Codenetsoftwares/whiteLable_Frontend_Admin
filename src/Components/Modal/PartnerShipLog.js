@@ -34,7 +34,31 @@ const PartnerShipLog = ({ userId }) => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                     </div>
                     <div className="modal-body">
-                        
+                        {partnershipData.length > 0 ? (<table className="table lms_table_active3 table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Sl. No.</th>
+                                    <th>User Name</th>
+                                    <th>Date</th>
+                                    <th>PartnerShip Amount</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {partnershipData.map((data, i) => {
+                                    return (
+                                        <tr key={data._id}>
+                                            <td>{i + 1}</td>
+                                            <td>{data.userName}</td>
+                                            <td>{data.date}</td>
+                                            <td>{data.value}</td>
+                                        </tr>
+                                    )
+                                })}
+                            </tbody>
+                        </table>) : (<h3 className='text-center'>No Data Found</h3>)}
+
+
                     </div>
 
                 </div>
