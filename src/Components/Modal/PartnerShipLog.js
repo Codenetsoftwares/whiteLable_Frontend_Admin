@@ -12,8 +12,8 @@ const PartnerShipLog = ({ userId }) => {
 
             AccountServices.getPartnershipData(userId, auth.user)
                 .then((res) => {
-                    console.log("==========aaaaaaaaaMMMMMMM>", res.data);
-                    setPartnershipData(res.data);
+                    console.log("==========aaaaaaaaaMMMMMMM>", res.data.partnership);
+                    setPartnershipData(res.data.partnership);
                 })
                 .catch((err) => setPartnershipData([]));
         }
@@ -34,18 +34,7 @@ const PartnerShipLog = ({ userId }) => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                     </div>
                     <div className="modal-body">
-                        <div className="card text-center">
-                            <div className="card-header">
-                                {partnershipData.userName}
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title">Partnership Amount</h5>
-                                <p className="card-text">{partnershipData.partnership}</p>
-                            </div>
-                            <div className="card-footer text-muted">
-                                {formattedDate}
-                            </div>
-                        </div>
+                        
                     </div>
 
                 </div>

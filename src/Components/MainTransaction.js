@@ -11,7 +11,6 @@ const MainTransaction = () => {
     console.log("=======>>>>>>", auth);
     const [balance, setBalance] = useState(0);
     const [userList, setUserList] = useState([]);
-    const [partnershipData, setPartnershipData] = useState([]);
 
 
     useEffect(() => {
@@ -25,16 +24,11 @@ const MainTransaction = () => {
 
             AccountServices.getAllCreates(auth.user.id, auth.user)
                 .then((res) => {
-                    console.log("==========MmmmmHHHHHHHHHH>DDDDDD", res.data);
+                    console.log("==========MmmmmHHHHHHHHHH>DDDDDD", res.data.user);
                     setUserList(res.data.user);
                 })
                 .catch((err) => setUserList([]));
-            AccountServices.getPartnershipData(auth.user.id, auth.user)
-                .then((res) => {
-                    console.log("==========aaaaaaaaaMMMMMMM>", res.data);
-                    setPartnershipData(res.data.user);
-                })
-                .catch((err) => setPartnershipData([]));
+
         }
     }, []);
     console.log("first========>UPDATED", userList);
@@ -64,10 +58,10 @@ const MainTransaction = () => {
                                         <th scope="col" className="text-bolder fs-6 ">
                                             Username
                                         </th>
-                                        <th scope="col" className="text-bolder fs-6 text-center" style={{ width: "150px"}}>
+                                        <th scope="col" className="text-bolder fs-6 text-center" style={{ width: "150px" }}>
                                             Credit Ref.
                                         </th>
-                                        <th scope="col" className="text-bolder fs-6 text-center" style={{ width: "150px"}}>
+                                        <th scope="col" className="text-bolder fs-6 text-center" style={{ width: "150px" }}>
                                             Partnership
                                         </th>
                                         <th scope="col" className="text-bolder fs-6 text-center">
@@ -94,14 +88,14 @@ const MainTransaction = () => {
                                     <Card
                                         userName={data.userName}
                                         role={data.roles[0]}
-                                        key={i}
-                                        creditRef={data.creditRef}
+                                        key={data.id}
+                                        creditRef={data.creditRef[0]?.value}
                                         balance={data.balance}
                                         loadBalance={data.loadBalance}
                                         refProfitLoss={data.refProfitLoss}
                                         userId={data.id}
-                                        partnership={data.partnership}
-                                        Status={data.Status}                                        
+                                        partnership={data.partnership[0]?.value}
+                                        Status={data.Status}
                                     />
                                 ))}
                             </table>
