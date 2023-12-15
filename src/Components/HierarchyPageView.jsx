@@ -139,7 +139,11 @@ const HierarchyPageView = () => {
                                   {user.roles[0]}
                                 </button>
 
-                                <p onClick={()=>{savePathName(user.userName)}}>
+                                <p
+                                  onClick={() => {
+                                    savePathName(user.userName);
+                                  }}
+                                >
                                   <Link
                                     to={{
                                       pathname: `/hierarchypageview/${user.id}`,
@@ -158,8 +162,8 @@ const HierarchyPageView = () => {
                               <td>{user.balance}</td>
                               <td>{user.balance - user.creditRef}</td>
                               <td className="text-danger">
-                                <p className="border border-1 w-75 text-center bg-danger rounded-pill">
-                                  No data from ServerSide
+                                <p className="border border-1 w-75 text-center bg-success rounded-pill">
+                                  {user.Status}
                                 </p>
                               </td>
 
