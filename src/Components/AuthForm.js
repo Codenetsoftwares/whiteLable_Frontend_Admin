@@ -49,10 +49,10 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
 
 
 
-    console.log('============++++++>', data)
+    console.log('============++++++> Data', data)
     if (role === "user") {
       userApi(data, auth.user)
-        .then((res) => {
+        .then((res) => { 
           console.log(res);
           toast.success("User Create Successful.");
         })

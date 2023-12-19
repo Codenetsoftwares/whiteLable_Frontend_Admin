@@ -12,6 +12,7 @@ import MainTransaction from "../Components/MainTransaction";
 import AgentDelete from "../Components/AgentDelete";
 import AccountLandingModal from "../Components/MyAccount/AccountLandingModal";
 import HierarchyPageView from "../Components/HierarchyPageView";
+import CreateSub from "../Components/CreateSub";
 
 const AppRoutes = () => {
   const userrole = sessionStorage.getItem("role") || "";
@@ -77,6 +78,14 @@ const AppRoutes = () => {
                       element={
                           <RequireAuth>
                               <HierarchyPageView />
+                          </RequireAuth>
+                      }
+                  />
+                    <Route
+                      path="/Createsub"
+                      element={
+                          <RequireAuth>
+                              <CreateSub />
                           </RequireAuth>
                       }
                   />
