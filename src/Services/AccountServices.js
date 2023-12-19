@@ -125,6 +125,18 @@ class AccountService {
       },
     });
   }
+
+  SubCreate(data, user) {
+    return axios({
+      method: "POST",
+      url: API_HOST + "/api/SubAdmin/create",
+      data: data,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
 }
 
 export default new AccountService();
