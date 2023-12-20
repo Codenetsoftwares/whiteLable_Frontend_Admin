@@ -3,8 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
 import { useNavigate } from "react-router-dom";
+import { Prompt } from "react-router";
+
 
 const HierarchyPageView = () => {
+  
   const { userId } = useParams();
   const auth = useAuth();
   const [hierarchydata, sethierarchyData] = useState([]);
@@ -45,16 +48,27 @@ const HierarchyPageView = () => {
       }
     };
     fetchData();
-  }, [userId,action, auth]);
+  }, [userId, action, auth]);
+
+  
+
+  // useEffect(() => {
+  //   AccountServices.getHierarchy(userId, auth.user)
+  //     .then((res) => {
+  //       sethierarchyData(res.data.userDetails.createdUsers);
+  //       setPathData(res.data.path);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [userId, auth]);
 
   console.log("hierarchy data=>>>", hierarchydata);
-  console.log("Path data=>>>", pathdata);
+  // console.log("Path data=>>>", pathdata);
 
   const takeMeTohierarchy = (userId) => {
     navigate(`/hierarchypageview/${userId}`);
   };
-
-
 
   return (
     <div class="main_content_iner overly_inner ">
@@ -186,7 +200,7 @@ const HierarchyPageView = () => {
                               <td>{user.balance - user.creditRef}</td>
                               <td className="text-danger">
                                 <p className="border border-1 w-75 text-center bg-success rounded-pill">
-                                  {user.Status}
+                                  {user.status}
                                 </p>
                               </td>
 
