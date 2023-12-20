@@ -69,12 +69,12 @@ const Card = ({
     }
   };
   console.log("userid.......", userId);
-  const takeMeToAccount = (userId) => {
-    navigate(`/account-landing/${userId}`);
+  const takeMeToAccount = (userName) => {
+    navigate(`/account-landing/${userName}`);
   };
 
-  const takeMeTohierarchy = (userId) => {
-    navigate(`/hierarchypageview/${userId}`);
+  const takeMeTohierarchy = (userName) => {
+    navigate(`/hierarchypageview/${userName}`);
   };
 
   const takeMeToViewPartnershipLog = (userId) => {
@@ -96,7 +96,7 @@ const Card = ({
 
           <p
             onClick={(e) => {
-              takeMeTohierarchy(userId);
+              takeMeTohierarchy(userName);
             }}
             style={{ cursor: "pointer" }}
           >
@@ -183,7 +183,7 @@ const Card = ({
               className="btn border border-2 rounded"
               title="Profile"
               onClick={() => {
-                takeMeToAccount(userId);
+                takeMeToAccount(userName);
               }}
             >
               <i class="fa-solid fa-user"></i>

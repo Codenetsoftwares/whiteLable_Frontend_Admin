@@ -8,36 +8,53 @@ const HierarchyPageView = () => {
   const { userId } = useParams();
   const auth = useAuth();
   const [hierarchydata, sethierarchyData] = useState([]);
-  const [userID, setUserID] = useState("");
+  const [pathdata, setPathData] = useState([]);
+
   // const [pathname, setPathname] = useState([]);
   const navigate = useNavigate();
-  const garbage = [];
+  // const garbage = [];
+  let action = "store";
 
+  const ClearPath = () => {
+    action = "clearAll";
+    AccountServices.getHierarchy(userId, action, auth.user)
+      .then((res) => {
+        if (res.status === 200) {
+          navigate(`/maintransaction`);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await AccountServices.getHierarchy(
+          userId,
+          action,
+          auth.user
+        );
+        console.log("Response=>>", res.data);
+        sethierarchyData(res.data.userDetails.createdUsers);
+        setPathData(res.data.path);
+      } catch (error) {
+        console.error("Error fetching hierarchy data:", error);
+        // Need to add additional error handling logic here, such as setting an error state.
+      }
+    };
+    fetchData();
+  }, [userId,action, auth]);
 
-    AccountServices.getHierarchy(userId, auth.user).then((res) => {
-      console.log("xxxxxxxxxxxx", res.data.user);
-      sethierarchyData(res.data.user);
-    });
-  }, [userId, auth]);
-
+  console.log("hierarchy data=>>>", hierarchydata);
+  console.log("Path data=>>>", pathdata);
 
   const takeMeTohierarchy = (userId) => {
     navigate(`/hierarchypageview/${userId}`);
   };
 
-  const handleId = (id) => {
-    console.log("id========", id)
-    setUserID(id)
-  }
-  const savePathName = (userName) => {
-    garbage.push(userName);
-    console.log("Path=>>>", garbage);
-  };
 
- const pathname = Array.from(garbage);
-  console.log("=>>", pathname);
 
   return (
     <div class="main_content_iner overly_inner ">
@@ -51,15 +68,21 @@ const HierarchyPageView = () => {
                 </h3>
                 <ol class="breadcrumb page_bradcam mb-0">
                   <li class="breadcrumb-item">
-                    <a href="#">
-                      <Link to="/welcome">Home</Link>
+                    <a href="#" onClick={ClearPath}>
+                      {auth.user.userName}
                     </a>
                   </li>
-                  <li class="breadcrumb-item active">
+                  <li class="active">
                     {" "}
-                    <a href="#" onClick={() => navigate(-1)}>
-                      Back to Previous
-                    </a>
+                    {pathdata.map((data) => (
+                      <Link
+                        to={{
+                          pathname: `/hierarchypageview/${data}`,
+                        }}
+                      >
+                        <a style={{ cursor: "pointer" }}>&nbsp;/&nbsp;{data}</a>
+                      </Link>
+                    ))}
                   </li>
                 </ol>
               </div>
@@ -118,9 +141,9 @@ const HierarchyPageView = () => {
                           <th scope="col">Partnership</th>
                           <th scope="col">Balance</th>
                           <th scope="col">Exposure</th>
-                          <th scope="col"> Avail. Bal.</th>
-                          <th scope="col"> Ref. P/L</th>
-                          <th scope="col"> Status</th>
+                          <th scope="col">Avail. Bal.</th>
+                          <th scope="col">Ref. P/L</th>
+                          <th scope="col">Status</th>
 
                           {/* <th scope="col">Action</th> */}
                         </tr>
@@ -140,13 +163,13 @@ const HierarchyPageView = () => {
                                 </button>
 
                                 <p
-                                  onClick={() => {
-                                    savePathName(user.userName);
-                                  }}
+                                // onClick={() => {
+                                //   savePathName(user.userName);
+                                // }}
                                 >
                                   <Link
                                     to={{
-                                      pathname: `/hierarchypageview/${user.id}`,
+                                      pathname: `/hierarchypageview/${user.userName}`,
                                     }}
                                   >
                                     <b title="Click to show next hierarchy">
@@ -184,7 +207,7 @@ const HierarchyPageView = () => {
                           <tr>
                             <td colSpan="8">
                               <div
-                                class="alert text-white bg-danger"
+                                class="alert text-dark bg-light"
                                 role="alert"
                               >
                                 <div class="alert-text d-flex justify-content-center">

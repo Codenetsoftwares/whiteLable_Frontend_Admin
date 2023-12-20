@@ -106,10 +106,10 @@ class AccountService {
     });
   }
 
-  getHierarchy(id, user) {
+  getHierarchy(userName, action, user) {
     return axios({
-      method: "GET",
-      url: `${API_HOST}/api/view-all-creates/${id}`,
+      method: "post",
+      url: `${API_HOST}/api/Root-Path/${userName}/${action}`,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
