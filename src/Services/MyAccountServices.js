@@ -12,15 +12,46 @@ class MyAccountServices {
     });
   }
 
-  getAccountProfile(id, user) {
+  // getAccountProfile(id, user) {
+  //   return axios({
+  //     method: "get",
+  //     url: `${API_HOST}/api/User-Profile-view/${id}`,
+  //     headers: {
+  //       Authorization: `Bearer ${user.token}`,
+  //     },
+  //   });
+  // }
+
+  getActivityLog(username, user) {
     return axios({
       method: "get",
-      url: `${API_HOST}/api/User-Profile-view/${id}`,
+      url: `${API_HOST}/getip/${username}`,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
     });
-  }    
+  }
+
+  getProfile(username, user) {
+    return axios({
+      method: "get",
+      url: `${API_HOST}/api/User-Profile-view/${username}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
+  changePassword(data, user) {
+    return axios({
+      method: "post",
+      url: `${API_HOST}/api/admin/reset-password`,
+      data: data,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
 }
 
 export default new MyAccountServices();

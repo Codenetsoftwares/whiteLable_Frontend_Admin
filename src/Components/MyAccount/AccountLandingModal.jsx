@@ -13,18 +13,43 @@ const AccountLandingModal = () => {
   const { userId } = useParams();
   const auth = useAuth();
   console.log("13=>>>", userId);
-  const [documentView, setDocumentView] = useState([]);
+  const [statementView, setstatementView] = useState([]);
+  const [activityView, setActivityView] = useState([]);
+  const [profileView, setProfileView] = useState([]);
   const [toggle, settoggle] = useState(1);
   const [activeItem, setActiveItem] = useState("statement");
   const Id = userId.userId;
   useEffect(() => {
     MyAccountServices.getAccountStatement(userId, auth.user)
-      .then((res) => setDocumentView(res.data))
+      .then((res) => setstatementView(res.data))
       .catch((err) => {
         console.log(err);
       });
   }, [userId, auth]);
-  console.log("24=>>>", documentView);
+  console.log("From Acc Landing Statement=>>>", statementView);
+
+    useEffect(() => {
+      MyAccountServices.getActivityLog(userId, auth.user)
+        .then((res) => setActivityView(res.data))
+        .catch((err) => {
+          console.log(err);
+        });
+    }, [userId, auth]);
+  console.log("From Acc Landing activityView=>>>", activityView);
+  
+      useEffect(() => {
+        MyAccountServices.getProfile(userId, auth.user)
+          .then((res) => setProfileView(res.data))
+          .catch((err) => {
+            console.log(err);
+          });
+      }, [userId, auth]);
+  
+  console.log("From Acc Landing profileView =>>>", profileView);
+  
+ 
+
+
 
   const handelStatement = () => {
     settoggle(1);
@@ -42,11 +67,13 @@ const AccountLandingModal = () => {
   };
 
   if (toggle === 1) {
-    componentToRender = <AccountStatement props={documentView} />;
+    componentToRender = <AccountStatement props={statementView} />;
   } else if (toggle === 2) {
-    componentToRender = <ActivityLog />;
+    componentToRender = <ActivityLog props={activityView} />;
   } else if (toggle === 3) {
-    componentToRender = <AccountProfile />;
+    componentToRender = (
+      <AccountProfile props={profileView} UserName={userId} />
+    );
   }
 
   return (

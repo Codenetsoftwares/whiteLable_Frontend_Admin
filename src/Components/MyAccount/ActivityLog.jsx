@@ -1,6 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../Utils/Auth";
+import MyAccountServices from "../../Services/AccountServices";
 
-const ActivityLog = () => {
+const ActivityLog = ({ props }) => {
+  const [activityLog, setActivityLog] = useState(props.ip);
+
+  console.log("activityLog=>>>", activityLog);
+
+  // const isEmpty = Object.keys(activityLog).length === 0;
+
+  // if (isEmpty) {
+  //   console.log("The ipAddressInfo object is empty.");
+  // } else {
+  //   console.log("The ipAddressInfo object is not empty.");
+  // }
+
+  const auth = useAuth();
+  // useEffect(() => {
+  //   const getActivityLog = async () => {
+  //     try {
+  //       const response = MyAccountServices.getActivityLog(username, auth.user);
+
+  //       setActivityLog(response.data); // Assuming the response contains the data you want
+  //     } catch (error) {
+  //       console.error("Error fetching activity log:", error);
+  //     }
+  //   };
+
+  //   getActivityLog();
+  // }, [username, auth.user]);
+  console.log("props from Activity", props);
+
   return (
     <div className="col-sm-8 mt-3">
       {/* card */}
@@ -25,10 +55,15 @@ const ActivityLog = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td scope="row"></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td scope="row">No Data From Serverside</td>
+                  <td>No Data From Serverside</td>
+                  {/* <td>{activityLog.IP}</td> */}
+                  <td>No Data From Serverside</td>
+                  <td>No Data From Serverside</td>
+                  <td>
+                    {/* {activityLog.region} / {activityLog.country}{" "} */}
+                    No Data From Serverside
+                  </td>
                 </tr>
               </tbody>
             </table>
