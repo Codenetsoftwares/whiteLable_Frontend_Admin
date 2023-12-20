@@ -1,55 +1,54 @@
 import React, { useState } from "react";
 import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
-
+// import { useNavigate } from "react-router-dom";
 const CreateSub = () => {
   const auth = useAuth();
+  // const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [checkedItems, setCheckedItems] = useState([]);
-
-  const [permissions, setPermissions] = useState({
-    Username: false,
-    'Credit Ref.': false,
-    Partnership: false,
-    Balance: false,
-    Exposeure: false,
-    'Avail. Bal.': false,
-    'Ref. P/L': false,
-    Status: false,
-    Actions: false,
-  });
-
-  // const handlePermissionChange = (permission) => {
-  //   setPermissions(prevPermissions => ({
-  //     ...prevPermissions,
-  //     [permission]: !prevPermissions[permission]
-  //   }));
-  // };
-
-  const handleCheckboxChange = (event) => {
-    const value = event.target.value;
-    if (event.target.checked) {
-      setCheckedItems((prevCheckedItems) => [...prevCheckedItems, value]);
-    } else {
-      setCheckedItems((prevCheckedItems) =>
-        prevCheckedItems.filter((item) => item !== value)
-      );
-    }
+  const roles = [
+    "TransferBalance",
+    "Status",
+    "CreditRef-Edit",
+    "Partnership-Edit",
+    "CreditRef-View",
+    "Partnership-View",
+    "User-Profile-View",
+    "Profile-View",
+    "Create-Admin",
+    "Create-User",
+    "AccountStatement",
+    "ActivityLog",
+    "Delete-Admin",
+    "Restore-Admin",
+    "Move-To-Trash",
+    "Trash-View",
+  ];
+  const [permissions, setPermissions] = useState(
+    roles.reduce((acc, role) => {
+      acc[role] = false;
+      return acc;
+    }, {})
+  );
+  const handleCheckboxChange = (permission) => {
+    setCheckedItems((prevCheckedItems) =>
+      prevCheckedItems.includes(permission)
+        ? prevCheckedItems.filter((item) => item !== permission)
+        : [...prevCheckedItems, permission]
+    );
+    setPermissions((prevPermissions) => ({
+      ...prevPermissions,
+      [permission]: !prevPermissions[permission],
+    }));
   };
-
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
-
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
-  // const handleRoleChange = (e) => {
-  //   setSelectedRole(e.target.value);
-  // };
-
   const handleAddSubAgentClick = (e) => {
     e.preventDefault();
     const data = {
@@ -60,15 +59,16 @@ const CreateSub = () => {
     console.log(data);
     AccountServices.AllCreate(data, auth.user)
       .then((response) => {
-        console.log("============>>>>RES",response.data);
+        console.log("============>>>>RES", response.data);
         alert("Sub-Admin created successfully");
+        // auth.login();
+        //     navigate("/welcome");
       })
       .catch((error) => {
         console.error(error);
         alert("Failed! Invalid Data");
       });
   };
-
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
@@ -80,7 +80,9 @@ const CreateSub = () => {
             <div className="card-body">
               <form>
                 <div className="mb-3">
-                  <label htmlFor="username" className="form-label">Username</label>
+                  <label htmlFor="username" className="form-label">
+                    Username
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -90,7 +92,9 @@ const CreateSub = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">Password</label>
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -99,32 +103,26 @@ const CreateSub = () => {
                     onChange={handlePasswordChange}
                   />
                 </div>
-                {/* <div className="mb-3">
-                  <label htmlFor="role" className="form-label">Select Role</label>
-                  <select
-                    className="form-select"
-                    id="role"
-                    onChange={handleRoleChange}
-                    value={selectedRole}
-                  >
-                    <option value="" disabled>Select Role</option>
-                    <option value="subadmin">Subadmin</option>
-                  </select>
-                </div> */}
-                {/* Compact Permissions Section */}
                 <div className="mb-3">
                   <h5>Permissions</h5>
-                  {Object.keys(permissions).map(permission => (
-                    <div key={permission} className="form-check form-check-inline">
+                  {Object.keys(permissions).map((permission) => (
+                    <div
+                      key={permission}
+                      className="form-check form-check-inline"
+                    >
                       <input
                         type="checkbox"
                         className="form-check-input"
                         id={permission}
-                        // checked={permissions[permission]}
-                        checked={checkedItems}
+                        checked={checkedItems.includes(permission)}
                         onChange={() => handleCheckboxChange(permission)}
                       />
-                      <label htmlFor={permission} className="form-check-label">{permission}</label>
+                      <label
+                        htmlFor={permission}
+                        className="form-check-label"
+                      >
+                        {permission}
+                      </label>
                     </div>
                   ))}
                 </div>
@@ -145,5 +143,4 @@ const CreateSub = () => {
     </div>
   );
 };
-
 export default CreateSub;
