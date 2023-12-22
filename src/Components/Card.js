@@ -55,7 +55,7 @@ const Card = ({
     // e.preventDefault();
     console.log("Line 88", id);
     const userConfirmed = window.confirm(
-      "Are You Sure You Want to Delete This Agent?"
+      "Balance should be 0 to move the Admin User to trash"
     );
     if (userConfirmed) {
       console.log("Im here in line 94");
