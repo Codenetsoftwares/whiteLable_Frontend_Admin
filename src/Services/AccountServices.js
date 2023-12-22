@@ -126,6 +126,17 @@ class AccountService {
     });
   }
 
+  getCreditRefBalance(id, user) {
+    return axios({
+      method: "GET",
+      url: `${API_HOST}/api/creditRefView/${id}`,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  }
+
+
   SubCreate(data, user) {
     return axios({
       method: "POST",

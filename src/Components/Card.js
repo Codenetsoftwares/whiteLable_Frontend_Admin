@@ -10,6 +10,7 @@ import StatusModal from "./Modal/StatusModal";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import PartnerShipLog from "./Modal/PartnerShipLog";
+import CreditRefBalanceLog from "./Modal/CreditRefBalanceLog";
 const Card = ({
   role,
   userId,
@@ -21,6 +22,8 @@ const Card = ({
   refProfitLoss,
   partnership,
   Status,
+  creditRefLength,
+  partnershipLength
 }) => {
   const auth = useAuth();
   const [Istatus, setIStatus] = useState("");
@@ -120,12 +123,19 @@ const Card = ({
               className="border border-0 bg-white"
               data-bs-toggle="modal"
               data-bs-target={`#EditCreditRefBalance-${userId}`}
+              aria-label="Close"
             >
-              <i className="fa-solid fa-pen-to-square"></i>
+              <i className="fa-solid fa-pen-to-square"
+               
+              ></i>
             </button>
           </span>
           <span className="m-2">
-            <i class="fa-regular fa-eye"></i>
+            <i class="fa-regular fa-eye"
+              data-bs-toggle="modal"
+              data-bs-target={`#CreditRefBalanceLog-${userId}`}
+              aria-label="Close"
+            ></i>
           </span>
         </td>
         <td scope="row" className="fs-6 text-center">
@@ -236,6 +246,7 @@ const Card = ({
         key={`EditPartnerShipBalance -${userId}`}
       />
       <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />
+      <CreditRefBalanceLog userId={userId} key={`CreditRefBalanceLog -${userId}`} />
     </tbody>
   );
 };
