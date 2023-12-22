@@ -74,7 +74,16 @@ const Card = ({
   };
 
   const takeMeTohierarchy = (userName) => {
-    navigate(`/hierarchypageview/${userName}`);
+    const action = "clearAll";
+    AccountServices.getHierarchy(auth.user.userName, action, auth.user)
+      .then((res) => {
+        if (res.status === 200) {
+          navigate(`/hierarchypageview/${userName}`);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const takeMeToViewPartnershipLog = (userId) => {

@@ -127,31 +127,23 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
                           onChange={handleChange}
                         >
                           <option selected>Open this select role</option>
-                          {auth.user.role.some(
-                            (role) => role === "superAdmin"
-                          ) && <option value="WhiteLabel">WhiteLabel</option>}
-                          {auth.user.role.some(
-                            (role) =>
-                              role === "superAdmin" || role === "WhiteLabel"
-                          ) && <>
+                          {auth.user.roles[0].role ==="superAdmin"
+                           && <option value="WhiteLabel">WhiteLabel</option>}
+                          {auth.user.roles[0].role === ("superAdmin" || role === "WhiteLabel")
+                          && <>
                               <option value="HyperAgent">HyperAgent</option></>}
-                          {auth.user.role.some(
-                            (role) =>
-                              role === "superAdmin" ||
+                          {auth.user.roles[0].role === ("superAdmin" ||
                               role === "WhiteLabel" ||
                               role === "HyperAgent"
                           ) && <>
                               <option value="SuperAgent">SuperAgent</option></>}
-                          {auth.user.role.some(
-                            (role) =>
-                              role === "superAdmin" ||
+                          {auth.user.roles[0].role === ("superAdmin" ||
                               role === "WhiteLabel" ||
                               role === "HyperAgent" ||
                               role === "SuperAgent"
                           ) && <>
                               <option value="MasterAgent">MasterAgent</option></>}
-                          {auth.user.role.some(
-                            (role) => role === "WhiteLabel" ||
+                          {auth.user.roles[0].role === ("WhiteLabel" ||
                               role === "HyperAgent" ||
                               role === "SuperAgent" ||
                               role === "MasterAgent"

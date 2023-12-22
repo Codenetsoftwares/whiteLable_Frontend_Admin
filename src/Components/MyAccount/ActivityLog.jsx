@@ -49,8 +49,8 @@ const ActivityLog = ({ props }) => {
                 <tbody>
                   <tr>
                     <td scope="row">No Data From Serverside</td>
-                    <td>{activityLog.IP}</td>
                     <td>No Data From Serverside</td>
+                    <td>{activityLog.IP}</td>
                     <td>No Data From Serverside</td>
                     <td>
                       {activityLog.region} / {activityLog.country}

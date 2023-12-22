@@ -18,8 +18,8 @@ const AccountProfile = ({ props, UserName }) => {
     };
     MyAccountServices.changePassword(data, auth.user)
       .then((res) => {
-        console.log("res==========>", res);
-        alert("Password Changed Successfully");
+        console.log("response from Profile page password change ==========>", res);
+        // alert("Password Changed Successfully");
         // setPassToggle(false);
       })
 
