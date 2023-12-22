@@ -54,10 +54,10 @@ const CreateSub = () => {
     const data = {
       userName: username,
       password: password,
-      roles: checkedItems,
+      permission: checkedItems,
     };
     console.log(data);
-    AccountServices.AllCreate(data, auth.user)
+    AccountServices.SubCreate(data, auth.user)
       .then((response) => {
         console.log("============>>>>RES", response.data);
         alert("Sub-Admin created successfully");

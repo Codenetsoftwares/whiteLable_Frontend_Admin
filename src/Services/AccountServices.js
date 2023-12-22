@@ -129,7 +129,7 @@ class AccountService {
   SubCreate(data, user) {
     return axios({
       method: "POST",
-      url: API_HOST + "/api/SubAdmin/create",
+      url: API_HOST + "/api/admin/create-subAdmin",
       data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
