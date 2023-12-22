@@ -173,7 +173,7 @@ const HierarchyPageView = () => {
                                   // data-bs-target={`#hierarchyview-${userId}`}
                                   style={{ cursor: "auto" }}
                                 >
-                                  {user.roles[0]}
+                                  {user.roles[0].role}
                                 </button>
 
                                 <p
