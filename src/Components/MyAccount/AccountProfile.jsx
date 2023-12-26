@@ -7,7 +7,7 @@ const AccountProfile = ({ props, UserName }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [passtoggle, setPassToggle] = useState(true);
   const [newPassword, setNewPassword] = useState("");
-  console.log("Im here in the Line no.6 of profile", UserName);
+  console.log("Im here in the Line no.10 of profile", UserName);
   const auth = useAuth();
 
   const funChangePassword = () => {
@@ -19,7 +19,7 @@ const AccountProfile = ({ props, UserName }) => {
     MyAccountServices.changePassword(data, auth.user)
       .then((res) => {
         console.log("response from Profile page password change ==========>", res);
-        // alert("Password Changed Successfully");
+        alert("Password Changed Successfully");
         // setPassToggle(false);
       })
 
