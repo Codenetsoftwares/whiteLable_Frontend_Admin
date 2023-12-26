@@ -21,10 +21,10 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
   };
   const roleOptions = {
     superAdmin: ["WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"],
-    WhiteLabel: ["HyperAgent", "MasterAgent", "SuperAgent", "User"],
-    SuperAgent: ["HyperAgent", "MasterAgent", "User"],
-    HyperAgent: ["MasterAgent", "User"],
-    MasterAgent: ["User"],
+    WhiteLabel: ["HyperAgent", "MasterAgent", "SuperAgent", "user"],
+    SuperAgent: ["HyperAgent", "MasterAgent", "user"],
+    HyperAgent: ["MasterAgent", "user"],
+    MasterAgent: ["user"],
   };
   const renderRoleOptions = () => {
     if (purpose === "create") {
@@ -63,7 +63,7 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
       };
     }
     console.log('============++++++> Data', data)
-    if (role === "User") {
+    if (role === "user") {
       userApi(data, auth.user)
         .then((res) => {
           console.log(res);
