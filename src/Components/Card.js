@@ -117,7 +117,7 @@ const Card = ({
         </th>
 
         <td scope="row" className="fs-6 text-center">
-          <span>{creditRef}</span>
+          {creditRefLength > 0 ? <span>{creditRef}</span> : <span>0</span>}
           <span className="m-2">
             <button
               className="border border-0 bg-white"
@@ -126,7 +126,7 @@ const Card = ({
               aria-label="Close"
             >
               <i className="fa-solid fa-pen-to-square"
-               
+
               ></i>
             </button>
           </span>
@@ -139,7 +139,7 @@ const Card = ({
           </span>
         </td>
         <td scope="row" className="fs-6 text-center">
-          <span>{partnership}</span>
+          {partnershipLength > 0 ? <span>{partnership}</span> : <span>0</span>}
           <span className="m-2">
             <i
               className="fa-solid fa-pen-to-square"
@@ -192,7 +192,7 @@ const Card = ({
               type="button"
               data-bs-toggle="modal"
               data-bs-target={`#activeInactive-${userId}`}
-              // onClick={handlestatus}
+            // onClick={handlestatus}
             >
               <i className="fa-thin fas fa-gear"></i>
             </button>
