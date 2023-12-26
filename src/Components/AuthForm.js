@@ -63,7 +63,7 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
       };
     }
     console.log('============++++++> Data', data)
-    if (role === "user") {
+    if (role === "User") {
       userApi(data, auth.user)
         .then((res) => {
           console.log(res);
