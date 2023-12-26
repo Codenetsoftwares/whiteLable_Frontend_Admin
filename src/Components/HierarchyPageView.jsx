@@ -192,8 +192,23 @@ const HierarchyPageView = () => {
                                   </Link>
                                 </p>
                               </th>
-                              <td>{user.creditRef}</td>
-                              <td>{user.partnership}</td>
+                              <td>
+                                <span className="d-flex gap-2">
+                                  1000
+                                  <i class="fa-solid fa-pen-to-square"></i>
+                                  <i class="fa-regular fa-eye"></i>\
+                                </span>
+
+                                
+                              </td>
+                              <td>
+                                <span className="d-flex gap-2">
+                                  {" "}
+                                  1000
+                                  <i class="fa-solid fa-pen-to-square"></i>
+                                  <i class="fa-regular fa-eye"></i>
+                                </span>
+                              </td>
                               <td>{user.loadBalance}</td>
                               <td>0</td>
                               <td>{user.balance}</td>
@@ -285,7 +300,6 @@ const HierarchyPageView = () => {
                       </nav>
                     </div>
                   </div>
-                  {/* Pagination End*/}
                 </div>
               </div>
             </div>
