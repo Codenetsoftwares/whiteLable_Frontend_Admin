@@ -23,7 +23,7 @@ const AppRoutes = () => {
               <Route path="authform" element={<Authform />} />
               <Route index element={<Login />} />
               <Route path="*" element={<ErrorPage />} />
-              <Route path="/" element={<AdminLayout />}>
+              <Route path="/" element={<RequireAuth><AdminLayout /></RequireAuth>}>
                   <Route
                       path="welcome"
                       element={

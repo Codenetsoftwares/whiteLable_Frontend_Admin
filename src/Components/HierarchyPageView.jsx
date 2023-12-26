@@ -4,10 +4,12 @@ import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
 import { useNavigate } from "react-router-dom";
 import { Prompt } from "react-router";
-
+import EditCreditRefBalance from "./Modal/EditCreditRefBalance";
+import EditPartnerShipBalance from "./Modal/EditPartnerShipBalance";
+import PartnerShipLog from "./Modal/PartnerShipLog";
+import CreditRefBalanceLog from "./Modal/CreditRefBalanceLog";
 
 const HierarchyPageView = () => {
-  
   const { userId } = useParams();
   const auth = useAuth();
   const [hierarchydata, sethierarchyData] = useState([]);
@@ -49,8 +51,6 @@ const HierarchyPageView = () => {
     };
     fetchData();
   }, [userId, action, auth]);
-
-  
 
   // useEffect(() => {
   //   AccountServices.getHierarchy(userId, auth.user)
@@ -194,19 +194,39 @@ const HierarchyPageView = () => {
                               </th>
                               <td>
                                 <span className="d-flex gap-2">
-                                  1000
-                                  <i class="fa-solid fa-pen-to-square"></i>
-                                  <i class="fa-regular fa-eye"></i>\
-                                </span>
+                                  {user.creditRef.length > 0 ? <span>{user.creditRef[user.creditRef.length - 1]}</span> : <span>0</span>}
 
-                                
+                                  <i
+                                    class="fa-solid fa-pen-to-square"
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#EditCreditRefBalance-${userId}`}
+                                    aria-label="Close"
+                                  ></i>
+                                  <i
+                                    class="fa-regular fa-eye"
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#CreditRefBalanceLog-${userId}`}
+                                    aria-label="Close"
+                                  ></i>
+                                </span>
                               </td>
                               <td>
                                 <span className="d-flex gap-2">
                                   {" "}
-                                  1000
-                                  <i class="fa-solid fa-pen-to-square"></i>
-                                  <i class="fa-regular fa-eye"></i>
+                                  {user.partnership.length > 0 ? <span>{user.partnership[user.partnership.length - 1]}</span> : <span>0</span>}
+
+                                  <i
+                                    class="fa-solid fa-pen-to-square"
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#EditPartnerShipBalance-${userId}`}
+                                    aria-label="Close"
+                                  ></i>
+                                  <i
+                                    class="fa-regular fa-eye"
+                                    data-bs-toggle="modal"
+                                    data-bs-target={`#PartnerShipLog-${userId}`}
+                                    aria-label="Close"
+                                  ></i>
                                 </span>
                               </td>
                               <td>{user.loadBalance}</td>
@@ -306,6 +326,16 @@ const HierarchyPageView = () => {
           </div>
         </div>
       </div>
+      <EditCreditRefBalance
+        userId={userId}
+        key={`EditCreditRefBalance-${userId}`}
+      />
+      <EditPartnerShipBalance
+        userId={userId}
+        key={`EditPartnerShipBalance -${userId}`}
+      />
+      <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />
+      <CreditRefBalanceLog userId={userId} key={`CreditRefBalanceLog -${userId}`} />
     </div>
   );
 };
