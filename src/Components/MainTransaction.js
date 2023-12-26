@@ -104,12 +104,12 @@ const MainTransaction = () => {
                       userName={data.userName}
                       role={data.roles[0].role}
                       key={data.id}
-                      creditRef={data.creditRef[0]?.value}
+                      creditRef={data.creditRef[creditRefLength-1]?.value}
                       balance={data.balance}
                       loadBalance={data.loadBalance}
                       refProfitLoss={data.refProfitLoss}
                       userId={data.id}
-                      partnership={data.partnership[0]?.value}
+                      partnership={data.partnership[partnershipLength-1]?.value}
                       Status={data.Status}
                       creditRefLength={creditRefLength}
                       partnershipLength={partnershipLength}
