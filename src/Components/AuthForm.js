@@ -21,6 +21,7 @@ const Authform = ({ purpose, authFormApin, userApi }) => {
   };
   const roleOptions = {
     superAdmin: ["WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"],
+    SubAdmin: ["WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"],
     WhiteLabel: ["HyperAgent", "MasterAgent", "SuperAgent", "user"],
     SuperAgent: ["HyperAgent", "MasterAgent", "user"],
     HyperAgent: ["MasterAgent", "user"],
