@@ -32,7 +32,7 @@ const MainTransaction = () => {
             role === "HyperAgent" ||
             role === "SuperAgent" ||
             role === "MasterAgent" 
-        ) && AccountServices.getAllCreates(auth.user.id, auth.user)
+        ) && AccountServices.getAllCreates(auth.user.createBy, auth.user)
           .then((res) => {
             console.log("==========MmmmmHHHHHHHHHH>DDDDDD", res.data.user);
             setUserList(res.data.user);
