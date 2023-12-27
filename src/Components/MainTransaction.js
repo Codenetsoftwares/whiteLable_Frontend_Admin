@@ -28,8 +28,10 @@ const MainTransaction = () => {
         ["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].some(
           (role) =>
             role === "superAdmin" ||
-            role === "Create-User" ||
-            role === "Create-Introducer"
+            role === "WhiteLabel" ||
+            role === "HyperAgent" ||
+            role === "SuperAgent" ||
+            role === "MasterAgent" 
         ) && AccountServices.getAllCreates(auth.user.id, auth.user)
           .then((res) => {
             console.log("==========MmmmmHHHHHHHHHH>DDDDDD", res.data.user);
