@@ -3,7 +3,7 @@ import { useAuth } from "../../Utils/Auth";
 import { toast } from "react-toastify";
 import TransactionServices from "../../Services/TransactionServices";
 const TransferBalance = ({ userId }) => {
-  console.log("username...", userId)
+
   const auth = useAuth();
   const [Amount, setAmount] = useState(0);
   const [Remarks, SetRemarks] = useState("");
@@ -38,13 +38,11 @@ const TransferBalance = ({ userId }) => {
       TransactionServices.transferBalance(auth.user.id, data, auth.user)
         .then((res) => {
           if (res.status === 200) {
-            console.log(res);
             alert(res.data.message);
             window.location.reload();
           }
         })
         .catch((error) => {
-          console.log(error);
           alert(error.response.data.message);
           handleReset()
         });

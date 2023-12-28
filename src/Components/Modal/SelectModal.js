@@ -12,24 +12,22 @@ const SelectModal = ({ userId, selectedStatus, setSelectedStatus }) => {
 
   useEffect(() => {
     AccountServices.getActiveStatus(auth.user.id, auth.user).then((res) => {
-      console.log("xxxxxxxxxxxx", res.data);
+
       setActiveStatus(res.data);
     });
   }, []);
-  console.log("============>status", activeStatus);
+
   const handleButtonClick = (data) => {
     setIsactive(data);
   };
-  console.log(isactive);
 
   const handleButtonChange = (data) => {
     setLock(data);
   };
-  console.log("LOCKED", Lock);
+
 
   const handleSubmit = () => {
-    console.log("lock", Lock);
-    console.log("isActive", isactive);
+
     let Data;
 
     if (isactive === false) {

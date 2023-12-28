@@ -11,15 +11,11 @@ const HierarchyView = ({ userId }) => {
 
   useEffect(() => {
     AccountServices.getHierarchy(userId, auth.user).then((res) => {
-      console.log("xxxxxxxxxxxx", res.data);
       sethierarchyData(res.data);
     });
-  }, [userId,auth]);
+  }, [userId, auth]);
+  
 
-  console.log("line17 >>>>>>>>>>>>>", hierarchydata);
-  const hi = () => {
-  console.log("Line no. 7", userId);
-}
   return (
     <div
       className="modal"

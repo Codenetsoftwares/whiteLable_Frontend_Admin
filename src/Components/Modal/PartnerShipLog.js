@@ -5,23 +5,19 @@ import AccountServices from '../../Services/AccountServices';
 
 const PartnerShipLog = ({ userId }) => {
     const auth = useAuth();
-    console.log("first", userId)
+    
     const [partnershipData, setPartnershipData] = useState([]);
     useEffect(() => {
         if (auth.user) {
 
             AccountServices.getPartnershipData(userId, auth.user)
                 .then((res) => {
-                    console.log("==========aaaaaaaaaMMMMMMM>", res.data.partnership);
                     setPartnershipData(res.data.partnership);
                 })
                 .catch((err) => setPartnershipData([]));
         }
     }, []);
 
-
-
-    console.log("hkhkhkuh", partnershipData)
     return (
         <div className="modal fade" id={`PartnerShipLog-${userId}`} tabindex="-1" aria-labelledby={`PartnerShipLog-${userId}`} aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
