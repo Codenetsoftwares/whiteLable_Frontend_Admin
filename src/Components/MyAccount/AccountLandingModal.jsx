@@ -12,7 +12,7 @@ const AccountLandingModal = () => {
   let componentToRender;
   const { userId } = useParams();
   const auth = useAuth();
-  console.log("13=>>>", userId);
+
   const [statementView, setstatementView] = useState([]);
   const [activityView, setActivityView] = useState([]);
   const [profileView, setProfileView] = useState([]);
@@ -23,19 +23,19 @@ const AccountLandingModal = () => {
     MyAccountServices.getAccountStatement(userId, auth.user)
       .then((res) => setstatementView(res.data))
       .catch((err) => {
-        console.log(err);
+  
       });
   }, [userId, auth]);
-  console.log("From Acc Landing Statement=>>>", statementView);
+ 
 
     useEffect(() => {
       MyAccountServices.getActivityLog(userId, auth.user)
         .then((res) => setActivityView(res.data))
         .catch((err) => {
-          console.log(err);
+ 
         });
     }, [userId, auth]);
-  console.log("From Acc Landing activityView=>>>", activityView);
+ 
   
       useEffect(() => {
         MyAccountServices.getProfile(userId, auth.user)
@@ -45,7 +45,7 @@ const AccountLandingModal = () => {
           });
       }, [userId, auth]);
   
-  console.log("From Acc Landing profileView =>>>", profileView);
+
   
  
 
@@ -55,7 +55,7 @@ const AccountLandingModal = () => {
     settoggle(1);
     setActiveItem("statement");
 
-    console.log(toggle);
+  
   };
   const handelActivity = () => {
     settoggle(2);

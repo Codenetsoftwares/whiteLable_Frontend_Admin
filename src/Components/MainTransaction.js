@@ -8,18 +8,16 @@ import AccountServices from "../Services/AccountServices";
 
 const MainTransaction = () => {
   const auth = useAuth();
-  console.log("=======>>>>>>", auth);
   const [balance, setBalance] = useState(0);
   const [userList, setUserList] = useState([]);
-  const TempAuth = auth.user.roles[0].role;
-  console.log("Auth from MainTxn=>>", auth);
+
 
 
   useEffect(() => {
     if (auth.user) {
       TransactionServices.viewBalance(auth.user.id, auth.user)
         .then((res) => {
-          console.log("==========>uuuuuu", res.data);
+
           setBalance(res.data.amount.balance);
         })
         .catch((err) => setBalance([]));
@@ -34,7 +32,7 @@ const MainTransaction = () => {
             role === "MasterAgent" 
         ) && AccountServices.getAllCreates(auth.user.id, auth.user)
           .then((res) => {
-            console.log("==========MmmmmHHHHHHHHHH>DDDDDD", res.data.user);
+
             setUserList(res.data.user);
           })
           .catch((err) => setUserList([]));
@@ -49,14 +47,14 @@ const MainTransaction = () => {
             role === "SubMasterAgent" 
         ) && AccountServices.getAllCreates(auth.user.createBy, auth.user)
           .then((res) => {
-            console.log("==========MmmmmHHHHHHHHHH>DDDDDD", res.data.user);
+
             setUserList(res.data.user);
           })
           .catch((err) => setUserList([]));
       }
 }
   }, []);
-console.log("first========>UPDATED", userList);
+
 return (
   <div className="mt-3 mb-3">
     <div className="text-center ">

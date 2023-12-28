@@ -5,14 +5,12 @@ import AccountServices from '../../Services/AccountServices';
 
 const CreditRefBalanceLog = ({ userId }) => {
     const auth = useAuth();
-    console.log("first", userId)
     const [CreditRefBalanceData, setCreditRefBalanceData] = useState([]);
     useEffect(() => {
         if (auth.user) {
 
             AccountServices.getCreditRefBalance(userId, auth.user)
                 .then((res) => {
-                    console.log("===ghghghghghghghghghghghghghgh>", res.data.creditRef);
                     setCreditRefBalanceData(res.data.creditRef);
                 })
                 .catch((err) => setCreditRefBalanceData([]));

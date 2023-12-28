@@ -5,11 +5,10 @@ import { toast } from 'react-toastify';
 
 const EditPartnerShipBalance = ({ userId }) => {
     const auth = useAuth();
-    console.log('-------AUTHETICATION', auth)
+
     const [Amount, SetAmount] = useState(0);
     const id = auth.user.id;
 
-    console.log('......MMMM>>>ID--->', id)
     const handelamtchange = (e) => {
         SetAmount(e.target.value);
     };
@@ -31,18 +30,17 @@ const EditPartnerShipBalance = ({ userId }) => {
             partnership: Number(Amount),
         };
 
-        console.log("data", data);
+
         TransactionServices.EditPartnership(data, userId, auth.user)
             .then((res) => {
-                // console.log(response.data);
+
                 if (res.status === 200) {
-                    console.log(res);
+
                     alert("Partnership Udated Succesfully");
                     window.location.reload();
                 }
             })
             .catch((error) => {
-                console.log(error)
                 alert(`${auth.user.roles[0].role} should be Locked Or Suspended`);
                 window.location.reload();
             });

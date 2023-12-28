@@ -14,15 +14,11 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
   const [activeStatus, setActiveStatus] = useState({});
   const [previousState, setPreviousState] = useState({});
 
-  console.log("----------xxxx>>>AUTH", auth);
-  console.log("-------STATUS ID", statusId);
+
 
   useEffect(() => {
     AccountServices.getActiveStatus(statusId, auth.user).then((res) => {
-      console.log("xxxxxxxxxxxx----DaTa", res.data);
-
       setActiveStatus(res.data);
-      console.log("Line 26=>>", activeStatus);
 
       // Call the onStatusChange function to pass the status back to the parent
       //  const status =  calculateStatus(res)
@@ -96,18 +92,17 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
       data.locked
     )
       .then((res) => {
-        console.log("res from status model==========>", res);
         // alert(res.data.message);
         window.location.reload();
       })
       .catch((err) => {
-        console.log("errorrr", err.response.data.message);
+
         // alert(err.response.data.message);
         return;
       });
   };
   const hi = () => {
-    console.log(activeStatus);
+    // console.log(activeStatus);
   };
 
   let status = "";

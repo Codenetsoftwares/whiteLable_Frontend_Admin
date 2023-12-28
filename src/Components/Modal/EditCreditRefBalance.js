@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const EditCreditRefBalance = ({ userId }) => {
   const auth = useAuth();
-  console.log(auth)
+  
   const [Amount, SetAmount] = useState(0);
   const id = auth.user.id;
   const handleAmtChange = (e) => {
@@ -28,18 +28,15 @@ const EditCreditRefBalance = ({ userId }) => {
       creditRef: Number(Amount),
     };
 
-    console.log("data", data);
     TransactionServices.EditCreditref(data, userId, auth.user)
       .then((res) => {
         // console.log(response.data);
         if (res.status === 200) {
-          console.log(res);
           alert("Sucessfully Edit CreditRef");
           window.location.reload();
         }
       })
       .catch((error) => {
-        console.log(error);
         alert(`${auth.user.roles[0].role} should be Locked Or Suspended`);
         window.location.reload();
       });
