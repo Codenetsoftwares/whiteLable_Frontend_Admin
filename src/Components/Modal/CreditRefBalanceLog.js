@@ -6,6 +6,7 @@ import AccountServices from '../../Services/AccountServices';
 const CreditRefBalanceLog = ({ userId }) => {
     const auth = useAuth();
     const [CreditRefBalanceData, setCreditRefBalanceData] = useState([]);
+    
     useEffect(() => {
         if (auth.user) {
 

@@ -31,6 +31,8 @@ const Card = ({
   const [userID, setUserID] = useState("");
   const [userhierarchy, setHierarchy] = useState("");
   const navigate = useNavigate();
+
+  console.log("first", auth)
   // Function to receive the status from the child
   const handleStatusChange = (newStatus) => {
     setIStatus(newStatus);
@@ -255,13 +257,7 @@ const Card = ({
 
       <TransferBalance userId={userId} key={`transferbalance-${userId}`} />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
-      <StatusModal
-        statusId={userId}
-        username={userName}
-        userRole={role}
-        onStatusChange={handleStatusChange} // Pass the function to receive status
-        key={`activeInactive-${userId}`}
-      />
+
 
       <EditCreditRefBalance
         userId={userId}
@@ -271,8 +267,31 @@ const Card = ({
         userId={userId}
         key={`EditPartnerShipBalance -${userId}`}
       />
-      <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />
-      <CreditRefBalanceLog userId={userId} key={`CreditRefBalanceLog -${userId}`} />
+      {auth.user.roles[0].permission.some((role) => role ==="CreditRef-View") &&
+        <CreditRefBalanceLog userId={userId} key={`CreditRefBalanceLog -${userId}`} />}
+      {auth.user.roles[0].permission.some((role) => role === "Partnership-View") &&
+        <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />}
+      {auth.user.roles[0].permission.some((role) => role === "Status") &&
+        <StatusModal
+          statusId={userId}
+          username={userName}
+          userRole={role}
+          onStatusChange={handleStatusChange} // Pass the function to receive status
+          key={`activeInactive-${userId}`}
+        />}
+      {
+        ["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) && <>
+          <CreditRefBalanceLog userId={userId} key={`CreditRefBalanceLog -${userId}`} />
+          <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />
+          <StatusModal
+            statusId={userId}
+            username={userName}
+            userRole={role}
+            onStatusChange={handleStatusChange} // Pass the function to receive status
+            key={`activeInactive-${userId}`}
+          />
+        </>
+      }
     </tbody>
   );
 };
