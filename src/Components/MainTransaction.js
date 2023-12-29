@@ -23,14 +23,7 @@ const MainTransaction = () => {
         .catch((err) => setBalance([]));
 
       {
-        ["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].some(
-          (role) =>
-            role === "superAdmin" ||
-            role === "WhiteLabel" ||
-            role === "HyperAgent" ||
-            role === "SuperAgent" ||
-            role === "MasterAgent" 
-        ) && AccountServices.getAllCreates(auth.user.id, auth.user)
+        ["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.id, auth.user)
           .then((res) => {
 
             setUserList(res.data.user);
@@ -38,7 +31,7 @@ const MainTransaction = () => {
           .catch((err) => setUserList([]));
       }
       {
-        ["SubAdmin", "SubWhiteLabel", "SubHyperAgent", "SubSuperAgent", "SubMasterAgent"].some(
+        auth.user.roles[0].permission.some(
           (role) =>
             role === "SubAdmin" ||
             role === "SubWhiteLabel" ||
