@@ -31,114 +31,107 @@ const MainTransaction = () => {
           .catch((err) => setUserList([]));
       }
       {
-        auth.user.roles[0].permission.some(
-          (role) =>
-            role === "SubAdmin" ||
-            role === "SubWhiteLabel" ||
-            role === "SubHyperAgent" ||
-            role === "SubSuperAgent" ||
-            role === "SubMasterAgent" 
-        ) && AccountServices.getAllCreates(auth.user.createBy, auth.user)
+        ["SubAdmin", "SubWhiteLabel", "SubHyperAgent", "SubSuperAgent", "SubMasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.createBy, auth.user)
           .then((res) => {
 
             setUserList(res.data.user);
           })
           .catch((err) => setUserList([]));
       }
-}
+    }
   }, []);
 
-return (
-  <div className="mt-3 mb-3">
-    <div className="text-center ">
-      <p>Total Balance</p>
-      <h4>₹{balance}</h4>
-      {auth.user.roles &&
-        auth.user.roles.length > 0 &&
-        auth.user.roles[0].role === "superAdmin" && (
-          <button
-            data-bs-toggle="modal"
-            data-bs-target="#depositBalance"
-            className="btn btn-danger"
-            aria-label="Close"
-          >
-            ADD CASH
-          </button>
-        )}
-    </div>
-    <div className="white_card_body m-3">
-      <div className="QA_section">
-        <div className="QA_table mb_30" style={{ overflow: "auto" }}>
-          {userList.length > 0 && (
-            <table className="table lms_table_active3 table-bordered table-sm">
-              <thead>
-                <tr>
-                  <th scope="col" className="text-bolder fs-6 ">
-                    Username
-                  </th>
-                  <th
-                    scope="col"
-                    className="text-bolder fs-6 text-center"
-                    style={{ width: "150px" }}
-                  >
-                    Credit Ref.
-                  </th>
-                  <th
-                    scope="col"
-                    className="text-bolder fs-6 text-center"
-                    style={{ width: "150px" }}
-                  >
-                    Partnership
-                  </th>
-                  <th scope="col" className="text-bolder fs-6 text-center">
-                    Balance
-                  </th>
-                  <th scope="col" className="text-bolder fs-6 text-center">
-                    Exposeure
-                  </th>
-                  <th scope="col" className="text-bolder fs-6 text-center">
-                    Avail. Bal.
-                  </th>
-                  <th scope="col" className="text-bolder fs-6 text-center">
-                    Ref. P/L
-                  </th>
-                  <th scope="col" className="text-bolder fs-6 text-center">
-                    Status
-                  </th>
-                  <th scope="col" className="text-bolder fs-6 text-center">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              {userList.map((data, i) => {
-                const creditRefLength = data.creditRef.length;
-                const partnershipLength = data.partnership.length;
-                return (
-                  <Card
-                    userName={data.userName}
-                    role={data.roles[0].role}
-                    key={data.id}
-                    creditRef={data.creditRef[creditRefLength - 1]?.value}
-                    balance={data.balance}
-                    loadBalance={data.loadBalance}
-                    refProfitLoss={data.refProfitLoss}
-                    userId={data.id}
-                    partnership={data.partnership[partnershipLength - 1]?.value}
-                    Status={data.Status}
-                    creditRefLength={creditRefLength}
-                    partnershipLength={partnershipLength}
-                  />
-                )
-              })}
-            </table>
+  return (
+    <div className="mt-3 mb-3">
+      <div className="text-center ">
+        <p>Total Balance</p>
+        <h4>₹{balance}</h4>
+        {auth.user.roles &&
+          auth.user.roles.length > 0 &&
+          auth.user.roles[0].role === "superAdmin" && (
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#depositBalance"
+              className="btn btn-danger"
+              aria-label="Close"
+            >
+              ADD CASH
+            </button>
           )}
+      </div>
+      <div className="white_card_body m-3">
+        <div className="QA_section">
+          <div className="QA_table mb_30" style={{ overflow: "auto" }}>
+            {userList.length > 0 && (
+              <table className="table lms_table_active3 table-bordered table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col" className="text-bolder fs-6 ">
+                      Username
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-bolder fs-6 text-center"
+                      style={{ width: "150px" }}
+                    >
+                      Credit Ref.
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-bolder fs-6 text-center"
+                      style={{ width: "150px" }}
+                    >
+                      Partnership
+                    </th>
+                    <th scope="col" className="text-bolder fs-6 text-center">
+                      Balance
+                    </th>
+                    <th scope="col" className="text-bolder fs-6 text-center">
+                      Exposeure
+                    </th>
+                    <th scope="col" className="text-bolder fs-6 text-center">
+                      Avail. Bal.
+                    </th>
+                    <th scope="col" className="text-bolder fs-6 text-center">
+                      Ref. P/L
+                    </th>
+                    <th scope="col" className="text-bolder fs-6 text-center">
+                      Status
+                    </th>
+                    <th scope="col" className="text-bolder fs-6 text-center">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                {userList.map((data, i) => {
+                  const creditRefLength = data.creditRef.length;
+                  const partnershipLength = data.partnership.length;
+                  return (
+                    <Card
+                      userName={data.userName}
+                      role={data.roles[0].role}
+                      key={data.id}
+                      creditRef={data.creditRef[creditRefLength - 1]?.value}
+                      balance={data.balance}
+                      loadBalance={data.loadBalance}
+                      refProfitLoss={data.refProfitLoss}
+                      userId={data.id}
+                      partnership={data.partnership[partnershipLength - 1]?.value}
+                      Status={data.Status}
+                      creditRefLength={creditRefLength}
+                      partnershipLength={partnershipLength}
+                    />
+                  )
+                })}
+              </table>
+            )}
+          </div>
         </div>
       </div>
-    </div>
 
-    <DepositBalance />
-  </div>
-);
+      <DepositBalance />
+    </div>
+  );
 };
 
 export default MainTransaction;
