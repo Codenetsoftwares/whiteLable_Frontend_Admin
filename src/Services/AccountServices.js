@@ -32,10 +32,11 @@ class AccountService {
     });
   }
 
-  getAllCreates(id, user) {
+  getAllCreates(id, page, user) {
+    console.log(page)
     return axios({
       method: "get",
-      url: `${API_HOST}/api/view-all-creates/${id}`,
+      url: `${API_HOST}/api/view-all-creates/${id}?page=${page}`,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },

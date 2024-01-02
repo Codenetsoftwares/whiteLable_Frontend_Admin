@@ -5,13 +5,16 @@ import DepositBalance from "./Modal/DepositBalance";
 import TransactionServices from "../Services/TransactionServices";
 import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
+import Pagination from "./Pagination";
 
 const MainTransaction = () => {
   const auth = useAuth();
   const [balance, setBalance] = useState(0);
   const [userList, setUserList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+const [totalPages, setTotalPages] = useState();
 
-
+console.log(currentPage)
 
   useEffect(() => {
     if (auth.user) {
@@ -23,15 +26,16 @@ const MainTransaction = () => {
         .catch((err) => setBalance([]));
 
       {
-        ["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.id, auth.user)
+        ["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.id,currentPage, auth.user)
           .then((res) => {
 
             setUserList(res.data.user);
+            setTotalPages(res.data.totalPages);
           })
           .catch((err) => setUserList([]));
       }
       {
-        ["SubAdmin", "SubWhiteLabel", "SubHyperAgent", "SubSuperAgent", "SubMasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.createBy, auth.user)
+        ["SubAdmin", "SubWhiteLabel", "SubHyperAgent", "SubSuperAgent", "SubMasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.createBy,currentPage, auth.user)
           .then((res) => {
 
             setUserList(res.data.user);
@@ -39,7 +43,14 @@ const MainTransaction = () => {
           .catch((err) => setUserList([]));
       }
     }
-  }, []);
+  }, [auth.user, currentPage]);
+ 
+  const handlePageChange = (page) => {
+    console.log("Changing to page:", page);
+    
+      setCurrentPage(page);
+    
+  };
 
   return (
     <div className="mt-3 mb-3">
@@ -61,6 +72,37 @@ const MainTransaction = () => {
       </div>
       <div className="white_card_body m-3">
         <div className="QA_section">
+        <div class="white_box_tittle list_header">
+                    <h4>User List </h4>
+                    <div class="box_right d-flex lms_block">
+                      <div class="serach_field_2">
+                        <div class="search_inner">
+                          <form Active="#">
+                            <div class="search_field">
+                              <input
+                                type="text"
+                                placeholder="Search content here..."
+                              />
+                            </div>
+                            <button type="submit">
+                              {" "}
+                              <i class="ti-search"></i>{" "}
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="add_button ms-2">
+                        <a
+                          href="#"
+                          data-toggle="modal"
+                          data-target="#addcategory"
+                          class="btn_1"
+                        >
+                          search
+                        </a>
+                      </div>
+                    </div>
+                  </div>
           <div className="QA_table mb_30" style={{ overflow: "auto" }}>
             {userList.length > 0 && (
               <table className="table lms_table_active3 table-bordered table-sm">
@@ -128,6 +170,11 @@ const MainTransaction = () => {
           </div>
         </div>
       </div>
+      <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      handlePageChange={handlePageChange}
+    />
 
       <DepositBalance />
     </div>

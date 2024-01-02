@@ -254,6 +254,7 @@ const Card = ({
           </span>
         </td>
       </tr>
+      
 
       <TransferBalance userId={userId} key={`transferbalance-${userId}`} />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
