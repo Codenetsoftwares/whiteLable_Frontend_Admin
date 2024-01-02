@@ -71,10 +71,10 @@ const Navside = () => {
             </a>
           </li>) : (<li className="" onClick={handleRequestToggle}>
             <a className="has-arrow" href="#" aria-expanded="false">
-              <div className="nav_icon_small">
+              <div>
                 <img src="../img/menu-icon/dashboard.svg" alt="" />
               </div>
-              <div className="nav_title">
+              <div >
                 <span>Request </span>
               </div>
             </a>
@@ -87,7 +87,7 @@ const Navside = () => {
           
           </li>)}
           <li>
-                <Link to='/Createsub'>CreateSub</Link>
+                <Link to='/Createsub'>User Role</Link>
               </li>
           
         </ul>
