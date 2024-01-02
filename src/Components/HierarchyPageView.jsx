@@ -4,16 +4,37 @@ import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
 import { useNavigate } from "react-router-dom";
 import { Prompt } from "react-router";
-import EditCreditRefBalance from "./Modal/EditCreditRefBalance";
-import EditPartnerShipBalance from "./Modal/EditPartnerShipBalance";
-import PartnerShipLog from "./Modal/PartnerShipLog";
-import CreditRefBalanceLog from "./Modal/CreditRefBalanceLog";
+import { Modal, Button } from "react-bootstrap";
 
 const HierarchyPageView = () => {
   const { userId } = useParams();
   const auth = useAuth();
   const [hierarchydata, sethierarchyData] = useState([]);
+  const [modalPartnership, setModalPartnership] = useState([]);
+  const [modalcreditref, setModalcreditref] = useState([]);
   const [pathdata, setPathData] = useState([]);
+  const [showModalCreditRef, setShowModalCreditRef] = useState(false);
+  const [showModalPartnership, setShowModalPartnership] = useState(false);
+  const takeMeToAccount = (userName) => {
+    navigate(`/account-landing/${userName}`);
+  };
+
+  const handleCloseModalCreditRef = () => {
+    setShowModalCreditRef(false);
+  };
+  const handleCloseModalPartnership = () => setShowModalPartnership(false);
+
+  const handleShowModalCreditRef = (creditref) => {
+    setShowModalCreditRef(true);
+    setModalcreditref(creditref);
+  };
+  console.log("modalcreditref=>>", modalcreditref);
+
+  const handleShowModalPartnership = (partnership) => {
+    setShowModalPartnership(true);
+    setModalPartnership(partnership);
+  };
+  console.log("modalpartnership=>>", modalPartnership);
 
   // const [pathname, setPathname] = useState([]);
   const navigate = useNavigate();
@@ -65,10 +86,6 @@ const HierarchyPageView = () => {
 
   console.log("hierarchy data=>>>", hierarchydata);
   // console.log("Path data=>>>", pathdata);
-
-  const takeMeTohierarchy = (userId) => {
-    navigate(`/hierarchypageview/${userId}`);
-  };
 
   return (
     <div class="main_content_iner overly_inner ">
@@ -158,6 +175,7 @@ const HierarchyPageView = () => {
                           <th scope="col">Avail. Bal.</th>
                           <th scope="col">Ref. P/L</th>
                           <th scope="col">Status</th>
+                          <th>Actions</th>
 
                           {/* <th scope="col">Action</th> */}
                         </tr>
@@ -167,65 +185,76 @@ const HierarchyPageView = () => {
                           hierarchydata.map((user, index) => (
                             <tr key={index} className="text-center">
                               <th scope="row" className="">
-                                <button
-                                  className="border border-1 w-75 text-center bg-success rounded-pill "
-                                  // data-bs-toggle="modal"
-                                  // data-bs-target={`#hierarchyview-${userId}`}
-                                  style={{ cursor: "auto" }}
+                                <Link
+                                  to={{
+                                    pathname: `/hierarchypageview/${user.userName}`,
+                                  }}
                                 >
-                                  {user.roles[0].role}
-                                </button>
+                                  <button
+                                    className="border border-1 w-75 text-center bg-success rounded-pill "
+                                    // data-bs-toggle="modal"
+                                    // data-bs-target={`#hierarchyview-${userId}`}
+                                    style={{ cursor: "auto" }}
+                                  >
+                                    {user.roles[0].role}
+                                  </button>
 
-                                <p
-                                // onClick={() => {
-                                //   savePathName(user.userName);
-                                // }}
-                                >
-                                  <Link
-                                    to={{
-                                      pathname: `/hierarchypageview/${user.userName}`,
-                                    }}
+                                  <p
+                                  // onClick={() => {
+                                  //   savePathName(user.userName);
+                                  // }}
                                   >
                                     <b title="Click to show next hierarchy">
                                       {user.userName}
                                     </b>
-                                  </Link>
-                                </p>
+                                  </p>
+                                </Link>
                               </th>
-                              <td>
-                                <span className="d-flex gap-2">
-                                  {user.creditRef.length > 0 ? <span>{user.creditRef[user.creditRef.length - 1]}</span> : <span>0</span>}
 
-                                  <i
-                                    class="fa-solid fa-pen-to-square"
-                                    data-bs-toggle="modal"
-                                    data-bs-target={`#EditCreditRefBalance-${userId}`}
-                                    aria-label="Close"
-                                  ></i>
+                              <td>
+                                <span className="align-middle">
+                                  {user.creditRef.length > 0 ? (
+                                    <span>
+                                      {
+                                        user.creditRef[
+                                          user.creditRef.length - 1
+                                        ].value
+                                      }
+                                    </span>
+                                  ) : (
+                                    <span>0</span>
+                                  )}
+                                  &nbsp;{" "}
                                   <i
                                     class="fa-regular fa-eye"
-                                    data-bs-toggle="modal"
-                                    data-bs-target={`#CreditRefBalanceLog-${userId}`}
-                                    aria-label="Close"
+                                    onClick={() =>
+                                      handleShowModalCreditRef(user.creditRef)
+                                    }
                                   ></i>
                                 </span>
                               </td>
                               <td>
-                                <span className="d-flex gap-2">
+                                <span className="align-middle">
                                   {" "}
-                                  {user.partnership.length > 0 ? <span>{user.partnership[user.partnership.length - 1]}</span> : <span>0</span>}
-
-                                  <i
-                                    class="fa-solid fa-pen-to-square"
-                                    data-bs-toggle="modal"
-                                    data-bs-target={`#EditPartnerShipBalance-${userId}`}
-                                    aria-label="Close"
-                                  ></i>
+                                  {user.partnership.length > 0 ? (
+                                    <span>
+                                      {
+                                        user.partnership[
+                                          user.partnership.length - 1
+                                        ].value
+                                      }
+                                    </span>
+                                  ) : (
+                                    <span>0</span>
+                                  )}
+                                  &nbsp;{" "}
                                   <i
                                     class="fa-regular fa-eye"
-                                    data-bs-toggle="modal"
-                                    data-bs-target={`#PartnerShipLog-${userId}`}
-                                    aria-label="Close"
+                                    onClick={() =>
+                                      handleShowModalPartnership(
+                                        user.partnership
+                                      )
+                                    }
                                   ></i>
                                 </span>
                               </td>
@@ -237,6 +266,41 @@ const HierarchyPageView = () => {
                                 <p className="border border-1 w-75 text-center bg-success rounded-pill">
                                   {user.status}
                                 </p>
+                              </td>
+                              <td>
+                                <span className="mx-1">
+                                  <button
+                                    className={`btn border border-2 rounded ${
+                                      auth.user.roles[0].permission.some(
+                                        (role) => role === "Partnership-Edit"
+                                      )
+                                        ? ""
+                                        : [
+                                            "superAdmin",
+                                            "WhiteLabel",
+                                            "HyperAgent",
+                                            "SuperAgent",
+                                            "MasterAgent",
+                                          ].includes(auth.user.roles[0].role)
+                                        ? ""
+                                        : "disabled"
+                                    }`}
+                                    title="Profile"
+                                    onClick={() => {
+                                      takeMeToAccount(user.userName);
+                                    }}
+                                  >
+                                    <i class="fa-solid fa-user"></i>
+                                  </button>
+                                </span>
+                                <span className="mx-1">
+                                  <button
+                                    className="btn border border-2 rounded"
+                                    title="Wallet"
+                                  >
+                                    <i class="fa-regular fas fa-wallet"></i>
+                                  </button>
+                                </span>
                               </td>
 
                               {/* Uncomment the following lines for action buttons */}
@@ -326,16 +390,117 @@ const HierarchyPageView = () => {
           </div>
         </div>
       </div>
-      <EditCreditRefBalance
-        userId={userId}
-        key={`EditCreditRefBalance-${userId}`}
-      />
-      <EditPartnerShipBalance
-        userId={userId}
-        key={`EditPartnerShipBalance -${userId}`}
-      />
-      <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />
-      <CreditRefBalanceLog userId={userId} key={`CreditRefBalanceLog -${userId}`} />
+      {/* Modal Partnership View */}
+      <Modal
+        show={showModalCreditRef}
+        onHide={handleCloseModalCreditRef}
+        centered
+      >
+        <Modal.Header closeButton>
+          {/* <Modal.Title>Modal 1 Title</Modal.Title> */}
+        </Modal.Header>
+        <Modal.Body>
+          {modalcreditref.length > 0 ? (
+            <table className="table lms_table_active3 table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th>Sl. No.</th>
+                  <th>Date</th>
+                  <th>PartnerShip Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {modalcreditref.map((data, i) => {
+                  const originalDate = new Date(data?.date);
+                  const options = {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  };
+
+                  const formattedDate = originalDate.toLocaleDateString(
+                    "en-US",
+                    options
+                  );
+                  return (
+                    <tr key={data._id}>
+                      <td>{i + 1}</td>
+
+                      <td>{formattedDate}</td>
+                      <td>{data.value}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <h3 className="text-center">No Data Found</h3>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModalCreditRef}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleCloseModalCreditRef}>
+            Save changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal Credit Ref View */}
+      <Modal
+        show={showModalPartnership}
+        onHide={handleCloseModalPartnership}
+        centered
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          {modalPartnership.length > 0 ? (
+            <table className="table lms_table_active3 table-bordered table-sm">
+              <thead>
+                <tr>
+                  <th>Sl. No.</th>
+                  <th>Date</th>
+                  <th>PartnerShip Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {modalPartnership.map((data, i) => {
+                  const originalDate = new Date(data?.date);
+                  const options = {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  };
+
+                  const formattedDate = originalDate.toLocaleDateString(
+                    "en-US",
+                    options
+                  );
+                  return (
+                    <tr key={data._id}>
+                      <td>{i + 1}</td>
+
+                      <td>{formattedDate}</td>
+                      <td>{data.value}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <h3 className="text-center">No Data Found</h3>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModalPartnership}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleCloseModalPartnership}>
+            Save changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
