@@ -13,7 +13,7 @@ const MainTransaction = () => {
   const [userList, setUserList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 const [totalPages, setTotalPages] = useState();
-
+const [name, setName] = useState('');
 console.log(currentPage)
 
   useEffect(() => {
@@ -26,7 +26,7 @@ console.log(currentPage)
         .catch((err) => setBalance([]));
 
       {
-        ["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.id,currentPage, auth.user)
+        ["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.id,currentPage, name, auth.user)
           .then((res) => {
 
             setUserList(res.data.user);
@@ -35,7 +35,7 @@ console.log(currentPage)
           .catch((err) => setUserList([]));
       }
       {
-        ["SubAdmin", "SubWhiteLabel", "SubHyperAgent", "SubSuperAgent", "SubMasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.createBy,currentPage, auth.user)
+        ["SubAdmin", "SubWhiteLabel", "SubHyperAgent", "SubSuperAgent", "SubMasterAgent"].includes(auth.user.roles[0].role) && AccountServices.getAllCreates(auth.user.createBy,currentPage,name,  auth.user)
           .then((res) => {
 
             setUserList(res.data.user);
@@ -43,7 +43,7 @@ console.log(currentPage)
           .catch((err) => setUserList([]));
       }
     }
-  }, [auth.user, currentPage]);
+  }, [auth.user, currentPage, name]);
  
   const handlePageChange = (page) => {
     console.log("Changing to page:", page);
@@ -80,6 +80,8 @@ console.log(currentPage)
                           <form Active="#">
                             <div class="search_field">
                               <input
+                              value={name}
+                              onChange={e=>{setName(e.target.value)}}
                                 type="text"
                                 placeholder="Search content here..."
                               />
@@ -91,7 +93,7 @@ console.log(currentPage)
                           </form>
                         </div>
                       </div>
-                      <div class="add_button ms-2">
+                      {/* <div class="add_button ms-2">
                         <a
                           href="#"
                           data-toggle="modal"
@@ -100,7 +102,7 @@ console.log(currentPage)
                         >
                           search
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
           <div className="QA_table mb_30" style={{ overflow: "auto" }}>
