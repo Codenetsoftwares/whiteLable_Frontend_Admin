@@ -106,7 +106,8 @@ console.log(currentPage)
                     </div>
                   </div>
           <div className="QA_table mb_30" style={{ overflow: "auto" }}>
-            {userList.length > 0 && (
+            {userList.length > 0 ? (
+              <>
               <table className="table lms_table_active3 table-bordered table-sm">
                 <thead>
                   <tr>
@@ -168,15 +169,28 @@ console.log(currentPage)
                   )
                 })}
               </table>
-            )}
-          </div>
-        </div>
-      </div>
-      <Pagination
+              <Pagination
       currentPage={currentPage}
       totalPages={totalPages}
       handlePageChange={handlePageChange}
     />
+              </>
+            ):(
+              
+                  <div
+                    class="alert text-dark bg-light"
+                    role="alert"
+                  >
+                    <div class="alert-text d-flex justify-content-center">
+                      <b> &#128680; No Data Found !! </b>
+                    </div>
+                  </div>
+               
+            )}
+          </div>
+        </div>
+      </div>
+    
 
       <DepositBalance />
     </div>
