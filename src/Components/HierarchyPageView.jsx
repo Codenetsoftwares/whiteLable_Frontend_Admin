@@ -5,6 +5,7 @@ import AccountServices from "../Services/AccountServices";
 import { useNavigate } from "react-router-dom";
 import { Prompt } from "react-router";
 import { Modal, Button } from "react-bootstrap";
+import Pagination from "./Pagination";
 
 const HierarchyPageView = () => {
   const { userId } = useParams();
@@ -15,10 +16,14 @@ const HierarchyPageView = () => {
   const [pathdata, setPathData] = useState([]);
   const [showModalCreditRef, setShowModalCreditRef] = useState(false);
   const [showModalPartnership, setShowModalPartnership] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
+  const [name, setName] = useState("");
+  console.log('line 22',auth)
+  // console.log('========>Hierechy',totalPages)
   const takeMeToAccount = (userName) => {
     navigate(`/account-landing/${userName}`);
   };
-
   const handleCloseModalCreditRef = () => {
     setShowModalCreditRef(false);
   };
@@ -40,15 +45,19 @@ const HierarchyPageView = () => {
   const navigate = useNavigate();
   // const garbage = [];
   let action = "store";
+  // let currentPage = "store";
+  let data ={page: currentPage,
+       searchName:name}
 
   const ClearPath = () => {
     action = "clearAll";
-    AccountServices.getHierarchy(userId, action, auth.user)
+    AccountServices.getHierarchy(userId, action, auth.user ,data)
       .then((res) => {
         if (res.status === 200) {
           navigate(`/maintransaction`);
         }
       })
+      
       .catch((error) => {
         console.log(error);
       });
@@ -56,22 +65,25 @@ const HierarchyPageView = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(auth)
       try {
         const res = await AccountServices.getHierarchy(
           userId,
           action,
-          auth.user
+         auth.user,
+         data
         );
-        console.log("Response=>>", res.data);
+        console.log("Response=>> HIERECHY", res.data);
         sethierarchyData(res.data.userDetails.createdUsers);
         setPathData(res.data.path);
+        setTotalPages(res.data.totalPages);
       } catch (error) {
         console.error("Error fetching hierarchy data:", error);
         // Need to add additional error handling logic here, such as setting an error state.
       }
     };
     fetchData();
-  }, [userId, action, auth]);
+  }, [userId, action, currentPage, name, auth.user]);
 
   // useEffect(() => {
   //   AccountServices.getHierarchy(userId, auth.user)
@@ -87,6 +99,11 @@ const HierarchyPageView = () => {
   console.log("hierarchy data=>>>", hierarchydata);
   // console.log("Path data=>>>", pathdata);
 
+  const handlePageChange = (page) => {
+    console.log("Changing to page:", page);
+
+    setCurrentPage(page);
+  };
   return (
     <div class="main_content_iner overly_inner ">
       <div class="container-fluid p-0 ">
@@ -139,8 +156,12 @@ const HierarchyPageView = () => {
                           <form Active="#">
                             <div class="search_field">
                               <input
+                                value={name}
                                 type="text"
                                 placeholder="Search content here..."
+                                onChange={(e) => {
+                                  setName(e.target.value);
+                                }}
                               />
                             </div>
                             <button type="submit">
@@ -151,14 +172,14 @@ const HierarchyPageView = () => {
                         </div>
                       </div>
                       <div class="add_button ms-2">
-                        <a
+                        {/* <a
                           href="#"
                           data-toggle="modal"
                           data-target="#addcategory"
                           class="btn_1"
                         >
                           search
-                        </a>
+                        </a> */}
                       </div>
                     </div>
                   </div>
@@ -346,7 +367,7 @@ const HierarchyPageView = () => {
                     </table>
                   </div>
                   {/* Pagination Start*/}
-                  <div class="col-lg-12">
+                  {/* <div class="col-lg-12">
                     <div class="white_box mb_30">
                       <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
@@ -383,7 +404,12 @@ const HierarchyPageView = () => {
                         </ul>
                       </nav>
                     </div>
-                  </div>
+                  </div> */}
+                   <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  handlePageChange={handlePageChange}
+                />
                 </div>
               </div>
             </div>

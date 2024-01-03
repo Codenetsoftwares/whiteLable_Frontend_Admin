@@ -28,7 +28,7 @@ const HierarchyView = ({ userId }) => {
             <table className="table">
               <thead>
                 <tr>
-                  <th onClick={hi}>User Name</th>
+                  <th >User Name</th>
                   <th>Role</th>
                   {/* Add similar headers for other properties */}
                 </tr>

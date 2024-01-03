@@ -13,40 +13,15 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
   const [statusSubmitted, setStatusSubmitted] = useState(false);
   const [activeStatus, setActiveStatus] = useState({});
   const [previousState, setPreviousState] = useState({});
-
-
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     AccountServices.getActiveStatus(statusId, auth.user).then((res) => {
       setActiveStatus(res.data);
-
-      // Call the onStatusChange function to pass the status back to the parent
-      //  const status =  calculateStatus(res)
-      //  onStatusChange(status);
     });
   }, [statusId, auth.user]);
 
-  // const calculateStatus = (response) => {
-
-  //   if (response && response.data && response.data.isActive && response.data.locked) {
-  //     return "Active";
-  //   } else if (response && response.data && !response.data.isActive && response.data.locked) {
-  //     return "Suspended";
-  //   } else if (response && response.data && !response.data.isActive && !response.data.locked) {
-  //     return "Locked";
-  //   }
-
-  //   // Return a default status if none of the conditions are met
-  //   return "Unknown Status";
-  // };
-
-
   const handleActiveChange = () => {
-    setPreviousState({
-      isActive: activeStatus.active,
-      locked: activeStatus.lock,
-    });
-
     setActive(true);
     setBtncolor1(true);
     setBtncolor2(false);
@@ -81,6 +56,7 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
     const data = {
       isActive: active,
       locked: lock,
+      password: password,
       previousState: previousState,
     };
 
@@ -96,13 +72,11 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
         window.location.reload();
       })
       .catch((err) => {
+        console.error(err);
 
         // alert(err.response.data.message);
         return;
       });
-  };
-  const hi = () => {
-    // console.log(activeStatus);
   };
 
   let status = "";
@@ -150,9 +124,9 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
 
             <button
               type="button"
-              className="btn-close btn-close-white"
+              className="btn-close"
+              data-bs-dismiss="modal"
               aria-label="Close"
-              onClick={hi}
             ></button>
           </div>
           <div className="modal-body">
@@ -167,12 +141,14 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
             <div className="modal-body d-flex justify-content-between">
               <button
                 className={`btn ${
-                  btncolor1 ? "btn-success" : "btn-outline-danger"
+                  btncolor1 ? "btn-success" : "btn btn-outline-success"
                 }`}
                 disabled={activeStatus.Status === "Active"}
                 onClick={handleActiveChange}
+                style={{ width: "33.33%", marginRight: "2%" }}
               >
-                Active
+                <i class="fas fa-check-circle mb-1" /> <br />
+                <span>Active</span>
               </button>
               <button
                 className={`btn ${
@@ -180,25 +156,38 @@ const StatusModal = ({ statusId, username, userRole, onStatusChange }) => {
                 }`}
                 onClick={handleInactiveChange}
                 disabled={activeStatus.Status === "Suspended"}
+                style={{ width: "calc(33.33% - 6px)" }}
               >
-                Suspended
+                <i class="fas fa-ban mb-1" /> <br />
+                <span>Suspended</span>
               </button>
               <button
                 className={`btn ${
-                  btncolor3 ? "btn-warning" : "btn-outline-warning"
+                  btncolor3 ? "btn-secondary" : "btn btn-outline-secondary mx-2"
                 }`}
                 onClick={handleLockChange}
                 disabled={activeStatus.Status === "Locked"}
+                style={{ width: "calc(33.33% - 8px)" }}
               >
-                Lock
+                <i class="fas fa-lock mb-1" /> <br />
+                <span>Lock</span>
               </button>
             </div>
           </div>
           <div className="modal-footer">
+            <input
+              type="password"
+              className="form-control mr-2"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ width: "40%" }}
+            />
             <button
               className="btn btn-primary"
               type="submit"
               onClick={handleSubmit}
+              style={{ width: "50%" }}
             >
               Change
             </button>
