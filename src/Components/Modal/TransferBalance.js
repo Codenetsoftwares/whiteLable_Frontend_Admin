@@ -69,19 +69,10 @@ const TransferBalance = ({ userId }) => {
           <div className="modal-body">
             <form>
               <div className="input-group mb-3">
-                <div className="input-group-prepend">
-                  <span className="input-group-text">
-                    <small>Transaction By:</small>
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  className="form-control font-weight-bold"
-                  placeholder="SubAdmin"
-                  value={auth.user?.userName || ""}
-                  disabled
-                  style={{ fontSize: "10px" }}
-                />
+                <span className="input-group-text">
+                  Transaction By: <span className="mx-1 text-success">{auth.user?.userName || ""}</span>
+                </span>
+                
                 <input
                   type="number"
                   className="form-control"
