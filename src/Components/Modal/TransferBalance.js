@@ -111,7 +111,6 @@ const TransferBalance = ({ userId }) => {
                   required
                 />
               </div>
-
               <input
                 type="password"
                 className="form-control"

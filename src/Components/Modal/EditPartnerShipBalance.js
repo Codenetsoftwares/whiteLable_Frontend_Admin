@@ -7,6 +7,8 @@ const EditPartnerShipBalance = ({ userId }) => {
     const auth = useAuth();
 
     const [Amount, SetAmount] = useState(0);
+    const [password, setPassword] = useState("");
+
     const id = auth.user.id;
 
     const handelamtchange = (e) => {
@@ -16,6 +18,11 @@ const EditPartnerShipBalance = ({ userId }) => {
     const handleReset = () => {
         SetAmount(0);
     }
+
+    const handelPassword = (e) => {
+        setPassword(e.target.value);
+    };
+
     const handelsubmit = (e) => {
         e.preventDefault();
         if (Amount === 0 || Amount < 0) {
@@ -28,6 +35,7 @@ const EditPartnerShipBalance = ({ userId }) => {
         }
         const data = {
             partnership: Number(Amount),
+            password: password,
         };
 
 
@@ -69,6 +77,14 @@ const EditPartnerShipBalance = ({ userId }) => {
                                     value={Amount}
                                 />
                             </div>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder="Password *"
+                                    onChange={handelPassword}
+                                    value={password}
+                                    required
+                                />
                         </form>
                     </div>
                     <div className="modal-footer">
