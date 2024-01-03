@@ -87,6 +87,7 @@ class AccountService {
   }
 
   restoreAgent(data, user) {
+    
     return axios({
       method: "post",
       url: `${API_HOST}/api/admin/restore-to-wallet-user`,
@@ -107,10 +108,12 @@ class AccountService {
     });
   }
 
-  getHierarchy(userName, action, user) {
+  getHierarchy(userName, action, user,data) {
+    console.log(user)
     return axios({
       method: "post",
       url: `${API_HOST}/api/Root-Path/${userName}/${action}`,
+      data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
