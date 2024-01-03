@@ -7,20 +7,27 @@ const TransferBalance = ({ userId }) => {
   const auth = useAuth();
   const [Amount, setAmount] = useState(0);
   const [Remarks, SetRemarks] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleAmtChange = (e) => {
     setAmount(e.target.value);
   };
   const handleReset = () => {
     setAmount(0);
+    setPassword("");
+    SetRemarks("");
   };
 
   const handelRemarkschange = (e) => {
     SetRemarks(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handelPassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleSubmit = async (e, type) => {
     e.preventDefault();
-    if (Amount === 0 || Remarks === "" || Amount < 0) {
+    if (Amount === 0 || Remarks === "" || password === "" || Amount < 0) {
       if (Amount < 0) {
         toast.error("Amount cannot be negative");
         return;
@@ -29,11 +36,23 @@ const TransferBalance = ({ userId }) => {
       return;
     }
     try {
-      const data = {
-        trnsfAmnt: Number(Amount),
-        receiveUserId: userId,
-        remarks: Remarks,
-      };
+      let data;
+      if (type === "deposit") {
+        data = {
+          trnsfAmnt: Number(Amount),
+          receiveUserId: userId,
+          remarks: Remarks,
+          password: password,
+        };
+      }
+      else {
+        data = {
+          withdrawlAmt: Number(Amount),
+          receiveUserId: userId,
+          remarks: Remarks,
+          password: password,
+        };
+      }
 
       TransactionServices.transferBalance(auth.user.id, data, auth.user)
         .then((res) => {
@@ -48,6 +67,7 @@ const TransferBalance = ({ userId }) => {
         });
     } catch (error) {
       console.error("Error:", error);
+      window.location.reload();
     }
   };
   return (
@@ -72,7 +92,7 @@ const TransferBalance = ({ userId }) => {
                 <span className="input-group-text">
                   Transaction By: <span className="mx-1 text-success">{auth.user?.userName || ""}</span>
                 </span>
-                
+
                 <input
                   type="number"
                   className="form-control"
@@ -81,33 +101,44 @@ const TransferBalance = ({ userId }) => {
                   value={Amount}
                 />
               </div>
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Remarks *"
+                  onChange={handelRemarkschange}
+                  value={Remarks}
+                  required
+                />
+              </div>
+
               <input
-                type="text"
+                type="password"
                 className="form-control"
-                placeholder="Remarks *"
-                onChange={handelRemarkschange}
-                value={Remarks}
+                placeholder="Password *"
+                onChange={handelPassword}
+                value={password}
                 required
               />
             </form>
           </div>
-          <div className="modal-footer">
+          {(Amount > 0) && <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-danger"
               data-bs-dismiss="modal"
-              onClick={handleReset}
+              onClick={e => { handleSubmit(e, "withdraw") }}
             >
-              Close
+              Withdraw
             </button>
             <button
               type="button"
-              className="btn btn-primary"
-              onClick={handleSubmit}
+              className="btn btn-success"
+              onClick={e => { handleSubmit(e, "deposit") }}
             >
-              Save changes
+              Deposit
             </button>
-          </div>
+          </div>}
         </div>
       </div>
     </div>
