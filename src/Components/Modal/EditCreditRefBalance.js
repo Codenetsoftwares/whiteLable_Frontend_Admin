@@ -7,6 +7,8 @@ const EditCreditRefBalance = ({ userId }) => {
   const auth = useAuth();
 
   const [Amount, SetAmount] = useState(0);
+  const [password, setPassword] = useState("");
+
   const id = auth.user.id;
   const handleAmtChange = (e) => {
     SetAmount(e.target.value);
@@ -14,6 +16,11 @@ const EditCreditRefBalance = ({ userId }) => {
   const handleReset = () => {
     SetAmount(0);
   };
+
+  const handelPassword = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (Amount === 0 || Amount < 0) {
@@ -26,6 +33,7 @@ const EditCreditRefBalance = ({ userId }) => {
     }
     const data = {
       creditRef: Number(Amount),
+      password: password,
     };
 
     TransactionServices.EditCreditref(data, userId, auth.user)
@@ -74,6 +82,14 @@ const EditCreditRefBalance = ({ userId }) => {
                   value={Amount}
                 />
               </div>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Password *"
+                  onChange={handelPassword}
+                  value={password}
+                  required
+                />
             </form>
           </div>
           <div className="modal-footer">
