@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const EditCreditRefBalance = ({ userId }) => {
   const auth = useAuth();
-  
+
   const [Amount, SetAmount] = useState(0);
   const id = auth.user.id;
   const handleAmtChange = (e) => {
@@ -62,17 +62,10 @@ const EditCreditRefBalance = ({ userId }) => {
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">
-                    <small>Transaction By:</small>
+                    Transaction By: <span className="mx-1 text-success">{auth.user?.userName || ""}</span>
                   </span>
                 </div>
-                <input
-                  type="text"
-                  className="form-control font-weight-bold"
-                  placeholder="SubAdmin"
-                  value={auth.user?.userName || ""}
-                  disabled
-                  style={{ fontSize: "10px" }}
-                />
+               
                 <input
                   type="number"
                   className="form-control"
