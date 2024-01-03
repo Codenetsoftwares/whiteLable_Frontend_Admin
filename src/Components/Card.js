@@ -64,7 +64,7 @@ const Card = ({
           }
         })
         .catch((error) => {
-          toast.error(error);
+          toast.error(error.response.data.message);
         });
     }
   };
@@ -254,7 +254,7 @@ const Card = ({
           </span>
         </td>
       </tr>
-      
+
 
       <TransferBalance userId={userId} key={`transferbalance-${userId}`} />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
@@ -268,7 +268,7 @@ const Card = ({
         userId={userId}
         key={`EditPartnerShipBalance -${userId}`}
       />
-      {auth.user.roles[0].permission.some((role) => role ==="CreditRef-View") &&
+      {auth.user.roles[0].permission.some((role) => role === "CreditRef-View") &&
         <CreditRefBalanceLog userId={userId} key={`CreditRefBalanceLog -${userId}`} />}
       {auth.user.roles[0].permission.some((role) => role === "Partnership-View") &&
         <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />}
