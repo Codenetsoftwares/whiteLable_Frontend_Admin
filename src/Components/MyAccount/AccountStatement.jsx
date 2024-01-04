@@ -1,6 +1,37 @@
-import React from "react";
+import React ,{ useState, useEffect }from "react";
+import Pagination from "../Pagination";
+// import MyAccountServices from "../../Services/MyAccountServices";
+// import { useAuth } from "../../Utils/Auth";
+// import { useParams } from "react-router-dom";
 
-const AccountStatement = ({ props }) => {
+
+const AccountStatement = ({ props, handlePageChange, currentPage, totalPages}) => {
+  // const auth = useAuth();
+  // const { userId } = useParams();
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState();
+  // const Id = userId.userId;
+  // console.log('LINE NO. 14===>',currentPage)
+  // useEffect(() => {
+  //   MyAccountServices.getAccountStatement(userId, currentPage, auth.user)
+  //     .then((res) =>{
+  //        console.log('========>DATA',res.data)
+  //       setTotalPages(res.data.totalPages)
+      
+  //     } )
+  //     .catch((err) => {
+  
+  //     });
+  // }, [userId, currentPage, auth]);
+
+
+  // const handlePageChange = (page) => {
+  //   console.log("Changing to page:", page);
+
+  //   setCurrentPage(page);
+  // };
+
+
   function formatDate(dateString) {
     const options = {
       year: "numeric",
@@ -16,6 +47,7 @@ const AccountStatement = ({ props }) => {
     );
     return formattedDate;
   }
+
 
   return (
     <div className="col-sm-8 mt-3">
@@ -99,7 +131,7 @@ const AccountStatement = ({ props }) => {
           </li>
           <li class="list-group-item">
             {/* Pagiantion */}
-            <div class="col-lg-12">
+            {/* <div class="col-lg-12">
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
                   <li class="page-item disabled">
@@ -134,7 +166,12 @@ const AccountStatement = ({ props }) => {
                   </li>
                 </ul>
               </nav>
-            </div>
+            </div> */}
+             <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  handlePageChange={handlePageChange}
+                />
             {/* Pagiantion */}
           </li>
         </ul>

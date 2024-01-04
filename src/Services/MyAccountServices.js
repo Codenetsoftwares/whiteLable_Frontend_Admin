@@ -2,10 +2,12 @@ import axios from "axios";
 const API_HOST = process.env.REACT_APP_API_HOST;
 
 class MyAccountServices {
-  getAccountStatement(id, user) {
+  getAccountStatement(id, page, user) {
+    // console.log('LINE NO. 6======>',page)
+
     return axios({
       method: "get",
-      url: `${API_HOST}/api/transaction-view/${id}`,
+      url: `${API_HOST}/api/transaction-view/${id}?page=${page}`,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
