@@ -3,9 +3,9 @@ import { useAuth } from '../../Utils/Auth';
 import { toast } from 'react-toastify';
 import AccountServices from '../../Services/AccountServices';
 
-const PartnerShipLog = ({ userId }) => {
+const PartnerShipLog = ({ userId, username }) => {
     const auth = useAuth();
-    
+    console.log("first", username)
     const [partnershipData, setPartnershipData] = useState([]);
     useEffect(() => {
         if (auth.user) {
@@ -27,7 +27,7 @@ const PartnerShipLog = ({ userId }) => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                     </div>
                     <div className="modal-body">
-                        <h5>UserName:{auth.user.userName}</h5>
+                        <h5>UserName:{username}</h5>
                         {partnershipData.length > 0 ? (<table className="table lms_table_active3 table-bordered table-sm">
                             <thead>
                                 <tr>

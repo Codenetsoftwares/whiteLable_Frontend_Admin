@@ -3,7 +3,7 @@ import { useAuth } from "../../Utils/Auth";
 import TransactionServices from "../../Services/TransactionServices";
 import { toast } from "react-toastify";
 
-const EditCreditRefBalance = ({ userId }) => {
+const EditCreditRefBalance = ({ userId, username, userRole }) => {
   const auth = useAuth();
 
   const [Amount, SetAmount] = useState(0);
@@ -50,13 +50,25 @@ const EditCreditRefBalance = ({ userId }) => {
       });
   };
   return (
-    <div className="modal fade" id={`EditCreditRefBalance-${userId}`} tabIndex="-1" aria-labelledby={`EditCreditRefBalance-${userId}`} aria-hidden="true">
+    <div
+      className="modal fade"
+      id={`EditCreditRefBalance-${userId}`}
+      tabIndex="-1"
+      aria-labelledby={`EditCreditRefBalance-${userId}`}
+      aria-hidden="true"
+    >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" >
-              Amount
-            </h5>
+          <div
+            className="modal-header"
+            style={{
+              height: "10px",
+              backgroundColor: "#006699",
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
+            <h5 className="modal-title text-white">Provide Edit Credit ref. Amount</h5>
             <button
               type="button"
               className="btn-close"
@@ -66,14 +78,19 @@ const EditCreditRefBalance = ({ userId }) => {
             ></button>
           </div>
           <div className="modal-body">
+            <div className="my-2">
+              <span style={{ fontWeight: "bold" }}>{userRole}</span>
+              <br />
+              <span>{username}</span>
+            </div>
             <form>
               <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">
-                    Transaction By: <span className="mx-1 text-success">{auth.user?.userName || ""}</span>
+                    Enter Amount:
                   </span>
                 </div>
-               
+
                 <input
                   type="number"
                   className="form-control"
@@ -82,14 +99,14 @@ const EditCreditRefBalance = ({ userId }) => {
                   value={Amount}
                 />
               </div>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Password *"
-                  onChange={handelPassword}
-                  value={password}
-                  required
-                />
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Password *"
+                onChange={handelPassword}
+                value={password}
+                required
+              />
             </form>
           </div>
           <div className="modal-footer">

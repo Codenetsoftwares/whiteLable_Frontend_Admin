@@ -23,7 +23,7 @@ const Card = ({
   partnership,
   Status,
   creditRefLength,
-  partnershipLength
+  partnershipLength,
 }) => {
   const auth = useAuth();
   const [Istatus, setIStatus] = useState("");
@@ -32,7 +32,7 @@ const Card = ({
   const [userhierarchy, setHierarchy] = useState("");
   const navigate = useNavigate();
 
-  console.log("first", auth)
+  console.log("first", auth);
   // Function to receive the status from the child
   const handleStatusChange = (newStatus) => {
     setIStatus(newStatus);
@@ -114,27 +114,48 @@ const Card = ({
 
         <td scope="row" className="fs-6 text-center">
           {creditRefLength > 0 ? <span>{creditRef}</span> : <span>0</span>}
-          <span className="m-2">
+          <span className="">
             <button
               className={`border border-0 bg-white btn ${auth.user.roles[0].permission.some(
-                (role) =>
-                  role === "CreditRef-Edit"
-              ) ? "" : (["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) ? "" : "disabled")}`}
+                (role) => role === "CreditRef-Edit"
+              )
+                ? ""
+                : [
+                  "superAdmin",
+                  "WhiteLabel",
+                  "HyperAgent",
+                  "SuperAgent",
+                  "MasterAgent",
+                ].includes(auth.user.roles[0].role)
+                  ? ""
+                  : "disabled"
+                }`}
               data-bs-toggle="modal"
               data-bs-target={`#EditCreditRefBalance-${userId}`}
               aria-label="Close"
             >
-              <i className="fa-solid fa-pen-to-square"
-
-              ></i>
+              <i className="fa-solid fa-pen-to-square"></i>
             </button>
           </span>
-          <span className="m-2">
-            <button className={`border border-0 bg-white btn ${auth.user.roles[0].permission.some(
-              (role) =>
-                role === "CreditRef-View"
-            ) ? "" : (["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) ? "" : "disabled")}`}>
-              <i class="fa-regular fa-eye"
+          <span >
+            <button
+              className={`border border-0 bg-white btn ${auth.user.roles[0].permission.some(
+                (role) => role === "CreditRef-View"
+              )
+                ? ""
+                : [
+                  "superAdmin",
+                  "WhiteLabel",
+                  "HyperAgent",
+                  "SuperAgent",
+                  "MasterAgent",
+                ].includes(auth.user.roles[0].role)
+                  ? ""
+                  : "disabled"
+                }`}
+            >
+              <i
+                class="fa-regular fa-eye"
                 data-bs-toggle="modal"
                 data-bs-target={`#CreditRefBalanceLog-${userId}`}
                 aria-label="Close"
@@ -144,11 +165,23 @@ const Card = ({
         </td>
         <td scope="row" className="fs-6 text-center">
           {partnershipLength > 0 ? <span>{partnership}</span> : <span>0</span>}
-          <span className="m-2">
-            <button className={`border border-0 bg-white btn ${auth.user.roles[0].permission.some(
-              (role) =>
-                role === "Partnership-Edit"
-            ) ? "" : (["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) ? "" : "disabled")}`}>
+          <span className="">
+            <button
+              className={`border border-0 bg-white btn ${auth.user.roles[0].permission.some(
+                (role) => role === "Partnership-Edit"
+              )
+                ? ""
+                : [
+                  "superAdmin",
+                  "WhiteLabel",
+                  "HyperAgent",
+                  "SuperAgent",
+                  "MasterAgent",
+                ].includes(auth.user.roles[0].role)
+                  ? ""
+                  : "disabled"
+                }`}
+            >
               <i
                 className="fa-solid fa-pen-to-square"
                 data-bs-toggle="modal"
@@ -156,13 +189,24 @@ const Card = ({
                 aria-label="Close"
               ></i>
             </button>
-
           </span>
-          <span className="m-2">
-            <button className={`border border-0 bg-white btn ${auth.user.roles[0].permission.some(
-              (role) =>
-                role === "Partnership-View"
-            ) ? "" : (["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) ? "" : "disabled")}`}>
+          <span>
+            <button
+              className={`border border-0 bg-white btn ${auth.user.roles[0].permission.some(
+                (role) => role === "Partnership-View"
+              )
+                ? ""
+                : [
+                  "superAdmin",
+                  "WhiteLabel",
+                  "HyperAgent",
+                  "SuperAgent",
+                  "MasterAgent",
+                ].includes(auth.user.roles[0].role)
+                  ? ""
+                  : "disabled"
+                }`}
+            >
               <i
                 className="fa-regular fa-eye"
                 data-bs-toggle="modal"
@@ -170,7 +214,6 @@ const Card = ({
                 aria-label="Close"
               ></i>
             </button>
-
           </span>
         </td>
         <td scope="row" className="fs-6 text-center">
@@ -196,9 +239,19 @@ const Card = ({
               data-bs-toggle="modal"
               data-bs-target={`#transferbalance-${userId}`}
               className={`btn border border-2 rounded ${auth.user.roles[0].permission.some(
-                (role) =>
-                  role === "TransferBalance"
-              ) ? "" : (["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) ? "" : "disabled")}`}
+                (role) => role === "TransferBalance"
+              )
+                ? ""
+                : [
+                  "superAdmin",
+                  "WhiteLabel",
+                  "HyperAgent",
+                  "SuperAgent",
+                  "MasterAgent",
+                ].includes(auth.user.roles[0].role)
+                  ? ""
+                  : "disabled"
+                }`}
               title="Addmoney"
             >
               <i class="fa-solid fa-circle-dollar-to-slot"></i>
@@ -206,10 +259,18 @@ const Card = ({
           </span>
           <span className="mx-1">
             <button
-              className={`btn border border-2 rounded ${auth.user.roles[0].permission.some(
-                (role) =>
-                  role === "Status"
-              ) ? "" : (["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) ? "" : "disabled")}`}
+              className={`btn border border-2 rounded ${auth.user.roles[0].permission.some((role) => role === "Status")
+                ? ""
+                : [
+                  "superAdmin",
+                  "WhiteLabel",
+                  "HyperAgent",
+                  "SuperAgent",
+                  "MasterAgent",
+                ].includes(auth.user.roles[0].role)
+                  ? ""
+                  : "disabled"
+                }`}
               title="Setting"
               type="button"
               data-bs-toggle="modal"
@@ -222,9 +283,19 @@ const Card = ({
           <span className="mx-1">
             <button
               className={`btn border border-2 rounded ${auth.user.roles[0].permission.some(
-                (role) =>
-                  role === "Partnership-Edit"
-              ) ? "" : (["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) ? "" : "disabled")}`}
+                (role) => role === "Partnership-Edit"
+              )
+                ? ""
+                : [
+                  "superAdmin",
+                  "WhiteLabel",
+                  "HyperAgent",
+                  "SuperAgent",
+                  "MasterAgent",
+                ].includes(auth.user.roles[0].role)
+                  ? ""
+                  : "disabled"
+                }`}
               title="Profile"
               onClick={() => {
                 takeMeToAccount(userName);
@@ -236,9 +307,19 @@ const Card = ({
           <span className="mx-1">
             <button
               className={`btn border border-2 rounded ${auth.user.roles[0].permission.some(
-                (role) =>
-                  role === "Partnership-Edit"
-              ) ? "" : (["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) ? "" : "disabled")}`}
+                (role) => role === "Partnership-Edit"
+              )
+                ? ""
+                : [
+                  "superAdmin",
+                  "WhiteLabel",
+                  "HyperAgent",
+                  "SuperAgent",
+                  "MasterAgent",
+                ].includes(auth.user.roles[0].role)
+                  ? ""
+                  : "disabled"
+                }`}
               title="Delete"
               onClick={(e) => {
                 handeldelete(userId);
@@ -255,44 +336,80 @@ const Card = ({
         </td>
       </tr>
 
-
-      <TransferBalance userId={userId} key={`transferbalance-${userId}`} />
+      <TransferBalance
+        userId={userId}
+        key={`transferbalance-${userId}`}
+        username={userName}
+        userRole={role}
+      />
       {/* <SelectModal userId={userId} key={`activeInactive-${userId}`}/> */}
-
 
       <EditCreditRefBalance
         userId={userId}
         key={`EditCreditRefBalance-${userId}`}
+        username={userName}
+        userRole={role}
       />
       <EditPartnerShipBalance
         userId={userId}
         key={`EditPartnerShipBalance -${userId}`}
+        username={userName}
+        userRole={role}
       />
-      {auth.user.roles[0].permission.some((role) => role === "CreditRef-View") &&
-        <CreditRefBalanceLog userId={userId} key={`CreditRefBalanceLog -${userId}`} />}
-      {auth.user.roles[0].permission.some((role) => role === "Partnership-View") &&
-        <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />}
-      {auth.user.roles[0].permission.some((role) => role === "Status") &&
+      {auth.user.roles[0].permission.some(
+        (role) => role === "CreditRef-View"
+      ) && (
+          <CreditRefBalanceLog
+            userId={userId}
+            key={`CreditRefBalanceLog -${userId}`}
+            username={userName}
+          />
+        )}
+      {auth.user.roles[0].permission.some(
+        (role) => role === "Partnership-View"
+      ) && (
+          <PartnerShipLog
+            userId={userId}
+            key={`PartnerShipLog -${userId}`}
+            username={userName}
+          />
+        )}
+      {auth.user.roles[0].permission.some((role) => role === "Status") && (
         <StatusModal
           statusId={userId}
           username={userName}
           userRole={role}
           onStatusChange={handleStatusChange} // Pass the function to receive status
           key={`activeInactive-${userId}`}
-        />}
-      {
-        ["superAdmin", "WhiteLabel", "HyperAgent", "SuperAgent", "MasterAgent"].includes(auth.user.roles[0].role) && <>
-          <CreditRefBalanceLog userId={userId} key={`CreditRefBalanceLog -${userId}`} />
-          <PartnerShipLog userId={userId} key={`PartnerShipLog -${userId}`} />
-          <StatusModal
-            statusId={userId}
-            username={userName}
-            userRole={role}
-            onStatusChange={handleStatusChange} // Pass the function to receive status
-            key={`activeInactive-${userId}`}
-          />
-        </>
-      }
+        />
+      )}
+      {[
+        "superAdmin",
+        "WhiteLabel",
+        "HyperAgent",
+        "SuperAgent",
+        "MasterAgent",
+      ].includes(auth.user.roles[0].role) && (
+          <>
+            <CreditRefBalanceLog
+              userId={userId}
+              key={`CreditRefBalanceLog -${userId}`}
+              username={userName}
+            />
+            <PartnerShipLog
+              userId={userId}
+              key={`PartnerShipLog -${userId}`}
+              username={userName}
+            />
+            <StatusModal
+              statusId={userId}
+              username={userName}
+              userRole={role}
+              onStatusChange={handleStatusChange} // Pass the function to receive status
+              key={`activeInactive-${userId}`}
+            />
+          </>
+        )}
     </tbody>
   );
 };

@@ -13,7 +13,10 @@ const MainTransaction = () => {
   const [userList, setUserList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
+  const [totalData, setTotalData] = useState(0);
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   console.log(currentPage);
 
   useEffect(() => {
@@ -21,6 +24,7 @@ const MainTransaction = () => {
       TransactionServices.viewBalance(auth.user.id, auth.user)
         .then((res) => {
           setBalance(res.data.amount.balance);
+          setIsLoading(true);
         })
         .catch((err) => setBalance([]));
 
@@ -41,6 +45,7 @@ const MainTransaction = () => {
             .then((res) => {
               setUserList(res.data.user);
               setTotalPages(res.data.totalPages);
+              setTotalData(res.data.totalItems);
             })
             .catch((err) => setUserList([]));
       }
@@ -65,6 +70,10 @@ const MainTransaction = () => {
       }
     }
   }, [auth.user, currentPage, name]);
+
+  let startIndex = Math.min((currentPage - 1) * 5 + 1);
+  let endIndex = Math.min(currentPage * 5, totalData);
+
 
   const handlePageChange = (page) => {
     console.log("Changing to page:", page);
@@ -115,16 +124,7 @@ const MainTransaction = () => {
                   </form>
                 </div>
               </div>
-              {/* <div class="add_button ms-2">
-                        <a
-                          href="#"
-                          data-toggle="modal"
-                          data-target="#addcategory"
-                          class="btn_1"
-                        >
-                          search
-                        </a>
-                      </div> */}
+
             </div>
           </div>
           <div className="QA_table mb_30" style={{ overflow: "auto" }}>
@@ -193,11 +193,19 @@ const MainTransaction = () => {
                     );
                   })}
                 </table>
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  handlePageChange={handlePageChange}
-                />
+                <div >
+                  {/* <h4>
+                    Showing {startIndex} to {endIndex} of {userList.length} entries
+                  </h4> */}
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    handlePageChange={handlePageChange}
+                    startIndex={startIndex}
+                    endIndex={endIndex}
+                    totalData={totalData}
+                  />
+                </div>
               </>
             ) : (
               <div class="alert text-dark bg-light" role="alert">
@@ -210,7 +218,6 @@ const MainTransaction = () => {
         </div>
       </div>
 
-      <DepositBalance />
     </div>
   );
 };
