@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "../../Utils/Auth";
 import { toast } from "react-toastify";
 import TransactionServices from "../../Services/TransactionServices";
-const TransferBalance = ({ userId }) => {
-
+const TransferBalance = ({ userId, username, userRole }) => {
   const auth = useAuth();
   const [Amount, setAmount] = useState(0);
   const [Remarks, SetRemarks] = useState("");
@@ -44,8 +43,7 @@ const TransferBalance = ({ userId }) => {
           remarks: Remarks,
           password: password,
         };
-      }
-      else {
+      } else {
         data = {
           withdrawlAmt: Number(Amount),
           receiveUserId: userId,
@@ -63,7 +61,7 @@ const TransferBalance = ({ userId }) => {
         })
         .catch((error) => {
           alert(error.response.data.message);
-          handleReset()
+          handleReset();
         });
     } catch (error) {
       console.error("Error:", error);
@@ -71,13 +69,26 @@ const TransferBalance = ({ userId }) => {
     }
   };
   return (
-    <div className="modal fade" id={`transferbalance-${userId}`} tabIndex="-1" aria-labelledby={`transferbalance-${userId}`} aria-hidden="true">
+    <div
+      className="modal fade"
+      id={`transferbalance-${userId}`}
+      tabIndex="-1"
+      aria-labelledby={`transferbalance-${userId}`}
+      aria-hidden="true"
+      role="dialog"
+    >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" >
-              Amount
-            </h5>
+          <div
+            className="modal-header"
+            style={{
+              height: "10px",
+              backgroundColor: "#006699",
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
+            <h5 className="modal-title text-white">Amount</h5>
             <button
               type="button"
               className="btn-close"
@@ -87,12 +98,16 @@ const TransferBalance = ({ userId }) => {
             ></button>
           </div>
           <div className="modal-body">
+            <div className="my-2">
+              <span style={{ fontWeight: "bold" }}>{userRole}</span>
+              <br />
+              <span>{username}</span>
+            </div>
             <form>
               <div className="input-group mb-3">
                 <span className="input-group-text">
-                  Transaction By: <span className="mx-1 text-success">{auth.user?.userName || ""}</span>
+                  Enter Amount:
                 </span>
-
                 <input
                   type="number"
                   className="form-control"
@@ -121,23 +136,29 @@ const TransferBalance = ({ userId }) => {
               />
             </form>
           </div>
-          {(Amount > 0) && <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-danger"
-              data-bs-dismiss="modal"
-              onClick={e => { handleSubmit(e, "withdraw") }}
-            >
-              Withdraw
-            </button>
-            <button
-              type="button"
-              className="btn btn-success"
-              onClick={e => { handleSubmit(e, "deposit") }}
-            >
-              Deposit
-            </button>
-          </div>}
+          {Amount > 0 && (
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-danger"
+                data-bs-dismiss="modal"
+                onClick={(e) => {
+                  handleSubmit(e, "withdraw");
+                }}
+              >
+                Withdraw
+              </button>
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={(e) => {
+                  handleSubmit(e, "deposit");
+                }}
+              >
+                Deposit
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

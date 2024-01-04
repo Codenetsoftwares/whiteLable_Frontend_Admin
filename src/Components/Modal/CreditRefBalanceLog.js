@@ -3,10 +3,10 @@ import { useAuth } from '../../Utils/Auth';
 import { toast } from 'react-toastify';
 import AccountServices from '../../Services/AccountServices';
 
-const CreditRefBalanceLog = ({ userId }) => {
+const CreditRefBalanceLog = ({ userId, username }) => {
     const auth = useAuth();
     const [CreditRefBalanceData, setCreditRefBalanceData] = useState([]);
-    
+
     useEffect(() => {
         if (auth.user) {
 
@@ -28,13 +28,13 @@ const CreditRefBalanceLog = ({ userId }) => {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                     </div>
                     <div className="modal-body">
-                        <h5>UserName:{auth.user.userName}</h5>
+                        <h5>UserName:{username}</h5>
                         {CreditRefBalanceData.length > 0 ? (<table className="table lms_table_active3 table-bordered table-sm">
                             <thead>
                                 <tr>
                                     <th>Sl. No.</th>
                                     <th>Date</th>
-                                    <th>PartnerShip Amount</th>
+                                    <th>Credit Ref. Amount</th>
 
                                 </tr>
                             </thead>
