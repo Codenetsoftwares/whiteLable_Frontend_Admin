@@ -19,6 +19,7 @@ const HierarchyPageView = () => {
   const [showModalPartnership, setShowModalPartnership] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
+   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
 
   const [totalData, setTotalData] = useState(0);
