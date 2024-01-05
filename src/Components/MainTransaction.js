@@ -6,6 +6,7 @@ import TransactionServices from "../Services/TransactionServices";
 import { useAuth } from "../Utils/Auth";
 import AccountServices from "../Services/AccountServices";
 import Pagination from "./Pagination";
+import ShimmerEffect from "./ShimmerEffect";
 
 const MainTransaction = () => {
   const auth = useAuth();
@@ -65,6 +66,7 @@ const MainTransaction = () => {
           )
             .then((res) => {
               setUserList(res.data.user);
+              setIsLoading(true);
             })
             .catch((err) => setUserList([]));
       }
@@ -79,6 +81,7 @@ const MainTransaction = () => {
     console.log("Changing to page:", page);
 
     setCurrentPage(page);
+    setIsLoading(false)
   };
 
   return (
@@ -128,7 +131,7 @@ const MainTransaction = () => {
             </div>
           </div>
           <div className="QA_table mb_30" style={{ overflow: "auto" }}>
-            {userList.length > 0 ? (
+            {isLoading ? (userList.length > 0 ? (
               <>
                 <table className="table lms_table_active3 table-bordered table-sm">
                   <thead>
@@ -194,9 +197,6 @@ const MainTransaction = () => {
                   })}
                 </table>
                 <div >
-                  {/* <h4>
-                    Showing {startIndex} to {endIndex} of {userList.length} entries
-                  </h4> */}
                   <Pagination
                     currentPage={currentPage}
                     totalPages={totalPages}
@@ -213,7 +213,7 @@ const MainTransaction = () => {
                   <b> &#128680; No Data Found !! </b>
                 </div>
               </div>
-            )}
+            )) : (<ShimmerEffect />)}
           </div>
         </div>
       </div>

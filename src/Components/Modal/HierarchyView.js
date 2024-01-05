@@ -8,6 +8,7 @@ const HierarchyView = ({ userId }) => {
   const auth = useAuth();
   
   const [hierarchydata, sethierarchyData] = useState([]);
+  
 
   useEffect(() => {
     AccountServices.getHierarchy(userId, auth.user).then((res) => {
