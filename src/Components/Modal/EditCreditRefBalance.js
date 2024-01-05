@@ -45,7 +45,7 @@ const EditCreditRefBalance = ({ userId, username, userRole }) => {
         }
       })
       .catch((error) => {
-        alert(`${auth.user.roles[0].role} should be Locked Or Suspended`);
+        alert(error.response.data.error);
         window.location.reload();
       });
   };

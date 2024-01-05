@@ -1,36 +1,20 @@
-import React ,{ useState, useEffect }from "react";
+import React, { useState, useEffect } from "react";
 import Pagination from "../Pagination";
-// import MyAccountServices from "../../Services/MyAccountServices";
-// import { useAuth } from "../../Utils/Auth";
-// import { useParams } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-
-const AccountStatement = ({ props, handlePageChange, currentPage, totalPages}) => {
-  // const auth = useAuth();
-  // const { userId } = useParams();
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [totalPages, setTotalPages] = useState();
-  // const Id = userId.userId;
-  // console.log('LINE NO. 14===>',currentPage)
-  // useEffect(() => {
-  //   MyAccountServices.getAccountStatement(userId, currentPage, auth.user)
-  //     .then((res) =>{
-  //        console.log('========>DATA',res.data)
-  //       setTotalPages(res.data.totalPages)
-      
-  //     } )
-  //     .catch((err) => {
-  
-  //     });
-  // }, [userId, currentPage, auth]);
-
-
-  // const handlePageChange = (page) => {
-  //   console.log("Changing to page:", page);
-
-  //   setCurrentPage(page);
-  // };
-
+const AccountStatement = ({
+  props,
+  handlePageChange,
+  currentPage,
+  totalPages,
+  handleGetStatement,
+  startDate,
+  endDate,
+  setEndDate,
+  setStartDate,
+}) => {
+  const [dataSource, setDataSource] = useState("");
 
   function formatDate(dateString) {
     const options = {
@@ -48,9 +32,51 @@ const AccountStatement = ({ props, handlePageChange, currentPage, totalPages}) =
     return formattedDate;
   }
 
-
   return (
     <div className="col-sm-8 mt-3">
+      <div className="card mb-3 w-100 rounded">
+        <div
+          className="card-header text-white p-1"
+          style={{ backgroundColor: "#26416e" }}
+        >
+          <b>&nbsp;&nbsp;Get Account Statement</b>
+        </div>
+        <div className="card-body d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
+          <div className="form-group mb-3 mb-md-0 px-2">
+            <label>Data Source:</label>
+            <select
+              className="form-control"
+              value={dataSource}
+              onChange={(e) => setDataSource(e.target.value)}
+            >
+              <option value="">Select a data source</option>
+              <option value="source1">Source 1</option>
+              <option value="source2">Source 2</option>
+              {/* Add more options as needed */}
+            </select>
+          </div>
+          <div className="form-group mb-3 mb-md-0 px-2">
+            <label>From Date:</label>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+            />
+          </div>
+          <div className="form-group mb-3 mb-md-0 px-2">
+            <label>To Date:</label>
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+            />
+          </div>
+          <div className="form-group mb-0 px-2">
+            <button className="btn btn-primary" onClick={handleGetStatement}>
+              Get Statement
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* card */}
       <div class="card w-100 rounded">
         <div
@@ -74,7 +100,7 @@ const AccountStatement = ({ props, handlePageChange, currentPage, totalPages}) =
                         }}
                       >
                         <th scope="col">
-                         <b>Date/Time</b>
+                          <b>Date/Time</b>
                         </th>
                         <th scope="col">
                           <b>Deposit</b>
@@ -167,11 +193,11 @@ const AccountStatement = ({ props, handlePageChange, currentPage, totalPages}) =
                 </ul>
               </nav>
             </div> */}
-             <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  handlePageChange={handlePageChange}
-                />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+            />
             {/* Pagiantion */}
           </li>
         </ul>

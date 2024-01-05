@@ -20,16 +20,24 @@ const AccountLandingModal = () => {
   const [activeItem, setActiveItem] = useState("statement");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const Id = userId.userId;
   useEffect(() => {
-    MyAccountServices.getAccountStatement(userId, currentPage, auth.user)
+    MyAccountServices.getAccountStatement(
+      userId,
+      currentPage,
+      startDate,
+      endDate,
+      auth.user
+    )
       .then((res) => {
         setstatementView(res.data.allData);
         setTotalPages(res.data.totalPages);
       })
       .catch((err) => {});
-  }, [userId, currentPage, auth]);
-
+  }, [userId, currentPage, startDate, endDate, auth]);
+  console.log("Line number 42=======>", startDate, endDate);
   useEffect(() => {
     MyAccountServices.getActivityLog(userId, auth.user)
       .then((res) => setActivityView(res.data))
@@ -50,6 +58,13 @@ const AccountLandingModal = () => {
     setCurrentPage(page);
   };
 
+  const handleGetStatement = (startDate, endDate) => {
+    setStartDate(startDate);
+    console.log("From Date:", startDate);
+    setEndDate(endDate);
+    console.log("To Date:", endDate);
+  };
+
   const handelStatement = () => {
     settoggle(1);
     setActiveItem("statement");
@@ -64,7 +79,19 @@ const AccountLandingModal = () => {
   };
 
   if (toggle === 1) {
-    componentToRender = <AccountStatement props={statementView}  handlePageChange={handlePageChange}  currentPage={currentPage}   totalPages={totalPages} />;
+    componentToRender = (
+      <AccountStatement
+        props={statementView}
+        handleGetStatement={handleGetStatement}
+        handlePageChange={handlePageChange}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        startDate={startDate}
+        endDate={endDate}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+      />
+    );
   } else if (toggle === 2) {
     componentToRender = <ActivityLog props={activityView} />;
   } else if (toggle === 3) {
@@ -199,7 +226,7 @@ const AccountLandingModal = () => {
             </ul>
           </div>
         </div>
-     
+
         {/* Second Section */}
 
         {componentToRender}
