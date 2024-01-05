@@ -339,7 +339,7 @@ const HierarchyPageView = () => {
                               <td>{user.loadBalance}</td>
                               <td>0</td>
                               <td>{user.balance}</td>
-                              <td>{user.balance - user.creditRef}</td>
+                              <td>{user.loadBalance - user.creditRef}</td>
                               <td className="text-danger">
                                 <p className="border border-1 w-75 text-center bg-success rounded-pill">
                                   {user.status}
