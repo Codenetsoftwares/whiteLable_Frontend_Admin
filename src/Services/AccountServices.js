@@ -32,11 +32,11 @@ class AccountService {
     });
   }
 
-  getAllCreates(id, page,name, user) {
-    console.log(page)
+  getAllCreates(id, page, name, totalEntries, user) {
+    console.log(totalEntries);
     return axios({
       method: "get",
-      url: `${API_HOST}/api/view-all-creates/${id}?page=${page}&searchName=${name}`,
+      url: `${API_HOST}/api/view-all-creates/${id}?page=${page}&searchName=${name}&pageSize=${totalEntries}`,
       headers: {
         Authorization: `Bearer ${user.token}`,
       },
@@ -87,7 +87,6 @@ class AccountService {
   }
 
   restoreAgent(data, user) {
-    
     return axios({
       method: "post",
       url: `${API_HOST}/api/admin/restore-to-wallet-user`,
@@ -108,11 +107,11 @@ class AccountService {
     });
   }
 
-  getHierarchy(userName, action, user,data) {
-    console.log(user)
+  getHierarchy(userName, action, user, data, totalEntries) {
+    console.log(user);
     return axios({
       method: "post",
-      url: `${API_HOST}/api/Root-Path/${userName}/${action}`,
+      url: `${API_HOST}/api/Root-Path/${userName}/${action}?pageSize=${totalEntries}`,
       data: data,
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -140,7 +139,6 @@ class AccountService {
     });
   }
 
-
   SubCreate(data, user) {
     return axios({
       method: "POST",
@@ -151,7 +149,6 @@ class AccountService {
       },
     });
   }
-
 }
 
 export default new AccountService();
