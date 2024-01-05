@@ -264,7 +264,7 @@ const Card = ({
           {balance}
         </td>
         <td scope="row" className="fs-6 text-center text-danger">
-          {loadBalance - creditRef}
+        {isNaN(loadBalance - creditRef) ? 0 : (loadBalance - creditRef)}
         </td>
         <td scope="row" className="fs-6 text-center">
           <p className="border border-1 w-75 text-center bg-success rounded-pill">
