@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Pagination from "../Pagination";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import ShimmerEffect from "../ShimmerEffect";
 
 const AccountStatement = ({
   props,
@@ -13,6 +14,9 @@ const AccountStatement = ({
   endDate,
   setEndDate,
   setStartDate,
+  startIndex,
+  endIndex,
+  totalData,
 }) => {
   const [dataSource, setDataSource] = useState("");
 
@@ -193,11 +197,23 @@ const AccountStatement = ({
                 </ul>
               </nav>
             </div> */}
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              handlePageChange={handlePageChange}
-            />
+            {totalData > 0 ? (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                handlePageChange={handlePageChange}
+                startIndex={startIndex}
+                endIndex={endIndex}
+                totalData={totalData}
+              />
+            ) : (
+              <div className="alert text-dark bg-light" role="alert">
+                <div className="alert-text d-flex justify-content-center">
+                  <b> &#128680; No Data Found !! </b>
+                </div>
+              </div>
+            )}
+
             {/* Pagiantion */}
           </li>
         </ul>

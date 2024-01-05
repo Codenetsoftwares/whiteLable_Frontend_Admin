@@ -22,6 +22,7 @@ const AccountLandingModal = () => {
   const [totalPages, setTotalPages] = useState();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [totalData, setTotalData] = useState(0);
   const Id = userId.userId;
   useEffect(() => {
     MyAccountServices.getAccountStatement(
@@ -34,6 +35,7 @@ const AccountLandingModal = () => {
       .then((res) => {
         setstatementView(res.data.allData);
         setTotalPages(res.data.totalPages);
+        setTotalData(res.data.totalItems);
       })
       .catch((err) => {});
   }, [userId, currentPage, startDate, endDate, auth]);
@@ -51,7 +53,8 @@ const AccountLandingModal = () => {
         console.log(err);
       });
   }, [userId, auth]);
-
+  let startIndex = Math.min((currentPage - 1) * 5 + 1);
+  let endIndex = Math.min(currentPage * 5, totalData);
   const handlePageChange = (page) => {
     console.log("Changing to page:", page);
 
@@ -90,6 +93,9 @@ const AccountLandingModal = () => {
         endDate={endDate}
         setStartDate={setStartDate}
         setEndDate={setEndDate}
+        startIndex={startIndex}
+        endIndex={endIndex}
+        totalData={totalData}
       />
     );
   } else if (toggle === 2) {
