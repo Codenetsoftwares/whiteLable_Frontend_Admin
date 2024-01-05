@@ -267,7 +267,11 @@ const HierarchyPageView = () => {
                               <td>
                                 <span className="align-middle">
                                   {user.creditRef.length > 0 ? (
-                                    <span>
+                                    <span
+                                      onClick={() =>
+                                        handleShowModalCreditRef(user.creditRef)
+                                      }
+                                    >
                                       {
                                         user.creditRef[
                                           user.creditRef.length - 1
@@ -275,7 +279,13 @@ const HierarchyPageView = () => {
                                       }
                                     </span>
                                   ) : (
-                                    <span>0</span>
+                                    <span
+                                      onClick={() =>
+                                        handleShowModalCreditRef(user.creditRef)
+                                      }
+                                    >
+                                      0
+                                    </span>
                                   )}
                                   &nbsp;{" "}
                                   <i
@@ -290,7 +300,13 @@ const HierarchyPageView = () => {
                                 <span className="align-middle">
                                   {" "}
                                   {user.partnership.length > 0 ? (
-                                    <span>
+                                    <span
+                                      onClick={() =>
+                                        handleShowModalPartnership(
+                                          user.partnership
+                                        )
+                                      }
+                                    >
                                       {
                                         user.partnership[
                                           user.partnership.length - 1
@@ -298,7 +314,15 @@ const HierarchyPageView = () => {
                                       }
                                     </span>
                                   ) : (
-                                    <span>0</span>
+                                    <span
+                                      onClick={() =>
+                                        handleShowModalPartnership(
+                                          user.partnership
+                                        )
+                                      }
+                                    >
+                                      0
+                                    </span>
                                   )}
                                   &nbsp;{" "}
                                   <i
