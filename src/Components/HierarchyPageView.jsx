@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Prompt } from "react-router";
 import { Modal, Button } from "react-bootstrap";
 import Pagination from "./Pagination";
+import ShimmerEffect from "./ShimmerEffect";
 
 const HierarchyPageView = () => {
   const { userId } = useParams();
@@ -19,9 +20,11 @@ const HierarchyPageView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [name, setName] = useState("");
+
   const [totalData, setTotalData] = useState(0);
   const [totalEntries, setTotalEntries] = useState(5);
   console.log("line 22", auth);
+
   // console.log('========>Hierechy',totalPages)
   const takeMeToAccount = (userName) => {
     navigate(`/account-landing/${userName}`);
@@ -48,11 +51,13 @@ const HierarchyPageView = () => {
   // const garbage = [];
   let action = "store";
   // let currentPage = "store";
+
   let data = { page: currentPage, searchName: name };
 
   const ClearPath = () => {
     action = "clearAll";
     AccountServices.getHierarchy(userId, action, auth.user, data )
+
       .then((res) => {
         if (res.status === 200) {
           navigate(`/maintransaction`);
@@ -72,14 +77,20 @@ const HierarchyPageView = () => {
           userId,
           action,
           auth.user,
+
           data,
           totalEntries
+
         );
         console.log("Response=>> HIERECHY", res.data);
         sethierarchyData(res.data.userDetails.createdUsers);
         setPathData(res.data.path);
         setTotalPages(res.data.totalPages);
+
+        setIsLoading(true)
+
         setTotalData(res.data.totalItems);
+
       } catch (error) {
         console.error("Error fetching hierarchy data:", error);
         // Need to add additional error handling logic here, such as setting an error state.
@@ -108,6 +119,8 @@ const HierarchyPageView = () => {
     console.log("Changing to page:", page);
 
     setCurrentPage(page);
+    setIsLoading(false)
+
   };
   return (
     <div class="main_content_iner overly_inner ">
@@ -221,7 +234,7 @@ const HierarchyPageView = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {hierarchydata && hierarchydata.length > 0 ? (
+                        {isLoading ? (hierarchydata && hierarchydata.length > 0 ? (
                           hierarchydata.map((user, index) => (
                             <tr key={index} className="text-center">
                               <th scope="row" className="">
@@ -310,21 +323,20 @@ const HierarchyPageView = () => {
                               <td>
                                 <span className="mx-1">
                                   <button
-                                    className={`btn border border-2 rounded ${
-                                      auth.user.roles[0].permission.some(
-                                        (role) => role === "Partnership-Edit"
-                                      )
-                                        ? ""
-                                        : [
-                                            "superAdmin",
-                                            "WhiteLabel",
-                                            "HyperAgent",
-                                            "SuperAgent",
-                                            "MasterAgent",
-                                          ].includes(auth.user.roles[0].role)
+                                    className={`btn border border-2 rounded ${auth.user.roles[0].permission.some(
+                                      (role) => role === "Partnership-Edit"
+                                    )
+                                      ? ""
+                                      : [
+                                        "superAdmin",
+                                        "WhiteLabel",
+                                        "HyperAgent",
+                                        "SuperAgent",
+                                        "MasterAgent",
+                                      ].includes(auth.user.roles[0].role)
                                         ? ""
                                         : "disabled"
-                                    }`}
+                                      }`}
                                     title="Profile"
                                     onClick={() => {
                                       takeMeToAccount(user.userName);
@@ -369,7 +381,7 @@ const HierarchyPageView = () => {
                               </div>
                             </td>
                           </tr>
-                        )}
+                        )) : (<ShimmerEffect />)}
                         {/* <td>
                             <div class="action_btns d-flex">
                               <a href="#" class="action_btn mr_10">
@@ -428,6 +440,7 @@ const HierarchyPageView = () => {
                     currentPage={currentPage}
                     totalPages={totalPages}
                     handlePageChange={handlePageChange}
+
                     startIndex={startIndex}
                     endIndex={endIndex}
                     totalData={totalData}
