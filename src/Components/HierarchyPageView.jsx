@@ -20,9 +20,11 @@ const HierarchyPageView = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [name, setName] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
-  console.log('line 22', auth)
+  const [totalData, setTotalData] = useState(0);
+  const [totalEntries, setTotalEntries] = useState(5);
+  console.log("line 22", auth);
+
   // console.log('========>Hierechy',totalPages)
   const takeMeToAccount = (userName) => {
     navigate(`/account-landing/${userName}`);
@@ -49,14 +51,13 @@ const HierarchyPageView = () => {
   // const garbage = [];
   let action = "store";
   // let currentPage = "store";
-  let data = {
-    page: currentPage,
-    searchName: name
-  }
+
+  let data = { page: currentPage, searchName: name };
 
   const ClearPath = () => {
     action = "clearAll";
-    AccountServices.getHierarchy(userId, action, auth.user, data)
+    AccountServices.getHierarchy(userId, action, auth.user, data )
+
       .then((res) => {
         if (res.status === 200) {
           navigate(`/maintransaction`);
@@ -70,26 +71,35 @@ const HierarchyPageView = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(auth)
+      console.log(auth);
       try {
         const res = await AccountServices.getHierarchy(
           userId,
           action,
           auth.user,
-          data
+
+          data,
+          totalEntries
+
         );
         console.log("Response=>> HIERECHY", res.data);
         sethierarchyData(res.data.userDetails.createdUsers);
         setPathData(res.data.path);
         setTotalPages(res.data.totalPages);
+
         setIsLoading(true)
+
+        setTotalData(res.data.totalItems);
+
       } catch (error) {
         console.error("Error fetching hierarchy data:", error);
         // Need to add additional error handling logic here, such as setting an error state.
       }
     };
     fetchData();
-  }, [userId, action, currentPage, name, auth.user]);
+  }, [userId, action, currentPage, name, auth.user, totalEntries]);
+  let startIndex = Math.min((currentPage - 1) * totalEntries + 1);
+  let endIndex = Math.min(currentPage * totalEntries, totalData);
 
   // useEffect(() => {
   //   AccountServices.getHierarchy(userId, auth.user)
@@ -158,7 +168,21 @@ const HierarchyPageView = () => {
                 <div class="QA_section">
                   <div class="white_box_tittle list_header">
                     <h4>User List </h4>
-                    <div class="box_right d-flex lms_block">
+                    <div class="box_right d-flex lms_block gap-5">
+                      <select
+                        class="form-select form-select-sm w-25"
+                        aria-label=".form-select-sm example"
+                        onChange={(e) => setTotalEntries(e.target.value)}
+                      >
+                        <option selected value="5">
+                          Show 5 entries
+                        </option>
+                        <option value="10">10 entries</option>
+                        <option value="15">15 entries</option>
+                        <option value="25">25 entries</option>
+                        <option value="50">50 entries</option>
+                        <option value="75">75 entries</option>
+                      </select>
                       <div class="serach_field_2">
                         <div class="search_inner">
                           <form Active="#">
@@ -346,7 +370,7 @@ const HierarchyPageView = () => {
                           ))
                         ) : (
                           <tr>
-                            <td colSpan="8">
+                            <td colSpan="9">
                               <div
                                 class="alert text-dark bg-light"
                                 role="alert"
@@ -416,6 +440,10 @@ const HierarchyPageView = () => {
                     currentPage={currentPage}
                     totalPages={totalPages}
                     handlePageChange={handlePageChange}
+
+                    startIndex={startIndex}
+                    endIndex={endIndex}
+                    totalData={totalData}
                   />
                 </div>
               </div>
