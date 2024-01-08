@@ -61,12 +61,12 @@ const AccountLandingModal = () => {
     setCurrentPage(page);
   };
 
-  const handleGetStatement = (startDate, endDate) => {
-    setStartDate(startDate);
-    console.log("From Date:", startDate);
-    setEndDate(endDate);
-    console.log("To Date:", endDate);
-  };
+  // const handleGetStatement = (startDate, endDate) => {
+  //   setStartDate(startDate);
+  //   console.log("From Date:", startDate);
+  //   setEndDate(endDate);
+  //   console.log("To Date:", endDate);
+  // };
 
   const handelStatement = () => {
     settoggle(1);
@@ -85,7 +85,7 @@ const AccountLandingModal = () => {
     componentToRender = (
       <AccountStatement
         props={statementView}
-        handleGetStatement={handleGetStatement}
+        // handleGetStatement={handleGetStatement}
         handlePageChange={handlePageChange}
         currentPage={currentPage}
         totalPages={totalPages}
