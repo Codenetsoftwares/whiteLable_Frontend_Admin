@@ -9,7 +9,7 @@ const AccountStatement = ({
   handlePageChange,
   currentPage,
   totalPages,
-  handleGetStatement,
+  // handleGetStatement,    
   startDate,
   endDate,
   setEndDate,
@@ -74,7 +74,9 @@ const AccountStatement = ({
             />
           </div>
           <div className="form-group mb-0 px-2">
-            <button className="btn btn-primary" onClick={handleGetStatement}>
+            <button className="btn btn-primary" 
+            // onClick={handleGetStatement}
+            >
               Get Statement
             </button>
           </div>
@@ -157,6 +159,16 @@ const AccountStatement = ({
                 </div>
                 {/* Table */}
               </div>
+              
+        {/* No Data Found */}
+        {props.length === 0 && (
+          <div className="alert text-dark bg-light mt-3" role="alert">
+            <div className="alert-text d-flex justify-content-center">
+              <b> &#128680; No Data Found !! </b>
+            </div>
+          </div>
+        )}
+        {/* End of No Data Found */}
             </div>
           </li>
           <li class="list-group-item">
@@ -197,7 +209,7 @@ const AccountStatement = ({
                 </ul>
               </nav>
             </div> */}
-            {totalData > 0 ? (
+            
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -206,13 +218,7 @@ const AccountStatement = ({
                 endIndex={endIndex}
                 totalData={totalData}
               />
-            ) : (
-              <div className="alert text-dark bg-light" role="alert">
-                <div className="alert-text d-flex justify-content-center">
-                  <b> &#128680; No Data Found !! </b>
-                </div>
-              </div>
-            )}
+         
 
             {/* Pagiantion */}
           </li>
